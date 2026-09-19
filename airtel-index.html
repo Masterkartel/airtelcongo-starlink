@@ -62,7 +62,7 @@ img{display:block;max-width:100%}
   position:relative;overflow:hidden;
 }
 .hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:32px;background:var(--surf-lo);clip-path:ellipse(55% 100% at 50% 100%)}
-.sat{position:absolute;right:12px;top:16px;width:96px;animation:sat-float 5s ease-in-out infinite;opacity:.45;pointer-events:none}
+.sat{position:absolute;right:8px;top:12px;width:130px;animation:sat-float 5s ease-in-out infinite;pointer-events:none}
 .hero-chip{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:var(--r-full);padding:4px 14px;margin-bottom:14px}
 .hero-chip-dot{width:5px;height:5px;border-radius:50%;background:#69FF4D}
 .hero-chip-txt{font-size:10px;font-weight:700;color:rgba(255,255,255,.82);letter-spacing:.8px;text-transform:uppercase}
@@ -161,11 +161,9 @@ img{display:block;max-width:100%}
 <!-- NAV -->
 <nav class="nav">
   <div class="nav-brand">
-    <img src="assets/logo.svg" alt="Airtel" height="22"
-         onerror="this.outerHTML='<span style=\'font-size:18px;font-weight:900;color:#fff;letter-spacing:-.5px\'>airtel</span>'">
+    <img src="assets/logo.svg" alt="Airtel" height="20" style="filter:brightness(0) invert(1)" onerror="this.style.display='none'">airtel</span>'">
     <div class="nav-sep"></div>
-    <img src="assets/starlink_logo_white.png" alt="Starlink" height="13"
-         onerror="this.outerHTML='<span style=\'font-size:11px;font-weight:800;letter-spacing:1.5px;color:rgba(255,255,255,.85)\'>STARLINK</span>'">
+    <img src="assets/starlink_logo_with_icon_transparent_black.png" alt="Starlink" height="13" style="filter:brightness(0) invert(1)" onerror="this.style.display='none'">STARLINK</span>'">
   </div>
   <div class="nav-badge">
     <div class="nav-dot"></div>
@@ -178,18 +176,7 @@ img{display:block;max-width:100%}
 
   <!-- HERO -->
   <div class="hero">
-    <!-- Inline satellite SVG — no asset needed -->
-    <svg class="sat" viewBox="0 0 96 96" fill="none" aria-hidden="true">
-      <rect x="30" y="38" width="36" height="20" rx="4" fill="rgba(255,255,255,.22)" stroke="rgba(255,255,255,.45)" stroke-width="1.2"/>
-      <rect x="2" y="43" width="24" height="12" rx="3" fill="rgba(100,160,255,.55)" stroke="rgba(100,160,255,.8)" stroke-width="1"/>
-      <rect x="70" y="43" width="24" height="12" rx="3" fill="rgba(100,160,255,.55)" stroke="rgba(100,160,255,.8)" stroke-width="1"/>
-      <line x1="48" y1="58" x2="34" y2="84" stroke="rgba(255,210,80,.4)" stroke-width="1.2" stroke-dasharray="4 3"/>
-      <line x1="48" y1="58" x2="48" y2="88" stroke="rgba(255,210,80,.3)" stroke-width="1.2" stroke-dasharray="4 3"/>
-      <line x1="48" y1="58" x2="62" y2="84" stroke="rgba(255,210,80,.4)" stroke-width="1.2" stroke-dasharray="4 3"/>
-      <circle cx="34" cy="86" r="3" fill="rgba(255,210,80,.7)"/>
-      <circle cx="48" cy="90" r="3" fill="rgba(255,210,80,.7)"/>
-      <circle cx="62" cy="86" r="3" fill="rgba(255,210,80,.7)"/>
-    </svg>
+    <img class="sat" src="assets/starlink_sattelit.png" alt="Routeur Starlink" style="mix-blend-mode:multiply" onerror="this.style.display='none'">
 
     <div class="hero-chip">
       <div class="hero-chip-dot"></div>
@@ -197,11 +184,9 @@ img{display:block;max-width:100%}
     </div>
 
     <div class="hero-logos">
-      <img src="assets/logo.svg" alt="Airtel" height="20"
-           onerror="this.outerHTML='<span style=\'font-size:18px;font-weight:900;color:#fff\'>airtel</span>'">
+      <img src="assets/logo.svg" alt="Airtel" height="22" style="filter:brightness(0) invert(1)" onerror="this.style.display='none'">airtel</span>'">
       <span class="hero-x">&times;</span>
-      <img src="assets/starlink_logo_white.png" alt="Starlink" height="13"
-           onerror="this.outerHTML='<span style=\'font-size:11px;font-weight:800;letter-spacing:1.5px;color:rgba(255,255,255,.8)\'>STARLINK</span>'">
+      <img src="assets/starlink_logo_with_icon_transparent_black.png" alt="Starlink" height="13" style="filter:brightness(0) invert(1)" onerror="this.style.display='none'">STARLINK</span>'">
     </div>
 
     <div class="h1">Internet Satellite<br><em>Partout au Congo</em></div>
@@ -362,9 +347,9 @@ img{display:block;max-width:100%}
   <!-- FOOTER -->
   <div class="footer">
     <div class="footer-logos">
-      <img src="assets/logo.svg" alt="Airtel" height="15" onerror="this.outerHTML='<span style=\'font-weight:900;color:var(--red);font-size:14px\'>airtel</span>'">
+      <img src="assets/logo.svg" alt="Airtel" height="22" onerror="this.style.display='none'">airtel</span>'">
       <span style="color:var(--outline-v)">&times;</span>
-      <img src="assets/starlink_logo_with_icon_transparent_black.png" alt="Starlink" height="10" onerror="this.outerHTML='<span style=\'font-size:10px;font-weight:800;letter-spacing:1px;color:var(--on-surf-v)\'>STARLINK</span>'">
+      <img src="assets/starlink_logo_with_icon_transparent_black.png" alt="Starlink" height="14" onerror="this.style.display='none'">STARLINK</span>'">
     </div>
     <div class="footer-txt">&copy; 2026 Airtel Congo &middot; Revendeur Officiel Starlink&trade; &middot; Tous droits r&eacute;serv&eacute;s</div>
   </div>
@@ -386,7 +371,7 @@ function pick(name,price,desc,jours,el){
   requestAnimationFrame(function(){c.style.opacity='1';setTimeout(function(){location.href='airtel-login.html';},270);});
 }
 
-document.queryChoisirorAll('button').forEach(function(b){
+document.querySelectorAll('button').forEach(function(b){
   b.addEventListener('pointerdown',function(e){rip(this,e);},{passive:true});
 });
 </script>
