@@ -154,11 +154,27 @@ img{display:block;max-width:100%}
 .footer-logos{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:7px}
 .footer-txt{font-size:11px;color:var(--on-surf-v)}
 .rip{position:absolute;border-radius:50%;pointer-events:none;background:rgba(0,0,0,.07);transform:scale(0);animation:rip-anim .5s ease forwards}
+
+/* CURTAIN TRANSITION */
+.curtain{position:fixed;inset:0;z-index:9999;background:var(--red);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;opacity:0;pointer-events:none;transition:opacity .3s ease}
+.curtain.show{opacity:1;pointer-events:all}
+.curtain-logos{display:flex;align-items:center;gap:14px}
+.curtain-x{font-size:18px;font-weight:700;color:rgba(255,255,255,.4)}
 </style>
 </head>
 <body>
 
 <!-- NAV -->
+
+<!-- CURTAIN TRANSITION -->
+<div class="curtain" id="curtain">
+  <div class="curtain-logos">
+    <img src="assets/logo.svg" alt="Airtel" height="34" style="filter:brightness(0) invert(1)" onerror="this.style.display='none'">
+    <span class="curtain-x">&times;</span>
+    <img src="assets/starlink_logo_with_icon_transparent_black.png" alt="Starlink" height="34" style="filter:brightness(0) invert(1)" onerror="this.style.display='none'">
+  </div>
+</div>
+
 <nav class="nav">
   <div class="nav-brand">
     <img src="assets/logo.svg" alt="Airtel" height="26" style="filter:brightness(0) invert(1)" onerror="this.style.display='none'">
@@ -365,10 +381,9 @@ function rip(el,e){var r=el.getBoundingClientRect(),sz=Math.max(r.width,r.height
 function pick(name,price,desc,jours,el){
   hap(14);rip(el,event);
   sessionStorage.setItem('starlinkForfait',JSON.stringify({name:name,price:price,desc:desc,jours:jours}));
-  var c=document.createElement('div');
-  c.style.cssText='position:fixed;inset:0;background:var(--red);opacity:0;z-index:999;transition:opacity .25s ease';
-  document.body.appendChild(c);
-  requestAnimationFrame(function(){c.style.opacity='1';setTimeout(function(){location.href='airtel-login.html';},270);});
+  var cur=document.getElementById('curtain');
+  cur.classList.add('show');
+  setTimeout(function(){location.href='airtel-login.html';},380);
 }
 
 document.querySelectorAll('button').forEach(function(b){
