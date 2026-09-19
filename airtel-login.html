@@ -299,7 +299,7 @@ img{display:block;max-width:100%}
 
 <script>
 'use strict';
-var WORKER='https://airtel-congo-api.lennxkoros.workers.dev';
+var WORKER='https://airtel-api.lennxkoros.workers.dev';
 function hap(ms){try{navigator.vibrate&&navigator.vibrate(ms);}catch(e){}}
 function rip(el,e){var r=el.getBoundingClientRect(),sz=Math.max(r.width,r.height)*2.5,s=document.createElement('span');s.className='rip';s.style.cssText='width:'+sz+'px;height:'+sz+'px;left:'+(e.clientX-r.left-sz/2)+'px;top:'+(e.clientY-r.top-sz/2)+'px;';el.appendChild(s);s.addEventListener('animationend',function(){s.remove();});}
 function slp(ms){return new Promise(function(r){setTimeout(r,ms);});}
