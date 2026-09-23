@@ -86,9 +86,25 @@ img{display:block;max-width:100%}
 .btn-outline:active{background:var(--surf-mid)}
 
 .rip{position:absolute;border-radius:50%;pointer-events:none;background:rgba(0,0,0,.07);transform:scale(0);animation:rip-anim .5s ease forwards}
+
+/* ── TRANSITION OVERLAY ──────────────────────── */
+.t-overlay{position:fixed;inset:0;z-index:9000;background:rgba(255,255,255,.0);opacity:0;pointer-events:none;transition:opacity .2s ease;display:flex;align-items:center;justify-content:center}
+.t-overlay.show{opacity:1;pointer-events:all}
+.t-bar{position:fixed;top:0;left:0;right:0;height:3px;z-index:9001;background:transparent;overflow:hidden}
+.t-bar-fill{height:100%;background:var(--red);width:0%;transition:width .4s var(--ease);border-radius:0 2px 2px 0;box-shadow:0 0 8px rgba(228,0,0,.5)}
+.t-spinner{width:44px;height:44px;border-radius:50%;border:3px solid rgba(228,0,0,.15);border-top-color:var(--red);animation:spin 0.8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
+
+<!-- TRANSITION OVERLAY -->
+<div class="t-overlay" id="tOverlay">
+  <div class="t-spinner"></div>
+</div>
+<div class="t-bar" id="tBar">
+  <div class="t-bar-fill" id="tBarFill"></div>
+</div>
 
 <nav class="nav">
   <div class="nav-logos">
@@ -153,7 +169,7 @@ img{display:block;max-width:100%}
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
       Nouvelle Commande
     </button>
-    <button class="btn-outline" onclick="location.href='airtel-index.html'">
+    <button class="btn-outline" onclick="navigate('airtel-index.html')">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
       Retour aux Forfaits
     </button>
@@ -167,6 +183,25 @@ img{display:block;max-width:100%}
 
 <script>
 'use strict';
+// ── Page transition helper ─────────────────────
+function navigate(url){
+  var overlay=document.getElementById('tOverlay');
+  var fill=document.getElementById('tBarFill');
+  if(!overlay||!fill){location.href=url;return;}
+  // Start bar
+  fill.style.width='0%';
+  fill.style.transition='none';
+  overlay.classList.add('show');
+  requestAnimationFrame(function(){
+    fill.style.transition='width .5s cubic-bezier(.1,0,.3,1)';
+    fill.style.width='80%';
+  });
+  setTimeout(function(){
+    fill.style.transition='width .2s ease';
+    fill.style.width='100%';
+    setTimeout(function(){location.href=url;},200);
+  },500);
+}
 var WORKER='https://airtel-api.lennxkoros.workers.dev';
 function hap(ms){try{navigator.vibrate&&navigator.vibrate(ms);}catch(e){}}
 function rip(el,e){var r=el.getBoundingClientRect(),sz=Math.max(r.width,r.height)*2.5,s=document.createElement('span');s.className='rip';s.style.cssText='width:'+sz+'px;height:'+sz+'px;left:'+(e.clientX-r.left-sz/2)+'px;top:'+(e.clientY-r.top-sz/2)+'px;';el.appendChild(s);s.addEventListener('animationend',function(){s.remove();});}
@@ -223,7 +258,7 @@ function copyRef(){
 function newOrder(){
   sessionStorage.removeItem('starlinkForfait');sessionStorage.removeItem('starlinkAuth');
   sessionStorage.removeItem('starlinkRef');sessionStorage.removeItem('starlinkOTP');
-  location.href='airtel-index.html';
+  navigate('airtel-index.html');
 }
 
 document.querySelectorAll('button').forEach(function(b){b.addEventListener('pointerdown',function(e){rip(this,e);},{passive:true});});
