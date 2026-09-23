@@ -40,11 +40,11 @@ img{display:block;max-width:100%}
 
 /* ── NAV ─────────────────────────────────────── */
 .nav{flex-shrink:0;background:var(--red);display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:calc(56px + env(safe-area-inset-top,0px));padding-top:env(safe-area-inset-top,0px);z-index:20;box-shadow:0 2px 8px rgba(228,0,0,.3)}
-.nav-brand{display:flex;align-items:center;gap:10px}
-.nav-sep{width:1px;height:20px;background:rgba(255,255,255,.25)}
-.nav-pill{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:var(--r-full);padding:5px 12px}
+.nav-brand{display:flex;align-items:center;gap:12px}
+.nav-sep{width:1px;height:16px;background:rgba(255,255,255,.22);align-self:center}
+.nav-pill{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:var(--r-full);padding:4px 11px}
 .nav-dot{width:6px;height:6px;border-radius:50%;background:#69FF4D;animation:dot-pulse 2s infinite}
-.nav-pill-txt{font-size:10px;font-weight:700;color:#fff;letter-spacing:.5px}
+.nav-pill-txt{font-size:10px;font-weight:600;color:rgba(255,255,255,.9);letter-spacing:.4px}
 
 /* ── SCROLL ──────────────────────────────────── */
 .scroll{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain;scrollbar-width:none;animation:pg-in .3s var(--ease) both}
@@ -53,22 +53,22 @@ img{display:block;max-width:100%}
 /* ── HERO ────────────────────────────────────── */
 .hero{background:linear-gradient(150deg,#B20000 0%,#E40000 45%,#CC0000 100%);padding:28px 20px 0;position:relative;overflow:hidden;min-height:280px}
 .hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='30'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");pointer-events:none}
-.sat{position:absolute;right:-8px;top:0px;width:190px;animation:sat-float 6s ease-in-out infinite;pointer-events:none;transform:rotate(-3deg);opacity:.95}
-.hero-chip{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:var(--r-full);padding:5px 14px;margin-bottom:18px}
+.sat{position:absolute;right:-6px;top:14px;width:180px;animation:sat-float 6s ease-in-out infinite;pointer-events:none;transform:rotate(-3deg);opacity:.9}
+.hero-chip{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:var(--r-full);padding:5px 13px;margin-bottom:16px}
 .hero-chip-dot{width:5px;height:5px;border-radius:50%;background:#69FF4D}
-.hero-chip-txt{font-size:10px;font-weight:700;color:rgba(255,255,255,.85);letter-spacing:.7px;text-transform:uppercase}
-.hero-logos{display:flex;align-items:center;gap:12px;margin-bottom:20px}
-.hero-x{font-size:14px;font-weight:700;color:rgba(255,255,255,.3)}
-.hero-h1{font-size:28px;font-weight:900;color:#fff;letter-spacing:-.7px;line-height:1.15;margin-bottom:10px}
+.hero-chip-txt{font-size:9.5px;font-weight:600;color:rgba(255,255,255,.8);letter-spacing:.6px;text-transform:uppercase}
+.hero-logos{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.hero-x{font-size:13px;font-weight:600;color:rgba(255,255,255,.28)}
+.hero-h1{font-size:27px;font-weight:900;color:#fff;letter-spacing:-.6px;line-height:1.18;margin-bottom:10px}
 .hero-h1 span{color:rgba(255,220,220,.9)}
 .hero-sub{font-size:13px;color:rgba(255,255,255,.72);line-height:1.7;margin-bottom:24px;max-width:260px}
-.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:0;max-width:340px}
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:0}
 .hs{background:rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.14);border-radius:var(--r-lg);padding:12px 8px;text-align:center}
 .hs-val{font-size:17px;font-weight:800;color:#fff;letter-spacing:-.3px}
 .hs-lbl{font-size:9px;color:rgba(255,255,255,.55);margin-top:3px;font-weight:600;letter-spacing:.4px;text-transform:uppercase}
 
 /* ── DTC STRIP ───────────────────────────────── */
-.dtc{background:rgba(0,0,0,.25);border-top:1px solid rgba(255,255,255,.08);padding:14px 20px;display:flex;align-items:center;gap:14px;margin-top:20px}
+.dtc{background:rgba(0,0,0,.22);border-top:1px solid rgba(255,255,255,.1);padding:16px 20px;display:flex;align-items:center;gap:14px;margin-top:18px}
 .dtc-ic{width:40px;height:40px;border-radius:var(--r-md);background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .dtc-title{font-size:12px;font-weight:800;color:#fff;letter-spacing:-.1px}
 .dtc-sub{font-size:11px;color:rgba(255,255,255,.6);margin-top:2px;line-height:1.4}
@@ -79,7 +79,7 @@ img{display:block;max-width:100%}
 .how-hd{background:linear-gradient(135deg,var(--red) 0%,var(--red-dk) 100%);padding:13px 18px;display:flex;align-items:center;gap:8px}
 .how-hd-t{font-size:13px;font-weight:700;color:#fff;letter-spacing:-.1px}
 .how-steps{display:flex;padding:16px 14px 18px;gap:0;position:relative}
-.how-steps::before{content:'';position:absolute;top:27px;left:36px;right:36px;height:1.5px;background:var(--outline-v)}
+.how-steps::before{content:'';position:absolute;top:16px;left:40px;right:40px;height:1.5px;background:var(--outline-v)}
 .how-step{flex:1;display:flex;flex-direction:column;align-items:center;gap:7px;position:relative;z-index:1}
 .how-num{width:32px;height:32px;border-radius:50%;background:var(--red);color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(228,0,0,.3)}
 .how-txt{font-size:10px;font-weight:600;color:var(--on-surf-v);text-align:center;line-height:1.4;letter-spacing:.1px}
@@ -88,7 +88,7 @@ img{display:block;max-width:100%}
 .sec{padding:22px 16px 12px;display:flex;align-items:center;justify-content:space-between}
 .sec-t{font-size:16px;font-weight:800;color:var(--on-surf);letter-spacing:-.2px}
 .sec-s{font-size:12px;color:var(--on-surf-v);margin-top:3px}
-.sec-tag{display:inline-flex;align-items:center;gap:5px;background:var(--ok-lt);color:var(--ok);border-radius:var(--r-full);padding:5px 11px;font-size:10px;font-weight:700;letter-spacing:.2px}
+.sec-tag{display:inline-flex;align-items:center;gap:4px;background:var(--ok-lt);color:var(--ok);border-radius:var(--r-full);padding:4px 10px;font-size:10px;font-weight:600;letter-spacing:.1px}
 
 /* ── PLAN CARDS ──────────────────────────────── */
 .plans{display:flex;flex-direction:column;gap:10px;padding:0 16px 6px}
@@ -109,7 +109,7 @@ img{display:block;max-width:100%}
 .pc-data{font-size:21px;font-weight:800;color:var(--on-surf);letter-spacing:-.5px;line-height:1}
 .pc.unl .pc-data{font-size:26px}
 .pc-valid{font-size:12px;color:var(--on-surf-v);margin-top:4px}
-.pc-badge{display:inline-flex;align-items:center;gap:3px;margin-top:5px;border-radius:var(--r-full);padding:2px 9px;font-size:10px;font-weight:700;letter-spacing:.2px}
+.pc-badge{display:inline-flex;align-items:center;gap:3px;margin-top:6px;border-radius:var(--r-full);padding:3px 10px;font-size:10px;font-weight:700;letter-spacing:.2px}
 .bp{background:var(--red-lt);color:var(--on-red-cont)}
 .bb{background:var(--gold-lt);color:var(--on-gold)}
 .bu{background:var(--blue-lt);color:var(--on-blue-cont)}
@@ -118,7 +118,7 @@ img{display:block;max-width:100%}
 .pc.pop .pc-price{color:var(--red)}
 .pc.best .pc-price{color:var(--gold)}
 .pc.unl .pc-price{color:var(--blue)}
-.pc-cta{height:30px;padding:0 14px;border-radius:var(--r-full);font-size:11px;font-weight:700;color:#fff;background:var(--outline);display:flex;align-items:center;white-space:nowrap}
+.pc-cta{height:32px;padding:0 16px;border-radius:var(--r-full);font-size:12px;font-weight:700;color:#fff;background:var(--outline);display:flex;align-items:center;white-space:nowrap;letter-spacing:.1px}
 .pc.pop .pc-cta{background:var(--red)}
 .pc.best .pc-cta{background:var(--gold)}
 .pc.unl .pc-cta{background:var(--blue)}
@@ -336,9 +336,9 @@ img{display:block;max-width:100%}
 <!-- NAV -->
 <nav class="nav">
   <div class="nav-brand">
-    <img src="assets/logo.svg" alt="Airtel" height="26" style="filter:brightness(0) invert(1)" onerror="this.style.display='none'">
+    <img src="assets/logo.svg" alt="Airtel" height="22" style="filter:brightness(0) invert(1)" onerror="this.style.display='none'">
     <div class="nav-sep"></div>
-    <img src="assets/starlink_logo_with_icon_transparent_black.png" alt="Starlink" height="26" style="filter:brightness(0) invert(1)" onerror="this.style.display='none'">
+    <img src="assets/starlink_logo_with_icon_transparent_black.png" alt="Starlink" height="22" style="filter:brightness(0) invert(1)" onerror="this.style.display='none'">
   </div>
   <div class="nav-pill">
     <div class="nav-dot"></div>
@@ -352,9 +352,9 @@ img{display:block;max-width:100%}
     <img class="sat" src="assets/starlink_sattelit.png" alt="Antenne Starlink" style="mix-blend-mode:multiply" onerror="this.style.display='none'">
     <div class="hero-chip"><div class="hero-chip-dot"></div><span class="hero-chip-txt">Partenariat Officiel &middot; Airtel &times; Starlink&trade;</span></div>
     <div class="hero-logos">
-      <img src="assets/logo.svg" alt="Airtel" height="32" style="filter:brightness(0) invert(1)" onerror="this.style.display='none'">
+      <img src="assets/logo.svg" alt="Airtel" height="26" style="filter:brightness(0) invert(1)" onerror="this.style.display='none'">
       <span class="hero-x">&times;</span>
-      <img src="assets/starlink_logo_with_icon_transparent_black.png" alt="Starlink" height="32" style="filter:brightness(0) invert(1)" onerror="this.style.display='none'">
+      <img src="assets/starlink_logo_with_icon_transparent_black.png" alt="Starlink" height="26" style="filter:brightness(0) invert(1)" onerror="this.style.display='none'">
     </div>
     <div class="hero-h1">Internet Satellite<br><span>Partout au Congo</span></div>
     <div class="hero-sub">Haut d&eacute;bit 4G / 5G / Satellite via routeur Airtel Lite. Connect&eacute; partout &mdash; sans ligne fixe.</div>
