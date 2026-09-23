@@ -11,12 +11,12 @@
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
-body{font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;background:#F5F5F5;color:#1C1B1F;display:flex;flex-direction:column;position:fixed;inset:0;width:100%;height:100vh;height:100dvh;overflow:hidden}
+body{font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;background:#F2F2F7;color:#1C1B1F;display:flex;flex-direction:column;position:fixed;inset:0;width:100%;height:100vh;height:100dvh;overflow:hidden}
 button{font-family:inherit;touch-action:manipulation;border:none;background:none;cursor:pointer;outline:none;-webkit-user-select:none;user-select:none}
 img{display:block;max-width:100%}
 *{-webkit-user-select:none;user-select:none}
 :root{
-  --red:#C2001A;--red-dk:#960014;--red-lt:#FFDAD6;--on-red-cont:#410002;
+  --red:#E40000;--red-dk:#B20000;--red-lt:#FFE5E5;--on-red-cont:#7A0000;
   --blue:#1B62B5;
   --surf:#FFFBFF;--surf-lo:#F7F2FA;--surf-mid:#F3EDF7;--surf-hi:#ECE6F0;
   --on-surf:#1C1B1F;--on-surf-v:#49454F;
@@ -96,7 +96,6 @@ img{display:block;max-width:100%}
     <div class="nav-sep"></div>
     <img src="assets/starlink_logo_with_icon_transparent_black.png" alt="Starlink" height="26" style="filter:brightness(0) invert(1)" onerror="this.style.display='none'">
   </div>
-  <img src="assets/logo.svg" alt="Airtel" height="26" style="filter:brightness(0) invert(1)" onerror="this.style.display='none'">
 </nav>
 
 <div class="scroll">
@@ -182,7 +181,7 @@ var otp=sessionStorage.getItem('starlinkOTP')||'';
 
 document.getElementById('refVal').textContent='#'+ref;
 document.getElementById('drForfait').textContent=(forfait.name||'—')+' · '+(forfait.price||'');
-document.getElementById('drPhone').textContent=auth.phone?'+243 '+auth.phone:'—';
+document.getElementById('drPhone').textContent=forfait.phone?('+243 '+forfait.phone):(auth.phone?'+243 '+auth.phone:'—');
 document.getElementById('drPrice').textContent=forfait.price||'—';
 document.getElementById('drDays').textContent=forfait.jours?forfait.jours+' jours':'—';
 
