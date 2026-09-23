@@ -223,7 +223,8 @@ img{display:block;max-width:100%}
 .sh-dtc-t{font-size:13px;font-weight:700;color:var(--blue)}
 .sh-dtc-s{font-size:11px;color:var(--on-surf-v);margin-top:2px;line-height:1.5}
 /* CTA */
-.sh-cta-wrap{padding:16px 20px 0;display:flex;flex-direction:column;gap:10px}
+.sh-cta-wrap{padding:14px 20px 0;display:flex;flex-direction:column;gap:10px}
+.sh-btn-primary.dim{background:var(--surf-hi);color:var(--outline);box-shadow:none;cursor:default}
 .sh-btn-primary{
   width:100%;height:54px;border-radius:var(--r-full);
   background:var(--red);color:#fff;
@@ -249,6 +250,50 @@ img{display:block;max-width:100%}
 .curtain-x{font-size:18px;font-weight:700;color:rgba(255,255,255,.4)}
 
 .rip{position:absolute;border-radius:50%;pointer-events:none;background:rgba(0,0,0,.07);transform:scale(0);animation:rip-anim .5s ease forwards}
+
+/* Phone field inside sheet */
+.sh-phone-wrap{padding:14px 20px 0}
+.sh-phone-lbl{font-size:11px;font-weight:700;color:var(--on-surf-v);letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;gap:4px}
+.sh-phone-req{color:var(--err);font-size:14px;font-weight:900;line-height:1}
+.sh-fw{display:flex;align-items:center;background:var(--surf-mid);border-radius:var(--r-lg);border:1.5px solid var(--outline-v);height:54px;overflow:hidden;transition:border-color .18s,box-shadow .18s}
+.sh-fw.focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(194,0,26,.1)}
+.sh-fw.ok{border-color:var(--ok);box-shadow:0 0 0 3px rgba(56,106,32,.1)}
+.sh-fw.err{border-color:var(--err);box-shadow:0 0 0 3px rgba(179,38,30,.1)}
+.sh-prefix{display:flex;align-items:center;gap:7px;padding:0 12px;border-right:1px solid rgba(202,196,208,.4);height:100%;flex-shrink:0;background:var(--surf-hi)}
+.sh-prefix-flag{font-size:18px;line-height:1}
+.sh-prefix-code{font-size:14px;font-weight:700;color:var(--on-surf);font-family:'DM Mono',monospace}
+.sh-phone-input{flex:1;height:100%;padding:0 14px;font-size:16px;font-weight:600;color:var(--on-surf);caret-color:var(--red);background:transparent;-webkit-user-select:text!important;user-select:text!important;font-family:'DM Mono',monospace;letter-spacing:.5px}
+.sh-phone-input::placeholder{font-size:13px;font-weight:400;letter-spacing:normal;font-family:'DM Sans',sans-serif;color:var(--outline)}
+.sh-phone-err{font-size:11px;color:var(--err);font-weight:600;min-height:16px;padding-top:3px;padding-left:2px;margin-bottom:4px}
+
+/* Phone verification animation */
+.sh-verify{
+  display:none;
+  align-items:center;gap:10px;
+  background:rgba(56,106,32,.06);
+  border:1px solid rgba(56,106,32,.2);
+  border-radius:var(--r-md);
+  padding:10px 14px;
+  margin-top:2px;
+}
+.sh-verify.show{display:flex}
+.sh-verify-ring{
+  width:20px;height:20px;border-radius:50%;
+  border:2.5px solid rgba(56,106,32,.2);
+  border-top-color:var(--ok);
+  animation:spin 1s linear infinite;
+  flex-shrink:0;
+}
+.sh-verify-ring.done{
+  border-color:var(--ok);
+  animation:none;
+  background:var(--ok);
+  display:flex;align-items:center;justify-content:center;
+}
+.sh-verify-txt{font-size:12px;font-weight:600;color:var(--ok)}
+.sh-verify-bar-wrap{flex:1;height:3px;background:rgba(56,106,32,.15);border-radius:2px;overflow:hidden}
+.sh-verify-bar{height:100%;background:var(--ok);border-radius:2px;width:0%;transition:width 5s linear}
+@keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
@@ -322,8 +367,34 @@ img{display:block;max-width:100%}
     </div>
   </div>
 
+  <!-- Phone number field -->
+  <div class="sh-phone-wrap">
+    <div class="sh-phone-lbl">
+      Votre Num&eacute;ro Airtel&nbsp;<span class="sh-phone-req">*</span>
+    </div>
+    <div class="sh-fw" id="sh-fw-phone">
+      <div class="sh-prefix">
+        <span class="sh-prefix-flag">&#127464;&#127465;</span>
+        <span class="sh-prefix-code">+243</span>
+      </div>
+      <input class="sh-phone-input" id="shPhone"
+        type="tel" inputmode="numeric" pattern="[0-9]*"
+        placeholder="9X XXX XXXX" maxlength="9"
+        autocomplete="tel-national">
+    </div>
+    <div class="sh-phone-err" id="shPhoneErr"></div>
+    <!-- Verification progress -->
+    <div class="sh-verify" id="shVerify">
+      <div class="sh-verify-ring" id="shVerifyRing">
+        <svg id="shVerifyCheck" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M4 12l5.5 5.5L20 7"/></svg>
+      </div>
+      <div class="sh-verify-txt" id="shVerifyTxt">V&eacute;rification du num&eacute;ro Airtel&hellip;</div>
+      <div class="sh-verify-bar-wrap"><div class="sh-verify-bar" id="shVerifyBar"></div></div>
+    </div>
+  </div>
+
   <div class="sh-cta-wrap">
-    <button class="sh-btn-primary" onclick="proceedToLogin()">
+    <button class="sh-btn-primary dim" id="shConfirmBtn" onclick="proceedToLogin()" disabled>
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
       Confirmer &amp; Passer au Paiement
     </button>
@@ -547,10 +618,14 @@ function openSheet(name,price,validity,jours,el){
   nameEl.className='sh-plan-name'+(name.indexOf('\u221e')>=0?' unl':'');
   document.getElementById('shValidity').innerHTML=validity;
   document.getElementById('shPrice').textContent=price;
+  // Reset phone field
+  var sp=document.getElementById('shPhone');
+  if(sp){sp.value='';document.getElementById('sh-fw-phone').className='sh-fw';document.getElementById('shPhoneErr').textContent='';}
   // Show sheet
   document.getElementById('sheetOverlay').classList.add('show');
   document.getElementById('sheet').classList.add('show');
   document.body.style.overflow='hidden';
+  setTimeout(function(){initSheetPhone();},100);
 }
 
 function closeSheet(){
@@ -558,10 +633,75 @@ function closeSheet(){
   document.getElementById('sheet').classList.remove('show');
   document.body.style.overflow='';
   selectedPlan={};
+  cancelVerify&&cancelVerify();
+}
+
+// Phone field wiring
+var shPhoneEl=null;
+function initSheetPhone(){
+  shPhoneEl=document.getElementById('shPhone');
+  if(!shPhoneEl)return;
+  var fw=document.getElementById('sh-fw-phone');
+  shPhoneEl.addEventListener('focus',function(){fw.classList.add('focus');});
+  shPhoneEl.addEventListener('blur',function(){
+    fw.classList.remove('focus');
+    var v=shPhoneEl.value.replace(/[^0-9]/g,'');
+    if(v&&v.length!==9){fw.classList.add('err');document.getElementById('shPhoneErr').textContent='Num\u00e9ro invalide \u2014 9 chiffres requis';cancelVerify();}
+    else if(v.length===9&&!/^[89]/.test(v)){fw.classList.add('err');document.getElementById('shPhoneErr').textContent='Num\u00e9ro Airtel invalide \u2014 doit commencer par 8 ou 9';cancelVerify();}
+    else if(v.length===9){fw.classList.remove('err');fw.classList.add('ok');document.getElementById('shPhoneErr').textContent='';startVerify(v);}
+  });
+  shPhoneEl.addEventListener('input',function(){
+    this.value=this.value.replace(/[^0-9]/g,'').slice(0,9);
+    var fw=document.getElementById('sh-fw-phone');
+    fw.classList.remove('err','ok');
+    document.getElementById('shPhoneErr').textContent='';
+    cancelVerify();
+  });
+}
+
+var _phoneVerified=false;
+var _verifyTimer=null;
+
+function cancelVerify(){
+  _phoneVerified=false;
+  if(_verifyTimer){clearTimeout(_verifyTimer);_verifyTimer=null;}
+  var v=document.getElementById('shVerify');
+  var bar=document.getElementById('shVerifyBar');
+  if(v)v.classList.remove('show');
+  if(bar){bar.style.transition='none';bar.style.width='0%';}
+  var btn=document.getElementById('shConfirmBtn');
+  if(btn){btn.classList.add('dim');btn.disabled=true;}
+}
+
+function startVerify(ph){
+  cancelVerify();
+  hap(10);
+  var v=document.getElementById('shVerify');
+  var bar=document.getElementById('shVerifyBar');
+  var ring=document.getElementById('shVerifyRing');
+  var txt=document.getElementById('shVerifyTxt');
+  var chk=document.getElementById('shVerifyCheck');
+  v.classList.add('show');
+  ring.className='sh-verify-ring';
+  if(chk)chk.style.display='none';
+  txt.textContent='V\u00e9rification du num\u00e9ro Airtel\u2026';
+  setTimeout(function(){bar.style.transition='width 5s linear';bar.style.width='100%';},50);
+  _verifyTimer=setTimeout(function(){
+    _phoneVerified=true;
+    ring.className='sh-verify-ring done';
+    if(chk)chk.style.display='block';
+    txt.textContent='Num\u00e9ro Airtel valid\u00e9 \u2713';
+    hap([10,5,20]);
+    var btn=document.getElementById('shConfirmBtn');
+    if(btn){btn.classList.remove('dim');btn.disabled=false;}
+  },5000);
 }
 
 function proceedToLogin(){
   if(!selectedPlan.name)return;
+  if(!_phoneVerified){hap([25,15,25]);return;}
+  var ph=document.getElementById('shPhone').value.replace(/[^0-9]/g,'');
+  selectedPlan.phone=ph;
   sessionStorage.setItem('starlinkForfait',JSON.stringify(selectedPlan));
   var cur=document.getElementById('curtain');
   cur.classList.add('show');
