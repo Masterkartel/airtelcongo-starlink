@@ -66,8 +66,8 @@ img{display:block;max-width:100%}
 /* ── HERO — same as index ────────────────────── */
 .hero{
   background:
-    linear-gradient(160deg,rgba(80,0,0,.72) 0%,rgba(160,0,0,.58) 35%,rgba(220,0,0,.45) 65%,rgba(140,0,0,.65) 100%),
-    url('assets/starlink-airtel.avif') center 30%/120% auto no-repeat;
+    linear-gradient(160deg,rgba(80,0,0,.65) 0%,rgba(150,0,0,.5) 35%,rgba(210,0,0,.38) 65%,rgba(130,0,0,.6) 100%),
+    url('assets/starlink-airtel.avif') center center/cover no-repeat;
   padding:30px 20px 0;position:relative;overflow:hidden;min-height:290px
 }
 
@@ -360,7 +360,6 @@ img{display:block;max-width:100%}
 
   <!-- HERO — identical structure to index -->
   <div class="hero">
-    <img class="sat" src="assets/starlink_sattelit.png" alt="Antenne Starlink" style="mix-blend-mode:multiply" onerror="this.style.display='none'">
     <div class="hero-chip"><div class="hero-chip-dot"></div><span class="hero-chip-txt">Partenariat Officiel &middot; Airtel &times; Starlink&trade;</span></div>
     <div class="hero-logos">
       <img src="assets/logo.svg" alt="Airtel" height="30" style="filter:brightness(0) invert(1)" onerror="this.style.display='none'">
@@ -414,11 +413,7 @@ img{display:block;max-width:100%}
 
   <div class="trial-wrap">
     <div class="trial-card" onclick="openTrialSheet(this)">
-      <div style="margin:-26px -22px 20px;position:relative;height:200px;overflow:hidden;border-radius:var(--r-xl) var(--r-xl) 0 0">
-        <img src="assets/starlink_sattelit.png" alt="Antenne Starlink"
-          style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:260px;mix-blend-mode:multiply;filter:drop-shadow(0 8px 32px rgba(0,0,0,.35))"
-          onerror="this.style.display='none'">
-      </div>
+      
       <div class="trial-badge">
         <div class="trial-badge-dot"></div>
         Offre de Lancement
