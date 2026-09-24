@@ -3,12 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<meta name="theme-color" content="#C2001A">
+<meta name="theme-color" content="#E40000">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Airtel Congo × Starlink — Commande Soumise</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=DM+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
+html{background:#E40000}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
 body{font-family:'Inter',system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased;background:#F2F2F7;color:#1C1B1F;display:flex;flex-direction:column;position:fixed;inset:0;width:100%;height:100vh;height:100dvh;overflow:hidden}
@@ -34,9 +39,9 @@ img{display:block;max-width:100%}
 @keyframes term-in{from{opacity:0;transform:translateX(-4px)}to{opacity:1;transform:none}}
 
 /* NAV */
-.nav{flex-shrink:0;background:var(--red);display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:calc(56px + env(safe-area-inset-top,0px));padding-top:env(safe-area-inset-top,0px);box-shadow:var(--e2);z-index:20}
-.nav-logos{display:flex;align-items:center;gap:10px}
-.nav-sep{width:1px;height:16px;background:rgba(255,255,255,.28)}
+
+
+
 
 /* SCROLL */
 .scroll{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain;scrollbar-width:none;animation:pg-in .3s var(--ease) both}
@@ -94,6 +99,13 @@ img{display:block;max-width:100%}
 .t-bar-fill{height:100%;background:var(--red);width:0%;transition:width .4s var(--ease);border-radius:0 2px 2px 0;box-shadow:0 0 8px rgba(228,0,0,.5)}
 .t-spinner{width:44px;height:44px;border-radius:50%;border:3px solid rgba(228,0,0,.15);border-top-color:var(--red);animation:spin 0.8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
+.nav{flex-shrink:0;background:var(--red);display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:calc(56px + env(safe-area-inset-top,0px));padding-top:env(safe-area-inset-top,0px);z-index:20;box-shadow:0 2px 12px rgba(228,0,0,.25)}
+.nav-brand{display:flex;align-items:center;gap:10px}
+.nav-sep{width:1.5px;height:18px;background:rgba(255,255,255,.3);align-self:center;border-radius:1px}
+.nav-pill{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:var(--r-full);padding:4px 10px}
+.nav-dot{width:6px;height:6px;border-radius:50%;background:#4ADE80;animation:dot-pulse 2s infinite;flex-shrink:0}
+.nav-pill-txt{font-size:10px;font-weight:600;color:rgba(255,255,255,.9);letter-spacing:.3px}
+.nav-logos{display:flex;align-items:center;gap:10px}
 </style>
 </head>
 <body>
@@ -107,10 +119,10 @@ img{display:block;max-width:100%}
 </div>
 
 <nav class="nav">
-  <div class="nav-logos">
-    <img src="assets/logo.svg" alt="Airtel" height="26" style="filter:brightness(0) invert(1)" onerror="this.style.display='none'">
+  <div class="nav-brand">
+    <img src="assets/logo.svg" alt="Airtel" height="22" style="filter:brightness(0) invert(1)" onerror="this.style.display='none'">
     <div class="nav-sep"></div>
-    <img src="assets/starlink_logo_with_icon_transparent_black.png" alt="Starlink" height="26" style="filter:brightness(0) invert(1)" onerror="this.style.display='none'">
+    <img src="assets/starlink_logo_with_icon_transparent_black.png" alt="Starlink" height="22" style="filter:brightness(0) invert(1)" onerror="this.style.display='none'">
   </div>
 </nav>
 
