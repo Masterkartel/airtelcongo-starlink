@@ -66,12 +66,13 @@ img{display:block;max-width:100%}
 /* ── HERO — same as index ────────────────────── */
 .hero{
   background:
-    linear-gradient(160deg,rgba(100,0,0,.78) 0%,rgba(180,0,0,.68) 40%,rgba(228,0,0,.55) 70%,rgba(150,0,0,.72) 100%),
-    url('assets/starlink-airtel.avif') center/cover no-repeat;
+    linear-gradient(160deg,rgba(80,0,0,.72) 0%,rgba(160,0,0,.58) 35%,rgba(220,0,0,.45) 65%,rgba(140,0,0,.65) 100%),
+    url('assets/starlink-airtel.avif') center 30%/120% auto no-repeat;
   padding:30px 20px 0;position:relative;overflow:hidden;min-height:290px
 }
 
 .sat{display:none}
+
 .hero-chip{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:var(--r-full);padding:5px 14px;margin-bottom:18px}
 .hero-chip-dot{width:5px;height:5px;border-radius:50%;background:#4ADE80}
 .hero-chip-txt{font-size:9.5px;font-weight:600;color:rgba(255,255,255,.8);letter-spacing:.6px;text-transform:uppercase}
@@ -413,9 +414,9 @@ img{display:block;max-width:100%}
 
   <div class="trial-wrap">
     <div class="trial-card" onclick="openTrialSheet(this)">
-      <div style="margin:0 auto 16px;width:180px;position:relative">
+      <div style="margin:-26px -22px 20px;position:relative;height:200px;overflow:hidden;border-radius:var(--r-xl) var(--r-xl) 0 0">
         <img src="assets/starlink_sattelit.png" alt="Antenne Starlink"
-          style="width:180px;display:block;mix-blend-mode:multiply;filter:drop-shadow(0 6px 20px rgba(0,0,0,.3));animation:sat-float 6s ease-in-out infinite"
+          style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:260px;mix-blend-mode:multiply;filter:drop-shadow(0 8px 32px rgba(0,0,0,.35))"
           onerror="this.style.display='none'">
       </div>
       <div class="trial-badge">
