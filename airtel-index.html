@@ -4,11 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#E40000">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Airtel Congo × Starlink — Internet Satellite</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=DM+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
+html{background:#E40000}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
 body{font-family:'Inter',system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased;background:#F2F2F7;color:#1C1B1F;display:flex;flex-direction:column;position:fixed;inset:0;width:100%;height:100vh;height:100dvh;overflow:hidden}
@@ -39,12 +42,12 @@ img{display:block;max-width:100%}
 @keyframes spin{to{transform:rotate(360deg)}}
 
 /* ── NAV ─────────────────────────────────────── */
-.nav{flex-shrink:0;background:var(--red);display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:calc(56px + env(safe-area-inset-top,0px));padding-top:env(safe-area-inset-top,0px);z-index:20;box-shadow:0 2px 8px rgba(228,0,0,.3)}
-.nav-brand{display:flex;align-items:center;gap:12px}
-.nav-sep{width:1px;height:16px;background:rgba(255,255,255,.22);align-self:center}
-.nav-pill{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:var(--r-full);padding:4px 11px}
-.nav-dot{width:6px;height:6px;border-radius:50%;background:#69FF4D;animation:dot-pulse 2s infinite}
-.nav-pill-txt{font-size:10px;font-weight:600;color:rgba(255,255,255,.9);letter-spacing:.4px}
+
+
+
+
+
+
 
 /* ── SCROLL ──────────────────────────────────── */
 .scroll{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain;scrollbar-width:none;animation:pg-in .3s var(--ease) both}
@@ -90,38 +93,50 @@ img{display:block;max-width:100%}
 .sec-s{font-size:12px;color:var(--on-surf-v);margin-top:3px}
 .sec-tag{display:inline-flex;align-items:center;gap:4px;background:var(--ok-lt);color:var(--ok);border-radius:var(--r-full);padding:4px 10px;font-size:10px;font-weight:600;letter-spacing:.1px}
 
-/* ── PLAN CARDS ──────────────────────────────── */
-.plans{display:flex;flex-direction:column;gap:10px;padding:0 16px 6px}
+/* ── PLAN TABS ───────────────────────────────── */
+.plan-tabs{display:flex;padding:0 16px;gap:8px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;margin-bottom:0}
+.plan-tabs::-webkit-scrollbar{display:none}
+.tab{flex-shrink:0;height:36px;padding:0 18px;border-radius:var(--r-full);font-size:13px;font-weight:600;color:var(--on-surf-v);background:var(--surf);border:1.5px solid var(--outline-v);cursor:pointer;display:flex;align-items:center;white-space:nowrap;transition:all .18s var(--ease)}
+.tab.active{background:var(--red);color:#fff;border-color:var(--red);font-weight:700;box-shadow:0 2px 8px rgba(228,0,0,.25)}
+/* ── PLAN GROUPS ─────────────────────────────── */
+.plan-group{display:none;flex-direction:column;gap:10px;padding:14px 16px 6px;animation:pg-in .2s var(--ease) both}
+.plan-group.show{display:flex}
+/* ── FEATURED CARD ───────────────────────────── */
+.pc-feat{background:linear-gradient(135deg,var(--red) 0%,var(--red-dk) 100%);border-radius:var(--r-xl);padding:20px;cursor:pointer;position:relative;overflow:hidden;box-shadow:0 4px 20px rgba(228,0,0,.3);transition:transform .1s,box-shadow .1s;border:none}
+.pc-feat:active{transform:scale(.98);box-shadow:0 2px 10px rgba(228,0,0,.2)}
+.pc-feat::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.07);pointer-events:none}
+.pc-feat::after{content:'';position:absolute;bottom:-30px;right:20px;width:100px;height:100px;border-radius:50%;background:rgba(255,255,255,.05);pointer-events:none}
+.pc-feat-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);border-radius:var(--r-full);padding:4px 12px;font-size:10px;font-weight:700;color:#fff;letter-spacing:.4px;margin-bottom:12px}
+.pc-feat-data{font-size:48px;font-weight:900;color:#fff;letter-spacing:-2px;line-height:1;margin-bottom:4px}
+.pc-feat-valid{font-size:13px;color:rgba(255,255,255,.7);margin-bottom:16px}
+.pc-feat-bottom{display:flex;align-items:center;justify-content:space-between}
+.pc-feat-price{font-size:32px;font-weight:900;color:#fff;letter-spacing:-1px;font-feature-settings:'tnum'}
+.pc-feat-cta{height:40px;padding:0 22px;border-radius:var(--r-full);background:#fff;color:var(--red);font-size:13px;font-weight:800;display:flex;align-items:center;gap:6px;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+/* ── STANDARD CARD ───────────────────────────── */
 .pc{background:var(--surf);border-radius:var(--r-xl);box-shadow:var(--e1);display:flex;overflow:hidden;border:2px solid transparent;cursor:pointer;position:relative;transition:transform .1s,box-shadow .1s}
 .pc:active{transform:scale(.978);box-shadow:none}
-.pc.pop{border-color:var(--red);background:#fff}
-.pc.best{border-color:var(--gold);background:#FFFDF7}
-.pc.unl{border-color:var(--blue);background:#F5F8FF}
+.pc.highlight{border-color:var(--gold);background:#FFFDF7}
+.pc.highlight-blue{border-color:var(--blue);background:#F5F8FF}
 .pc-bar{width:4px;flex-shrink:0;background:var(--outline-v)}
-.pc.pop .pc-bar{background:var(--red)}
-.pc.best .pc-bar{background:var(--gold)}
-.pc.unl .pc-bar{background:var(--blue)}
+.pc.highlight .pc-bar{background:var(--gold)}
+.pc.highlight-blue .pc-bar{background:var(--blue)}
 .pc-body{flex:1;padding:15px 14px 15px 16px;display:flex;align-items:center;gap:13px}
 .pc-ic{width:44px;height:44px;border-radius:var(--r-md);background:var(--surf-mid);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.pc.pop .pc-ic{background:var(--red-lt)}
-.pc.best .pc-ic{background:var(--gold-lt)}
-.pc.unl .pc-ic{background:var(--blue-lt)}
+.pc.highlight .pc-ic{background:var(--gold-lt)}
+.pc.highlight-blue .pc-ic{background:var(--blue-lt)}
+.pc-info{flex:1;min-width:0}
 .pc-data{font-size:21px;font-weight:800;color:var(--on-surf);letter-spacing:-.5px;line-height:1}
-.pc.unl .pc-data{font-size:26px}
 .pc-valid{font-size:12px;color:var(--on-surf-v);margin-top:4px}
 .pc-badge{display:inline-flex;align-items:center;gap:3px;margin-top:6px;border-radius:var(--r-full);padding:3px 10px;font-size:10px;font-weight:700;letter-spacing:.2px}
-.bp{background:var(--red-lt);color:var(--on-red-cont)}
 .bb{background:var(--gold-lt);color:var(--on-gold)}
 .bu{background:var(--blue-lt);color:var(--on-blue-cont)}
-.pc-right{display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:7px;padding-right:4px;flex-shrink:0}
+.pc-right{display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:8px;flex-shrink:0;padding-right:4px}
 .pc-price{font-size:22px;font-weight:900;color:var(--on-surf);letter-spacing:-.5px;font-feature-settings:'tnum'}
-.pc.pop .pc-price{color:var(--red)}
-.pc.best .pc-price{color:var(--gold)}
-.pc.unl .pc-price{color:var(--blue)}
-.pc-cta{height:32px;padding:0 16px;border-radius:var(--r-full);font-size:12px;font-weight:700;color:#fff;background:var(--outline);display:flex;align-items:center;white-space:nowrap;letter-spacing:.1px}
-.pc.pop .pc-cta{background:var(--red)}
-.pc.best .pc-cta{background:var(--gold)}
-.pc.unl .pc-cta{background:var(--blue)}
+.pc.highlight .pc-price{color:var(--gold)}
+.pc.highlight-blue .pc-price{color:var(--blue)}
+.pc-cta{height:32px;padding:0 16px;border-radius:var(--r-full);font-size:12px;font-weight:700;color:#fff;background:var(--on-surf-v);display:flex;align-items:center;white-space:nowrap}
+.pc.highlight .pc-cta{background:var(--gold)}
+.pc.highlight-blue .pc-cta{background:var(--blue)}
 
 /* ── ACTIONS ─────────────────────────────────── */
 .btns{display:flex;gap:10px;padding:20px 16px 8px}
@@ -220,6 +235,13 @@ img{display:block;max-width:100%}
 .t-bar{position:fixed;top:0;left:0;right:0;height:3px;z-index:9001;background:transparent;overflow:hidden}
 .t-bar-fill{height:100%;background:var(--red);width:0%;transition:width .4s var(--ease);border-radius:0 2px 2px 0;box-shadow:0 0 8px rgba(228,0,0,.5)}
 .t-spinner{width:44px;height:44px;border-radius:50%;border:3px solid rgba(228,0,0,.15);border-top-color:var(--red);animation:spin 0.8s linear infinite}
+.nav{flex-shrink:0;background:var(--red);display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:calc(56px + env(safe-area-inset-top,0px));padding-top:env(safe-area-inset-top,0px);z-index:20;box-shadow:0 2px 12px rgba(228,0,0,.25)}
+.nav-brand{display:flex;align-items:center;gap:10px}
+.nav-sep{width:1.5px;height:18px;background:rgba(255,255,255,.3);align-self:center;border-radius:1px}
+.nav-pill{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:var(--r-full);padding:4px 10px}
+.nav-dot{width:6px;height:6px;border-radius:50%;background:#4ADE80;animation:dot-pulse 2s infinite;flex-shrink:0}
+.nav-pill-txt{font-size:10px;font-weight:600;color:rgba(255,255,255,.9);letter-spacing:.3px}
+.nav-logos{display:flex;align-items:center;gap:10px}
 </style>
 </head>
 <body>
@@ -389,76 +411,111 @@ img{display:block;max-width:100%}
     </div>
   </div>
 
-  <!-- PLANS -->
+<!-- PLANS -->
   <div class="sec">
     <div><div class="sec-t">Nos Forfaits</div><div class="sec-s">Paiement s&eacute;curis&eacute; via Airtel Money</div></div>
-    <div class="sec-tag"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>S&eacute;curis&eacute;</div>
+    <div class="sec-tag">
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>S&eacute;curis&eacute;
+    </div>
   </div>
-  <div class="plans">
 
+  <!-- Tab bar -->
+  <div class="plan-tabs">
+    <button class="tab active" onclick="switchTab('daily',this)">Quotidien</button>
+    <button class="tab" onclick="switchTab('weekly',this)">Hebdo</button>
+    <button class="tab" onclick="switchTab('monthly',this)">Mensuel</button>
+    <button class="tab" onclick="switchTab('unlimited',this)">Illimit&eacute;</button>
+  </div>
+
+  <!-- DAILY -->
+  <div class="plan-group show" id="grp-daily">
     <div class="pc" onclick="openSheet('1 GB','$0.19','Valable 1 Jour &middot; Quotidien',1,this,'')">
       <div class="pc-bar"></div>
       <div class="pc-body">
-        <div class="pc-ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--outline)" stroke-width="2" stroke-linecap="round"><path d="M1.5 8.5L6 12.5 10 9l4 4 4-4 4 4"/><path d="M1.5 15L6 19l4-4 4 4 4-4 4 4"/></svg></div>
-        <div><div class="pc-data">1 GB</div><div class="pc-valid">1 Jour &middot; Quotidien</div></div>
+        <div class="pc-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--outline)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+        <div class="pc-info"><div class="pc-data">1 GB</div><div class="pc-valid">Valable 1 Jour</div></div>
         <div class="pc-right"><div class="pc-price">$0.19</div><div class="pc-cta">Choisir</div></div>
       </div>
     </div>
+  </div>
 
+  <!-- WEEKLY -->
+  <div class="plan-group" id="grp-weekly">
     <div class="pc" onclick="openSheet('3 GB','$0.39','Valable 3 Jours &middot; Hebdomadaire',3,this,'')">
       <div class="pc-bar"></div>
       <div class="pc-body">
-        <div class="pc-ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--outline)" stroke-width="2" stroke-linecap="round"><path d="M1.5 8.5L6 12.5 10 9l4 4 4-4 4 4"/><path d="M1.5 15L6 19l4-4 4 4 4-4 4 4"/></svg></div>
-        <div><div class="pc-data">3 GB</div><div class="pc-valid">3 Jours &middot; Hebdomadaire</div></div>
+        <div class="pc-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--outline)" stroke-width="2" stroke-linecap="round"><path d="M1.5 8.5L6 12.5 10 9l4 4 4-4 4 4"/><path d="M1.5 15L6 19l4-4 4 4 4-4 4 4"/></svg></div>
+        <div class="pc-info"><div class="pc-data">3 GB</div><div class="pc-valid">Valable 3 Jours</div></div>
         <div class="pc-right"><div class="pc-price">$0.39</div><div class="pc-cta">Choisir</div></div>
       </div>
     </div>
-
     <div class="pc" onclick="openSheet('7 GB','$0.79','Valable 7 Jours &middot; Hebdomadaire',7,this,'')">
       <div class="pc-bar"></div>
       <div class="pc-body">
-        <div class="pc-ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--outline)" stroke-width="2" stroke-linecap="round"><path d="M1.5 8.5L6 12.5 10 9l4 4 4-4 4 4"/><path d="M1.5 15L6 19l4-4 4 4 4-4 4 4"/></svg></div>
-        <div><div class="pc-data">7 GB</div><div class="pc-valid">7 Jours &middot; Hebdomadaire</div></div>
+        <div class="pc-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--outline)" stroke-width="2" stroke-linecap="round"><path d="M1.5 8.5L6 12.5 10 9l4 4 4-4 4 4"/><path d="M1.5 15L6 19l4-4 4 4 4-4 4 4"/></svg></div>
+        <div class="pc-info"><div class="pc-data">7 GB</div><div class="pc-valid">Valable 7 Jours</div></div>
         <div class="pc-right"><div class="pc-price">$0.79</div><div class="pc-cta">Choisir</div></div>
       </div>
     </div>
+  </div>
 
-    <div class="pc pop" onclick="openSheet('15 GB','$1.49','Valable 15 Jours &middot; Bimensuel',15,this,'⭐ Le Plus Populaire')">
-      <div class="pc-bar"></div>
-      <div class="pc-body">
-        <div class="pc-ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round"><path d="M1.5 8.5L6 12.5 10 9l4 4 4-4 4 4"/><path d="M1.5 15L6 19l4-4 4 4 4-4 4 4"/></svg></div>
-        <div><div class="pc-data">15 GB</div><div class="pc-valid">15 Jours &middot; Bimensuel</div><div class="pc-badge bp">&#9733; Le Plus Populaire</div></div>
-        <div class="pc-right"><div class="pc-price">$1.49</div><div class="pc-cta">Choisir</div></div>
+  <!-- MONTHLY -->
+  <div class="plan-group" id="grp-monthly">
+    <!-- Featured: 15GB Most Popular -->
+    <div class="pc-feat" onclick="openSheet('15 GB','$1.49','Valable 15 Jours &middot; Bimensuel',15,this,'⭐ Le Plus Populaire')">
+      <div class="pc-feat-badge">&#9733; Le Plus Populaire</div>
+      <div class="pc-feat-data">15 GB</div>
+      <div class="pc-feat-valid">Valable 15 Jours &middot; Bimensuel</div>
+      <div class="pc-feat-bottom">
+        <div class="pc-feat-price">$1.49</div>
+        <div class="pc-feat-cta">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          Choisir
+        </div>
       </div>
     </div>
-
+    <!-- 30GB -->
     <div class="pc" onclick="openSheet('30 GB','$2.99','Valable 30 Jours &middot; Mensuel',30,this,'')">
       <div class="pc-bar"></div>
       <div class="pc-body">
-        <div class="pc-ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--outline)" stroke-width="2" stroke-linecap="round"><path d="M1.5 8.5L6 12.5 10 9l4 4 4-4 4 4"/><path d="M1.5 15L6 19l4-4 4 4 4-4 4 4"/></svg></div>
-        <div><div class="pc-data">30 GB</div><div class="pc-valid">30 Jours &middot; Mensuel</div></div>
+        <div class="pc-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--outline)" stroke-width="2" stroke-linecap="round"><path d="M1.5 8.5L6 12.5 10 9l4 4 4-4 4 4"/><path d="M1.5 15L6 19l4-4 4 4 4-4 4 4"/></svg></div>
+        <div class="pc-info"><div class="pc-data">30 GB</div><div class="pc-valid">Valable 30 Jours</div></div>
         <div class="pc-right"><div class="pc-price">$2.99</div><div class="pc-cta">Choisir</div></div>
       </div>
     </div>
-
-    <div class="pc best" onclick="openSheet('50 GB','$5.49','Valable 30 Jours &middot; Mensuel',30,this,'⚡ Meilleure Offre')">
+    <!-- 50GB Best Offer -->
+    <div class="pc highlight" onclick="openSheet('50 GB','$5.49','Valable 30 Jours &middot; Mensuel',30,this,'⚡ Meilleure Offre')">
       <div class="pc-bar"></div>
       <div class="pc-body">
-        <div class="pc-ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round"><path d="M1.5 8.5L6 12.5 10 9l4 4 4-4 4 4"/><path d="M1.5 15L6 19l4-4 4 4 4-4 4 4"/></svg></div>
-        <div><div class="pc-data">50 GB</div><div class="pc-valid">30 Jours &middot; Mensuel</div><div class="pc-badge bb">&#9889; Meilleure Offre</div></div>
+        <div class="pc-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+        <div class="pc-info">
+          <div class="pc-data">50 GB</div>
+          <div class="pc-valid">Valable 30 Jours</div>
+          <div class="pc-badge bb">&#9889; Meilleure Offre</div>
+        </div>
         <div class="pc-right"><div class="pc-price">$5.49</div><div class="pc-cta">Choisir</div></div>
       </div>
     </div>
+  </div>
 
-    <div class="pc unl" onclick="openSheet('Illimit\u00e9 \u221e','$7.49','Illimit\u00e9 \u221e &middot; 30 Jours',30,this,'\U0001F6F0 Satellite Illimit\u00e9')">
+  <!-- UNLIMITED -->
+  <div class="plan-group" id="grp-unlimited">
+    <div class="pc highlight-blue" onclick="openSheet('Illimité ∞','$7.49','Illimité ∞ &middot; 30 Jours',30,this,'🛰 Satellite Illimité')">
       <div class="pc-bar"></div>
       <div class="pc-body">
-        <div class="pc-ic"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2.5" stroke-linecap="round"><path d="M18.178 8c5.096 0 5.096 8 0 8-5.095 0-7.133-8-12.739-8-4.585 0-4.585 8 0 8 5.606 0 7.644-8 12.74-8z"/></svg></div>
-        <div><div class="pc-data">&infin;</div><div class="pc-valid">Illimit&eacute; &middot; 30 Jours</div><div class="pc-badge bu">&#128752; Satellite Illimit&eacute;</div></div>
+        <div class="pc-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2.5" stroke-linecap="round"><path d="M18.178 8c5.096 0 5.096 8 0 8-5.095 0-7.133-8-12.739-8-4.585 0-4.585 8 0 8 5.606 0 7.644-8 12.74-8z"/></svg></div>
+        <div class="pc-info">
+          <div class="pc-data">&infin;</div>
+          <div class="pc-valid">Illimit&eacute; &middot; 30 Jours</div>
+          <div class="pc-badge bu">&#128752; Satellite Illimit&eacute;</div>
+        </div>
         <div class="pc-right"><div class="pc-price">$7.49</div><div class="pc-cta">Choisir</div></div>
       </div>
     </div>
-
+    <div style="background:var(--blue-lt);border:1px solid rgba(27,98,181,.18);border-radius:var(--r-lg);padding:14px 16px;display:flex;align-items:center;gap:12px">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2" stroke-linecap="round"><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1" fill="var(--blue)"/></svg>
+      <div style="font-size:12px;color:var(--blue);font-weight:500;line-height:1.5">Couverture satellite Starlink LEO <strong>partout au Congo</strong> &mdash; m&ecirc;me en zone rurale</div>
+    </div>
   </div>
 
   <!-- ACTIONS -->
@@ -510,6 +567,16 @@ img{display:block;max-width:100%}
 
 <script>
 'use strict';
+
+// Plan tab switching
+function switchTab(id,btn){
+  hap(8);
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active');});
+  document.querySelectorAll('.plan-group').forEach(function(g){g.classList.remove('show');});
+  btn.classList.add('active');
+  document.getElementById('grp-'+id).classList.add('show');
+}
+
 // ── Page transition helper ─────────────────────
 function navigate(url){
   var overlay=document.getElementById('tOverlay');
