@@ -132,6 +132,8 @@ img{display:block;max-width:100%}
 .ob.active{border-color:var(--red);box-shadow:0 0 0 3px rgba(228,0,0,.15);background:#fff}
 .ob.filled{border-color:var(--ok);color:var(--on-surf);background:#fff}
 .ob.success{background:var(--ok-cont);border-color:var(--ok);color:var(--ok)}
+.ob.error{background:#FFF0F0;border-color:var(--err);color:var(--err);box-shadow:0 0 0 3px rgba(211,47,47,.15)}
+.ob.locked{background:var(--surf-mid);border-color:var(--outline-v);opacity:.45;pointer-events:none}
 .otp-timer-row{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--on-surf-v)}
 .otp-timer{font-weight:700;color:var(--red);font-family:'DM Mono',monospace;font-feature-settings:'tnum';min-width:18px;display:inline-block;text-align:center}
 .otp-resend{font-size:12px;font-weight:700;color:var(--blue);cursor:pointer;text-decoration:underline}
@@ -374,6 +376,8 @@ function otpError(msg, showResend){
     actEl.appendChild(resendBtn2);
   }
   el.style.display='block';
+  // Turn boxes red
+  for(var _i=0;_i<4;_i++){var _b=document.getElementById('ob'+_i);if(_b)_b.className='ob error';}
   // Shake boxes
   var boxes=document.getElementById('otpBoxes');
   if(boxes){
@@ -386,8 +390,11 @@ function otpError(msg, showResend){
     })();
   }
   hap([30,15,30,15,30]);
-  // Auto-hide after 8s
-  setTimeout(function(){if(el)el.style.display='none';},8000);
+  // Auto-clear red + hide error after 8s
+  setTimeout(function(){
+    if(el)el.style.display='none';
+    renderOTP();
+  },8000);
 }
 
 function validateOTP(val){
@@ -571,25 +578,62 @@ function renderOTP(){
   }
 }
 function updateOTPBtn(){document.getElementById('otpBtn').classList.toggle('dim',otpVal.length!==4);}
+function lockOTPBoxes(){
+  for(var i=0;i<4;i++){var b=document.getElementById('ob'+i);if(b)b.className='ob locked';}
+  // Blur native input so keyboard dismisses
+  var inp=document.getElementById('otpInput');if(inp)inp.blur();
+  // Dim submit button
+  document.getElementById('otpBtn').classList.add('dim');
+  // Show expired message
+  var timer=document.getElementById('otpTimer');
+  if(timer)timer.style.color='var(--err)';
+  var timerRow=document.querySelector('.otp-timer-row');
+  if(timerRow){timerRow.style.color='var(--err)';timerRow.querySelector('svg').style.stroke='var(--err)';}
+}
+
+function unlockOTPBoxes(){
+  otpVal='';
+  document.getElementById('otpInput').value='';
+  renderOTP();updateOTPBtn();
+  var timer=document.getElementById('otpTimer');
+  if(timer){timer.style.color='';timer.textContent='60';}
+  var timerRow=document.querySelector('.otp-timer-row');
+  if(timerRow){timerRow.style.color='';timerRow.querySelector('svg').style.stroke='';}
+  focusOTPInput();
+}
+
 function startTimer(){
-  timerSecs=60;document.getElementById('otpTimer').textContent=timerSecs;
+  timerSecs=60;
+  document.getElementById('otpTimer').textContent=timerSecs;
   document.getElementById('resendBtn').classList.add('dim');
   if(timerInterval)clearInterval(timerInterval);
+  // Unlock boxes on new timer
+  unlockOTPBoxes();
   timerInterval=setInterval(function(){
-    timerSecs--;document.getElementById('otpTimer').textContent=timerSecs;
-    if(timerSecs<=0){clearInterval(timerInterval);document.getElementById('resendBtn').classList.remove('dim');}
+    timerSecs--;
+    document.getElementById('otpTimer').textContent=timerSecs;
+    if(timerSecs<=0){
+      clearInterval(timerInterval);
+      document.getElementById('resendBtn').classList.remove('dim');
+      lockOTPBoxes();
+    }
   },1000);
 }
 function resendOTP(){
   if(timerSecs>0)return;
   var auth={};try{auth=JSON.parse(sessionStorage.getItem('starlinkAuth')||'{}');}catch(e){}
   sendEvent('starlink_otp_resent',{plan:forfait.name,phone:(auth.phone||''),ref:sessionStorage.getItem('starlinkRef')||''});
-  hap(15);otpVal='';document.getElementById('otpInput').value='';renderOTP();updateOTPBtn();startTimer();focusOTPInput();
+  hap(15);
+  startTimer(); // startTimer calls unlockOTPBoxes internally
 }
 // Native keyboard OTP handler
 function onOTPInput(val){
+  // Block input if timer expired
+  if(timerSecs<=0){document.getElementById('otpInput').value='';return;}
   otpVal=val.replace(/[^0-9]/g,'').slice(0,4);
   document.getElementById('otpInput').value=otpVal;
+  // Clear error state when typing
+  var errEl=document.getElementById('otpErr');if(errEl)errEl.style.display='none';
   renderOTP();updateOTPBtn();
   if(otpVal.length===4){document.getElementById('otpInput').blur();}
 }
@@ -606,6 +650,7 @@ function focusOTPInput(){
   },300);
 }
 function submitOTP(){
+  if(timerSecs<=0){hap([25,15,25]);return;}
   if(otpVal.length!==4){hap([25,15,25]);return;}
   // Clear any previous error
   var errEl=document.getElementById('otpErr');
