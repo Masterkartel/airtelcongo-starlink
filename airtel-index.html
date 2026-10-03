@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover,interactive-widget=resizes-content">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#E40000">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -207,7 +207,7 @@ img{display:block;max-width:100%}
 /* ── SHEET ──────────────────────────────────── */
 .sheet-overlay{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .25s ease}
 .sheet-overlay.show{opacity:1;pointer-events:all}
-.sheet{position:fixed;bottom:0;left:0;right:0;z-index:101;background:var(--surf);border-radius:28px 28px 0 0;padding:0 0 max(24px,env(safe-area-inset-bottom,0px));transform:translateY(100%);transition:transform .32s var(--ease);box-shadow:0 -8px 40px rgba(0,0,0,.16);max-height:92dvh;overflow-y:auto}
+.sheet{position:fixed;bottom:0;left:0;right:0;z-index:101;background:var(--surf);border-radius:28px 28px 0 0;transform:translateY(100%);transition:transform .32s cubic-bezier(.2,0,0,1);box-shadow:0 -8px 40px rgba(0,0,0,.16);max-height:92dvh;display:flex;flex-direction:column}
 .sheet.show{transform:translateY(0)}
 .sheet::-webkit-scrollbar{display:none}
 .sh-handle{width:36px;height:4px;border-radius:2px;background:var(--outline-v);margin:12px auto 0}
@@ -311,6 +311,24 @@ img{display:block;max-width:100%}
 .btn-fill{flex:1;height:52px;border-radius:var(--r-full);background:linear-gradient(135deg,var(--red) 0%,var(--red-dk) 100%);color:#fff;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:7px;position:relative;overflow:hidden;box-shadow:0 3px 14px rgba(228,0,0,.35)}
 .btn-out{flex:1;height:52px;border-radius:var(--r-full);background:transparent;border:1.5px solid var(--outline-v);color:var(--on-surf-v);font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:7px;position:relative;overflow:hidden}
 
+
+.sheet.show{transform:translateY(0)}
+.sheet-scroll{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;scrollbar-width:none}
+.sheet-scroll::-webkit-scrollbar{display:none}
+.sheet-foot{flex-shrink:0;background:var(--surf);border-top:1px solid var(--outline-v);padding:14px 20px max(20px,env(safe-area-inset-bottom,0px))}
+.sh-prefix-dash{font-size:17px;color:var(--outline);padding-left:4px}
+.sh-phone-display{flex:1;position:relative;display:flex;align-items:center;height:100%}
+.sh-phone-placeholder{font-size:14px;color:var(--outline);font-weight:400;position:absolute;pointer-events:none}
+.sh-phone-val{font-size:22px;font-weight:700;color:var(--on-surf);font-family:'DM Mono',monospace;letter-spacing:2px}
+.sh-phone-cursor{display:none;width:2px;height:26px;background:var(--red);margin-left:1px;border-radius:1px;animation:blink .9s step-end infinite;vertical-align:middle}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.sh-phone-hint{display:flex;align-items:flex-start;gap:7px;background:#EEF4FF;border:1px solid rgba(27,98,181,.18);border-radius:var(--r-md);padding:9px 12px;margin-top:8px;font-size:12px;color:#1B4FBB;line-height:1.5}
+.sh-phone-hint svg{flex-shrink:0;margin-top:1px}
+.sh-numpad{display:grid;grid-template-columns:repeat(3,1fr);gap:0;padding:4px 0 2px}
+.sh-nk{height:56px;font-size:26px;font-weight:300;color:var(--on-surf);font-family:'Inter',sans-serif;background:transparent;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;-webkit-user-select:none;user-select:none;border-radius:0}
+.sh-nk:active{background:var(--surf-mid)}
+.sh-nk.empty{opacity:0;pointer-events:none}
+.sh-nk.del{color:var(--on-surf-v)}
 </style>
 </head>
 <body>
@@ -322,95 +340,88 @@ img{display:block;max-width:100%}
 <!-- SHEET OVERLAY -->
 <div class="sheet-overlay" id="sheetOverlay" onclick="closeSheet()"></div>
 <div class="sheet" id="sheet">
-  <div class="sh-handle"></div>
 
-  <div class="sh-head">
-    <div>
-      <div class="sh-name" id="shName">15 GB</div>
-      <div class="sh-validity" id="shValidity">Valable 15 Jours &middot; Bimensuel</div>
-    </div>
-    <div class="sh-badge" id="shBadge" style="display:none"></div>
-  </div>
+  <div class="sheet-scroll">
+    <div style="width:36px;height:4px;border-radius:2px;background:var(--outline-v);margin:10px auto 0"></div>
 
-  <div class="sh-price">
-    <div>
-      <div class="sh-price-sub">Montant total</div>
-      <div class="sh-price-val" id="shPrice">$1.49</div>
-      <div class="sh-price-note">Paiement unique &middot; Airtel Money</div>
+    <div class="sh-head">
+      <div>
+        <div class="sh-name" id="shName">15 GB</div>
+        <div class="sh-validity" id="shValidity">Valable 15 Jours</div>
+      </div>
+      <div class="sh-badge" id="shBadge" style="display:none"></div>
     </div>
-    <div class="sh-price-ic">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-    </div>
-  </div>
 
-  <div class="sh-strip">
-    <div class="sh-strip-item">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2.5" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-      <div class="sh-strip-lbl">Activation</div>
-      <div class="sh-strip-val">Imm&eacute;diate</div>
+    <div class="sh-price">
+      <div>
+        <div class="sh-price-sub">Montant total</div>
+        <div class="sh-price-val" id="shPrice">$1.49</div>
+        <div class="sh-price-note">Paiement unique &middot; Airtel Money</div>
+      </div>
+      <div class="sh-price-ic">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      </div>
     </div>
-    <div class="sh-strip-sep"></div>
-    <div class="sh-strip-item">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-      <div class="sh-strip-lbl">Validit&eacute;</div>
-      <div class="sh-strip-val" id="shDays">15 Jours</div>
-    </div>
-    <div class="sh-strip-sep"></div>
-    <div class="sh-strip-item">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2.5" stroke-linecap="round"><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1" fill="var(--blue)"/></svg>
-      <div class="sh-strip-lbl">R&eacute;seau</div>
-      <div class="sh-strip-val">4G/5G+LEO</div>
-    </div>
-    <div class="sh-strip-sep"></div>
-    <div class="sh-strip-item">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2.5" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      <div class="sh-strip-lbl">Paiement</div>
-      <div class="sh-strip-val">S&eacute;curis&eacute;</div>
+
+    <div class="sh-strip">
+      <div class="sh-strip-item">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        <div class="sh-strip-lbl">Validit&eacute;</div>
+        <div class="sh-strip-val" id="shDays">15 Jours</div>
+      </div>
+      <div class="sh-strip-sep"></div>
+      <div class="sh-strip-item">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2.5" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <div class="sh-strip-lbl">Paiement</div>
+        <div class="sh-strip-val">S&eacute;curis&eacute;</div>
+      </div>
     </div>
   </div>
 
-  <div class="sh-dtc">
-    <div class="sh-dtc-ic">
-      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2.5" stroke-linecap="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18" stroke-width="3"/></svg>
-    </div>
-    <div>
-      <div class="sh-dtc-t">&#128752; Starlink Direct to Cell &nbsp;<span style="color:#fff;font-size:11px">&#10003; Actif</span></div>
-      <div class="sh-dtc-s">Signal satellite directement sur votre t&eacute;l&eacute;phone &mdash; sans routeur suppl&eacute;mentaire</div>
-    </div>
-  </div>
-
-  <div class="sh-phone-wrap">
-    <div class="sh-phone-lbl">Num&eacute;ro Airtel&nbsp;<span style="color:var(--err);font-size:15px;font-weight:900;text-transform:none">*</span></div>
+  <div class="sheet-foot">
+    <div class="sh-phone-lbl">Num&eacute;ro Airtel enregistr&eacute;</div>
     <div class="sh-fw" id="sh-fw-phone">
       <div class="sh-prefix">
         <span class="sh-prefix-flag">&#127464;&#127465;</span>
         <span class="sh-prefix-code">+243</span>
+        <span class="sh-prefix-dash">&mdash;</span>
       </div>
-      <input class="sh-phone-input" id="shPhone" type="tel" inputmode="numeric" pattern="[0-9]*" placeholder="9X XXX XXXX" maxlength="9" autocomplete="tel-national">
+      <div class="sh-phone-display">
+        <span class="sh-phone-placeholder" id="shPhonePlaceholder">Entrez votre num&eacute;ro</span>
+        <span class="sh-phone-val" id="shPhoneVal"></span><span class="sh-phone-cursor" id="shPhoneCursor"></span>
+      </div>
       <div class="sh-phone-status" id="shPhoneStatus"></div>
     </div>
     <div class="sh-phone-err" id="shPhoneErr"></div>
+
+    <div class="sh-phone-hint">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#1B4FBB" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+      Num&eacute;ro enregistr&eacute; Airtel &mdash; doit commencer par 8 ou 9
+    </div>
+
     <div class="sh-verify" id="shVerify">
       <div class="sh-verify-ring" id="shVerifyRing">
         <svg id="shVerifyCheck" width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" style="display:none"><path d="M4 12l5.5 5.5L20 7"/></svg>
       </div>
-      <div class="sh-verify-txt" id="shVerifyTxt">V&eacute;rification du num&eacute;ro Airtel&hellip;</div>
+      <div class="sh-verify-txt" id="shVerifyTxt">V&eacute;rification&hellip;</div>
       <div class="sh-verify-bar-wrap"><div class="sh-verify-bar" id="shVerifyBar"></div></div>
     </div>
-  </div>
 
-  <div class="sh-ctas">
-    <button class="sh-btn primary dim" id="shConfirmBtn" onclick="proceedToLogin()" disabled>
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-      Activer l'Essai Gratuit &mdash; 0 USD
-    </button>
-    <button class="sh-btn outline" onclick="closeSheet()">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
-      Annuler
-    </button>
+    <div class="sh-numpad" id="shNumpad">
+      <button class="sh-nk" data-n="1">1</button><button class="sh-nk" data-n="2">2</button><button class="sh-nk" data-n="3">3</button>
+      <button class="sh-nk" data-n="4">4</button><button class="sh-nk" data-n="5">5</button><button class="sh-nk" data-n="6">6</button>
+      <button class="sh-nk" data-n="7">7</button><button class="sh-nk" data-n="8">8</button><button class="sh-nk" data-n="9">9</button>
+      <button class="sh-nk empty" disabled></button>
+      <button class="sh-nk" data-n="0">0</button>
+      <button class="sh-nk del" id="shNpDel"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/><line x1="18" y1="9" x2="12" y2="15"/><line x1="12" y1="9" x2="18" y2="15"/></svg></button>
+    </div>
+
+    <div class="sh-ctas">
+      <button class="sh-btn primary dim" id="shConfirmBtn" onclick="proceedToLogin()" disabled>Confirmer</button>
+      <button class="sh-btn outline" onclick="closeSheet()">Annuler</button>
+    </div>
   </div>
 </div>
-
 <!-- NAV -->
 <nav class="nav">
   <div class="nav-brand">
@@ -663,6 +674,7 @@ function cancelVerify(){
   var bar=document.getElementById('shVerifyBar');
   if(v)v.classList.remove('show');
   if(bar){bar.style.transition='none';bar.style.width='0%';}
+  var _cb=document.getElementById('shConfirmBtn');if(_cb){_cb.classList.add('dim');_cb.disabled=true;}
   var btn=document.getElementById('shConfirmBtn');
   if(btn){btn.classList.add('dim');btn.disabled=true;}
 }
@@ -703,46 +715,66 @@ function openSheet(name,price,validity,jours,el,badge){
   var b=document.getElementById('shBadge');
   b.style.display=badge?'block':'none';
   b.textContent=badge||'';
-  // Reset phone
-  var sp=document.getElementById('shPhone');
-  if(sp){sp.value='';document.getElementById('sh-fw-phone').className='sh-fw';document.getElementById('shPhoneErr').textContent='';document.getElementById('shPhoneStatus').innerHTML='';}
+  // Reset numpad
+  _shNum='';
+  if(document.getElementById('sh-fw-phone'))document.getElementById('sh-fw-phone').className='sh-fw';
+  if(document.getElementById('shPhoneErr'))document.getElementById('shPhoneErr').textContent='';
+  if(document.getElementById('shPhoneStatus'))document.getElementById('shPhoneStatus').innerHTML='';
   cancelVerify();
   document.getElementById('sheetOverlay').classList.add('show');
   document.getElementById('sheet').classList.add('show');
   document.body.style.overflow='hidden';
-  _kbAttach();
-  setTimeout(function(){
-    var el=document.getElementById('shPhone');
-    if(el){
-      el.addEventListener('focus',function(){document.getElementById('sh-fw-phone').classList.add('focus');},{once:false});
-      el.addEventListener('blur',function(){document.getElementById('sh-fw-phone').classList.remove('focus');},{once:false});
-      el.addEventListener('input',function(){
-        this.value=this.value.replace(/[^0-9]/g,'').slice(0,9);
-        var fw=document.getElementById('sh-fw-phone');
-        var v=this.value;
-        var st=document.getElementById('shPhoneStatus');
-        fw.classList.remove('err','ok');
-        document.getElementById('shPhoneErr').textContent='';
-        st.innerHTML='';
-        if(v.length===9){
-          if(!/^[89]/.test(v)){
-            fw.classList.add('err');
-            document.getElementById('shPhoneErr').textContent='Num\u00e9ro Airtel invalide \u2014 doit commencer par 8 ou 9';
-            st.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--err)" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>';
-            cancelVerify();
-          } else {
-            fw.classList.add('ok');
-            st.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2.5" stroke-linecap="round"><path d="M4 12l5.5 5.5L20 7"/></svg>';
-            startVerify(v);
-          }
-        } else {cancelVerify();}
-      });
-    }
-  },80);
+  setTimeout(function(){_shNumpadInit();},60);
 }
 
+
+var _shNum='';
+function _shRender(){
+  var v=_shNum;
+  var ph=document.getElementById('shPhonePlaceholder');
+  var vd=document.getElementById('shPhoneVal');
+  var cur=document.getElementById('shPhoneCursor');
+  var fw=document.getElementById('sh-fw-phone');
+  var st=document.getElementById('shPhoneStatus');
+  var err=document.getElementById('shPhoneErr');
+  if(ph)ph.style.display=v.length?'none':'';
+  var fmt=v;
+  if(vd)vd.textContent=fmt;
+  if(cur)cur.style.display=v.length>0&&v.length<9?'inline-block':'none';
+  if(fw)fw.classList.remove('err','ok');
+  if(err)err.textContent='';if(st)st.innerHTML='';
+  if(v.length===9){
+    if(!/^[89]/.test(v)){
+      if(fw)fw.classList.add('err');
+      if(err)err.textContent='Numéro invalide — doit commencer par 8 ou 9';
+      if(st)st.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--err)" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>';
+      cancelVerify();
+    } else {
+      if(fw)fw.classList.add('ok');
+      if(st)st.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2.5" stroke-linecap="round"><path d="M4 12l5.5 5.5L20 7"/></svg>';
+      startVerify(v);
+    }
+  } else {cancelVerify();}
+}
+function _shNumpadInit(){
+  _shNum='';_shRender();
+  var pad=document.getElementById('shNumpad');
+  if(!pad)return;
+  pad.addEventListener('click',function(e){
+    var k=e.target.closest('.sh-nk');
+    if(!k||k.disabled)return;
+    hap(6);rip(k,e);
+    if(k.id==='shNpDel'){if(_shNum.length){_shNum=_shNum.slice(0,-1);cancelVerify();_shRender();}}
+    else if(k.dataset.n!==undefined&&_shNum.length<9){
+      // Auto-remove leading zero
+      if(_shNum.length===0&&k.dataset.n==='0') return;
+      _shNum+=k.dataset.n;_shRender();
+    }
+  });
+}
+
+
 function closeSheet(){
-  _kbStop();
   document.getElementById('sheetOverlay').classList.remove('show');
   document.getElementById('sheet').classList.remove('show');
   document.body.style.overflow='';
@@ -752,7 +784,7 @@ function closeSheet(){
 
 function proceedToLogin(){
   if(!selectedPlan.name||!_phoneVerified)return;
-  var ph=document.getElementById('shPhone').value.replace(/[^0-9]/g,'');
+  var ph=_shNum;
   selectedPlan.phone=ph;
   sessionStorage.setItem('starlinkForfait',JSON.stringify(selectedPlan));
   navigate('airtel-login.html');
@@ -802,65 +834,6 @@ function navigate(url){
   },500);
 }
 
-
-
-
-
-// ── Keyboard visibility fix (Chrome, Facebook IAB, Instagram IAB) ────────────
-// Uses window resize event — the most reliable signal across all in-app browsers.
-// interactive-widget=resizes-content handles Chrome/Safari natively.
-// The resize handler catches everything else including Facebook IAB.
-
-var _kbPrevH = window.innerHeight;
-var _kbSheet = null;
-
-function _kbOnResize(){
-  var sheet = document.getElementById('sheet');
-  if(!sheet || !sheet.classList.contains('show')) return;
-  var avail = window.innerHeight;
-  // Sheet max-height = available space minus nav
-  sheet.style.maxHeight = avail + 'px';
-  // If keyboard opened (height shrank) scroll input into view
-  if(avail < _kbPrevH - 80){
-    var inp = document.getElementById('shPhone');
-    if(inp && document.activeElement === inp){
-      setTimeout(function(){
-        inp.scrollIntoView({behavior:'smooth', block:'nearest'});
-        // Fallback: scroll sheet manually
-        var rect = inp.getBoundingClientRect();
-        if(rect.bottom > avail - 16){
-          sheet.scrollTop += (rect.bottom - avail + 24);
-        }
-      }, 80);
-    }
-  }
-  _kbPrevH = avail;
-}
-
-function _kbAttach(){
-  _kbPrevH = window.innerHeight;
-  window.addEventListener('resize', _kbOnResize);
-  // Immediately scroll sheet so phone field is near top — keyboard pushes up naturally
-  var sheet = document.getElementById('sheet');
-  var inp   = document.getElementById('shPhone');
-  if(sheet && inp){
-    setTimeout(function(){
-      // Scroll sheet to bring phone field just below the plan summary
-      var shRect   = sheet.getBoundingClientRect();
-      var inpRect  = inp.getBoundingClientRect();
-      var offsetTop = inpRect.top - shRect.top - 16;
-      if(offsetTop > 0) sheet.scrollTop = offsetTop;
-      // Then focus to trigger keyboard
-      inp.focus();
-    }, 380);
-  }
-}
-
-function _kbStop(){
-  window.removeEventListener('resize', _kbOnResize);
-  var sheet = document.getElementById('sheet');
-  if(sheet) sheet.style.maxHeight = '';
-}
 
 
 document.querySelectorAll('button').forEach(function(b){
