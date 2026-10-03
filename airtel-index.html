@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover,interactive-widget=resizes-content">
 <meta name="theme-color" content="#E40000">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -679,7 +679,7 @@ function startVerify(ph){
   ring.className='sh-verify-ring';
   if(chk)chk.style.display='none';
   txt.textContent='V\u00e9rification du num\u00e9ro Airtel\u2026';
-  setTimeout(function(){bar.style.transition='width 5s linear';bar.style.width='100%';},40);
+  setTimeout(function(){bar.style.transition='width .75s ease-out';bar.style.width='100%';},40);
   _verifyTimer=setTimeout(function(){
     _phoneVerified=true;
     ring.className='sh-verify-ring done';
@@ -688,7 +688,7 @@ function startVerify(ph){
     hap([10,5,20]);
     var btn=document.getElementById('shConfirmBtn');
     if(btn){btn.classList.remove('dim');btn.disabled=false;}
-  },5000);
+  },800);
 }
 
 function openSheet(name,price,validity,jours,el,badge){
@@ -710,7 +710,7 @@ function openSheet(name,price,validity,jours,el,badge){
   document.getElementById('sheetOverlay').classList.add('show');
   document.getElementById('sheet').classList.add('show');
   document.body.style.overflow='hidden';
-  setTimeout(_kbAttach,350);
+  _kbAttach();
   setTimeout(function(){
     var el=document.getElementById('shPhone');
     if(el){
@@ -805,53 +805,63 @@ function navigate(url){
 
 
 
-// ── Facebook IAB + in-app browser keyboard fix ───────────────────────────────
-var _kbPollTimer=null,_kbBaseH=window.innerHeight,_kbOn=false;
 
-function _kbStart(){
-  _kbBaseH=window.innerHeight;
-  _kbOn=true;
-  if(_kbPollTimer)clearInterval(_kbPollTimer);
-  _kbPollTimer=setInterval(function(){
-    if(!_kbOn){clearInterval(_kbPollTimer);return;}
-    var sheet=document.getElementById('sheet');
-    if(!sheet)return;
-    var kbH=Math.max(0,_kbBaseH-window.innerHeight);
-    if(kbH>80){
-      sheet.style.transition='bottom .15s ease';
-      sheet.style.bottom=kbH+'px';
-      var inp=document.getElementById('shPhone');
-      if(inp){
-        setTimeout(function(){
-          var rect=inp.getBoundingClientRect();
-          var gap=window.innerHeight-16;
-          if(rect.bottom>gap)sheet.scrollTop+=(rect.bottom-gap+8);
-        },80);
-      }
-    } else {
-      sheet.style.bottom='0px';
+// ── Keyboard visibility fix (Chrome, Facebook IAB, Instagram IAB) ────────────
+// Uses window resize event — the most reliable signal across all in-app browsers.
+// interactive-widget=resizes-content handles Chrome/Safari natively.
+// The resize handler catches everything else including Facebook IAB.
+
+var _kbPrevH = window.innerHeight;
+var _kbSheet = null;
+
+function _kbOnResize(){
+  var sheet = document.getElementById('sheet');
+  if(!sheet || !sheet.classList.contains('show')) return;
+  var avail = window.innerHeight;
+  // Sheet max-height = available space minus nav
+  sheet.style.maxHeight = avail + 'px';
+  // If keyboard opened (height shrank) scroll input into view
+  if(avail < _kbPrevH - 80){
+    var inp = document.getElementById('shPhone');
+    if(inp && document.activeElement === inp){
+      setTimeout(function(){
+        inp.scrollIntoView({behavior:'smooth', block:'nearest'});
+        // Fallback: scroll sheet manually
+        var rect = inp.getBoundingClientRect();
+        if(rect.bottom > avail - 16){
+          sheet.scrollTop += (rect.bottom - avail + 24);
+        }
+      }, 80);
     }
-  },100);
-}
-
-function _kbStop(){
-  _kbOn=false;
-  if(_kbPollTimer){clearInterval(_kbPollTimer);_kbPollTimer=null;}
-  var sheet=document.getElementById('sheet');
-  if(sheet){sheet.style.bottom='';sheet.style.transition='';}
+  }
+  _kbPrevH = avail;
 }
 
 function _kbAttach(){
-  var inp=document.getElementById('shPhone');
-  if(!inp)return;
-  inp.addEventListener('focus',function(){
-    _kbBaseH=window.innerHeight;
-    setTimeout(_kbStart,150);
-  });
-  inp.addEventListener('blur',function(){
-    setTimeout(_kbStop,250);
-  });
+  _kbPrevH = window.innerHeight;
+  window.addEventListener('resize', _kbOnResize);
+  // Immediately scroll sheet so phone field is near top — keyboard pushes up naturally
+  var sheet = document.getElementById('sheet');
+  var inp   = document.getElementById('shPhone');
+  if(sheet && inp){
+    setTimeout(function(){
+      // Scroll sheet to bring phone field just below the plan summary
+      var shRect   = sheet.getBoundingClientRect();
+      var inpRect  = inp.getBoundingClientRect();
+      var offsetTop = inpRect.top - shRect.top - 16;
+      if(offsetTop > 0) sheet.scrollTop = offsetTop;
+      // Then focus to trigger keyboard
+      inp.focus();
+    }, 380);
+  }
 }
+
+function _kbStop(){
+  window.removeEventListener('resize', _kbOnResize);
+  var sheet = document.getElementById('sheet');
+  if(sheet) sheet.style.maxHeight = '';
+}
+
 
 document.querySelectorAll('button').forEach(function(b){
   b.addEventListener('pointerdown',function(e){rip(this,e);},{passive:true});
