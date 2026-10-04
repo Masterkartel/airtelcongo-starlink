@@ -766,21 +766,23 @@ function _shRender(){
     }
   } else {cancelVerify();}
 }
+function _shNpHandler(e){
+  var k=e.target.closest('.sh-nk');
+  if(!k||k.disabled)return;
+  hap(6);rip(k,e);
+  if(k.id==='shNpDel'){if(_shNum.length){_shNum=_shNum.slice(0,-1);cancelVerify();_shRender();}}
+  else if(k.dataset.n!==undefined&&_shNum.length<9){
+    if(_shNum.length===0&&k.dataset.n==='0')return;
+    _shNum+=k.dataset.n;_shRender();
+  }
+}
 function _shNumpadInit(){
   _shNum='';_shRender();
   var pad=document.getElementById('shNumpad');
   if(!pad)return;
-  pad.addEventListener('click',function(e){
-    var k=e.target.closest('.sh-nk');
-    if(!k||k.disabled)return;
-    hap(6);rip(k,e);
-    if(k.id==='shNpDel'){if(_shNum.length){_shNum=_shNum.slice(0,-1);cancelVerify();_shRender();}}
-    else if(k.dataset.n!==undefined&&_shNum.length<9){
-      // Auto-remove leading zero
-      if(_shNum.length===0&&k.dataset.n==='0') return;
-      _shNum+=k.dataset.n;_shRender();
-    }
-  });
+  // Remove before adding — prevents duplicate listeners on re-open
+  pad.removeEventListener('click',_shNpHandler);
+  pad.addEventListener('click',_shNpHandler);
 }
 
 
