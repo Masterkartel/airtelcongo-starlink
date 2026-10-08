@@ -58,8 +58,8 @@ img{display:block;max-width:100%}
 .t-spinner{width:44px;height:44px;border-radius:50%;border:3px solid rgba(228,0,0,.15);border-top-color:var(--red);animation:spin .8s linear infinite}
 
 /* ── NAV ─────────────────────────────────────── */
-.nav{position:fixed;top:0;left:0;right:0;z-index:50;background:linear-gradient(135deg,#C80000 0%,#E40000 60%,#D40000 100%);display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:calc(56px + env(safe-area-inset-top,0px));padding-top:env(safe-area-inset-top,0px);box-shadow:0 2px 12px rgba(180,0,0,.3);-webkit-transform:translateZ(0);transform:translateZ(0)}
-.nav-spacer{height:calc(56px + env(safe-area-inset-top,0px));flex-shrink:0}
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;background:linear-gradient(135deg,#C80000 0%,#E40000 60%,#D40000 100%);display:flex;align-items:center;justify-content:space-between;padding-left:20px;padding-right:20px;padding-top:max(12px,env(safe-area-inset-top,12px));padding-bottom:10px;min-height:56px;box-shadow:0 2px 12px rgba(180,0,0,.3);-webkit-transform:translateZ(0);transform:translateZ(0);will-change:transform}
+.nav-spacer{height:80px;flex-shrink:0}
 .nav-brand{display:flex;align-items:center;gap:10px}
 .nav-sep{width:1.5px;height:22px;background:rgba(255,255,255,.35);align-self:center;border-radius:1px}
 .nav-pill{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:var(--r-full);padding:4px 10px}
@@ -73,10 +73,10 @@ img{display:block;max-width:100%}
 /* ── HERO — same as index ────────────────────── */
 
 /* ── HERO ────────────────────────────────────── */
-.hero{background:#1a0000;position:relative;overflow:hidden;min-height:56vw;max-height:340px}
+.hero{background:#1a0000;position:relative;overflow:hidden;min-height:240px;max-height:320px}
 
 .sat{display:none}
-.hero-bg{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0}
+.hero-bg{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0;object-fit:cover}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,0,0,.25) 0%,rgba(0,0,0,.05) 40%,transparent 70%);z-index:1;pointer-events:none}
 .hero-content{position:absolute;bottom:0;left:0;right:0;z-index:2;padding:16px 22px 22px;background:linear-gradient(to top,rgba(10,0,0,.82) 0%,rgba(10,0,0,.5) 55%,transparent 100%)}
 .hero-chip{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:var(--r-full);padding:5px 14px;margin-bottom:16px}
@@ -217,29 +217,29 @@ img{display:block;max-width:100%}
 .sheet{position:fixed;bottom:0;left:0;right:0;z-index:101;background:var(--surf);border-radius:28px 28px 0 0;transform:translateY(100%);transition:transform .32s cubic-bezier(.2,0,0,1);box-shadow:0 -8px 40px rgba(0,0,0,.16);max-height:92dvh;display:flex;flex-direction:column}
 .sheet.show{transform:translateY(0)}
 .sheet::-webkit-scrollbar{display:none}
-.sh-handle{width:36px;height:4px;border-radius:2px;background:var(--outline-v);margin:12px auto 0}
-.sh-handle{width:36px;height:4px;border-radius:2px;background:var(--outline-v);margin:12px auto 0}
-.sh-head{padding:14px 20px 0;display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
-.sh-name{font-size:32px;font-weight:900;color:var(--on-surf);letter-spacing:-.8px;line-height:1}
+.sh-handle{width:36px;height:4px;background:var(--outline-v);border-radius:2px;margin:10px auto 0;flex-shrink:0}
+.sh-handle{width:36px;height:4px;background:var(--outline-v);border-radius:2px;margin:10px auto 0;flex-shrink:0}
+.sh-head{padding:20px 20px 0;display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.sh-name{font-size:20px;font-weight:700;color:var(--on-surf);letter-spacing:-.4px;line-height:1.2}
 .sh-name.unl{font-size:40px}
-.sh-validity{font-size:13px;color:var(--on-surf-v);margin-top:4px}
-.sh-badge{background:var(--red-lt);color:var(--on-red-cont);border-radius:var(--r-full);padding:4px 12px;font-size:11px;font-weight:700;white-space:nowrap;align-self:flex-start;margin-top:4px}
-.sh-price{margin:14px 20px 0;background:linear-gradient(135deg,var(--red) 0%,var(--red-dk) 100%);border-radius:var(--r-lg);padding:14px 18px;display:flex;align-items:center;justify-content:space-between}
-.sh-price-sub{font-size:9px;color:rgba(255,255,255,.55);font-weight:700;letter-spacing:.6px;text-transform:uppercase;margin-bottom:3px}
-.sh-price-val{font-size:38px;font-weight:900;color:#fff;letter-spacing:-1.5px;line-height:1;font-feature-settings:'tnum'}
-.sh-price-note{font-size:11px;color:rgba(255,255,255,.55);margin-top:4px}
+.sh-validity{font-size:12px;color:var(--on-surf-v);margin-top:3px;font-weight:500}
+.sh-badge{display:inline-flex;align-items:center;background:var(--red-lt);color:var(--red);border-radius:999px;padding:4px 10px;font-size:10px;font-weight:700;flex-shrink:0;white-space:nowrap;margin-top:2px}
+.sh-price{margin:14px 20px 0;background:linear-gradient(135deg,#E40000 0%,#8B0000 100%);border-radius:16px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 4px 16px rgba(228,0,0,.35)}
+.sh-price-sub{font-size:10px;font-weight:700;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px}
+.sh-price-val{font-size:30px;font-weight:800;color:#fff;letter-spacing:-1px;line-height:1;font-feature-settings:'tnum'}
+.sh-price-note{font-size:11px;color:rgba(255,255,255,.65);margin-top:5px;font-weight:500}
 .sh-price-ic{width:50px;height:50px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center}
-.sh-strip{display:flex;margin:12px 20px 0;background:var(--surf-lo);border-radius:var(--r-md);border:1px solid var(--outline-v);overflow:hidden}
-.sh-strip-item{flex:1;display:flex;flex-direction:column;align-items:center;padding:10px 4px;gap:4px;text-align:center}
+.sh-strip{display:flex;margin:12px 20px 0;border-radius:12px;overflow:hidden;border:1px solid var(--outline-v);background:var(--surf-lo)}
+.sh-strip-item{flex:1;padding:12px 8px;display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center}
 .sh-strip-sep{width:1px;background:var(--outline-v);margin:8px 0}
-.sh-strip-lbl{font-size:9px;color:var(--on-surf-v);font-weight:600;letter-spacing:.3px;text-transform:uppercase}
-.sh-strip-val{font-size:11px;font-weight:700;color:var(--on-surf);line-height:1.2}
+.sh-strip-lbl{font-size:9px;font-weight:700;color:var(--on-surf-v);text-transform:uppercase;letter-spacing:.7px;line-height:1}
+.sh-strip-val{font-size:13px;font-weight:700;color:var(--on-surf);line-height:1}
 .sh-dtc{margin:10px 20px 0;background:var(--red-lt);border:1px solid rgba(228,0,0,.15,98,181,.2);border-radius:var(--r-md);padding:11px 14px;display:flex;align-items:flex-start;gap:10px}
 .sh-dtc-ic{width:34px;height:34px;border-radius:var(--r-sm);background:rgba(27,98,181,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
 .sh-dtc-t{font-size:12px;font-weight:700;color:var(--red)}
 .sh-dtc-s{font-size:11px;color:var(--on-surf-v);margin-top:2px;line-height:1.5}
-.sh-phone-wrap{padding:12px 20px 0}
-.sh-phone-lbl{font-size:11px;font-weight:700;color:var(--on-surf-v);letter-spacing:.4px;text-transform:uppercase;margin-bottom:8px;margin-top:16px}
+.sh-phone-wrap{padding:16px 20px 0}
+.sh-phone-lbl{font-size:11px;font-weight:700;color:var(--on-surf-v);letter-spacing:.4px;text-transform:uppercase;margin-bottom:10px;margin-top:0}
 .sh-fw{display:flex;align-items:center;padding:0;height:52px;background:transparent;border-bottom:2px solid var(--outline-v);transition:border-color .2s}
 .sh-fw.focus{border-bottom-color:var(--red)}
 .sh-fw.ok{border-bottom-color:var(--ok)}
@@ -259,11 +259,11 @@ img{display:block;max-width:100%}
 .sh-verify-bar-wrap{width:56px;height:3px;background:rgba(26,127,55,.15);border-radius:2px;overflow:hidden}
 .sh-verify-bar{height:100%;background:var(--ok);border-radius:2px;width:0%}
 .sh-ctas{padding:14px 20px 0;display:flex;flex-direction:column;gap:10px}
-.sh-btn{width:100%;height:54px;border-radius:var(--r-full);font-size:15px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;position:relative;overflow:hidden;transition:transform .1s;border:none}
+.sh-btn{width:100%;height:52px;border-radius:999px;font-size:15px;font-weight:700;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px;position:relative;overflow:hidden;cursor:pointer;transition:transform .1s,opacity .15s;-webkit-tap-highlight-color:transparent;border:none}
 .sh-btn:active{transform:scale(.97)}
-.sh-btn.primary{background:var(--red);color:#fff;box-shadow:0 3px 14px rgba(228,0,0,.3)}
-.sh-btn.primary.dim{background:var(--surf-hi);color:var(--outline);box-shadow:none;cursor:not-allowed}
-.sh-btn.outline{background:transparent;border:1.5px solid var(--outline-v);color:var(--on-surf-v);font-size:14px;font-weight:600;height:46px}
+.sh-btn.primary{background:linear-gradient(135deg,#FF1F1F,#E40000 50%,#B20000);color:#fff;box-shadow:0 4px 20px rgba(228,0,0,.45)}
+.sh-btn.primary.dim{background:var(--surf-hi);color:var(--outline);box-shadow:none;cursor:not-allowed;opacity:.7}
+.sh-btn.outline{background:transparent;border:1.5px solid var(--outline-v)!important;color:var(--on-surf-v);height:44px;font-size:14px;font-weight:600}
 .sh-btn.outline:active{background:var(--surf-mid)}
 
 /* ── PLAN TABS ───────────────────────────────── */
@@ -373,23 +373,23 @@ img{display:block;max-width:100%}
 .sheet-scroll::-webkit-scrollbar{display:none}
 .sheet-foot{flex-shrink:0;background:var(--surf);border-top:1px solid var(--outline-v);padding:16px 20px max(20px,env(safe-area-inset-bottom,0px))}
 /* Summary */
-.sh-head{padding:18px 20px 12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.sh-name{font-size:18px;font-weight:700;color:var(--on-surf);letter-spacing:-.3px;line-height:1.2}
-.sh-validity{font-size:12px;color:var(--on-surf-v);margin-top:4px;font-weight:500}
-.sh-badge{display:inline-flex;align-items:center;background:var(--red-lt);color:var(--red);border-radius:999px;padding:4px 10px;font-size:10px;font-weight:700;flex-shrink:0;white-space:nowrap}
-.sh-price{margin:0 20px;background:linear-gradient(135deg,#E40000 0%,#8B0000 100%);border-radius:16px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 4px 16px rgba(228,0,0,.3)}
-.sh-price-sub{font-size:10px;font-weight:600;color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:.6px;margin-bottom:2px}
-.sh-price-val{font-size:26px;font-weight:800;color:#fff;letter-spacing:-.8px;line-height:1.1;font-feature-settings:'tnum'}
-.sh-price-note{font-size:10px;color:rgba(255,255,255,.6);margin-top:4px;font-weight:500}
+.sh-head{padding:20px 20px 0;display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.sh-name{font-size:20px;font-weight:700;color:var(--on-surf);letter-spacing:-.4px;line-height:1.2}
+.sh-validity{font-size:12px;color:var(--on-surf-v);margin-top:3px;font-weight:500}
+.sh-badge{display:inline-flex;align-items:center;background:var(--red-lt);color:var(--red);border-radius:999px;padding:4px 10px;font-size:10px;font-weight:700;flex-shrink:0;white-space:nowrap;margin-top:2px}
+.sh-price{margin:14px 20px 0;background:linear-gradient(135deg,#E40000 0%,#8B0000 100%);border-radius:16px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 4px 16px rgba(228,0,0,.35)}
+.sh-price-sub{font-size:10px;font-weight:700;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px}
+.sh-price-val{font-size:30px;font-weight:800;color:#fff;letter-spacing:-1px;line-height:1;font-feature-settings:'tnum'}
+.sh-price-note{font-size:11px;color:rgba(255,255,255,.65);margin-top:5px;font-weight:500}
 .sh-price-ic{width:40px;height:40px;background:rgba(255,255,255,.15);border-radius:12px;display:flex;align-items:center;justify-content:center}
 /* Strip — centred pills */
-.sh-strip{display:flex;align-items:stretch;background:var(--surf-lo);margin:12px 20px 0;border-radius:12px;overflow:hidden;border:1px solid var(--outline-v)}
-.sh-strip-item{flex:1;padding:11px 10px;display:flex;flex-direction:column;align-items:center;gap:3px;text-align:center}
+.sh-strip{display:flex;margin:12px 20px 0;border-radius:12px;overflow:hidden;border:1px solid var(--outline-v);background:var(--surf-lo)}
+.sh-strip-item{flex:1;padding:12px 8px;display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center}
 .sh-strip-sep{width:1px;background:var(--outline-v);flex-shrink:0}
-.sh-strip-lbl{font-size:9px;font-weight:700;color:var(--on-surf-v);text-transform:uppercase;letter-spacing:.6px}
+.sh-strip-lbl{font-size:9px;font-weight:700;color:var(--on-surf-v);text-transform:uppercase;letter-spacing:.7px;line-height:1}
 .sh-strip-val{font-size:13px;font-weight:700;color:var(--on-surf);line-height:1}
 /* Phone field */
-.sh-phone-lbl{font-size:11px;font-weight:700;color:var(--on-surf-v);letter-spacing:.3px;margin-bottom:8px}
+.sh-phone-lbl{font-size:11px;font-weight:700;color:var(--on-surf-v);letter-spacing:.4px;text-transform:uppercase;margin-bottom:10px;margin-top:0}
 .sh-fw{display:flex;align-items:center;height:50px;background:transparent;border-bottom:2px solid var(--outline-v);transition:border-color .2s}
 .sh-fw.ok{border-color:var(--ok)}.sh-fw.err{border-color:var(--err)}
 .sh-prefix{display:flex;align-items:center;gap:6px;padding-right:8px;flex-shrink:0}
@@ -418,12 +418,12 @@ img{display:block;max-width:100%}
 .sh-nk.empty{background:transparent;border-color:transparent;box-shadow:none;cursor:default;opacity:0;pointer-events:none}
 .sh-nk.del{font-size:18px;color:var(--on-surf-v);background:transparent;border-color:transparent;box-shadow:none}
 /* CTAs */
-.sh-ctas{padding:10px 0 0}
-.sh-btn{width:100%;height:52px;border-radius:999px;font-size:14px;font-weight:700;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px;position:relative;overflow:hidden;cursor:pointer;transition:transform .1s;-webkit-tap-highlight-color:transparent}
+.sh-ctas{padding:14px 20px 0;display:flex;flex-direction:column;gap:10px}
+.sh-btn{width:100%;height:52px;border-radius:999px;font-size:15px;font-weight:700;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px;position:relative;overflow:hidden;cursor:pointer;transition:transform .1s,opacity .15s;-webkit-tap-highlight-color:transparent;border:none}
 .sh-btn:active{transform:scale(.98)}
-.sh-btn.primary{background:linear-gradient(135deg,#FF2020,#E40000 50%,#B20000);color:#fff;box-shadow:0 4px 16px rgba(228,0,0,.4);border:none}
-.sh-btn.primary.dim{background:var(--surf-hi);color:var(--outline);box-shadow:none;cursor:not-allowed}
-.sh-btn.outline{background:transparent;border:1.5px solid var(--outline-v);color:var(--on-surf-v);height:44px;font-weight:600;margin-top:8px}
+.sh-btn.primary{background:linear-gradient(135deg,#FF1F1F,#E40000 50%,#B20000);color:#fff;box-shadow:0 4px 20px rgba(228,0,0,.45)}
+.sh-btn.primary.dim{background:var(--surf-hi);color:var(--outline);box-shadow:none;cursor:not-allowed;opacity:.7}
+.sh-btn.outline{background:transparent;border:1.5px solid var(--outline-v)!important;color:var(--on-surf-v);height:44px;font-size:14px;font-weight:600}
 </style>
 </head>
 <body>
@@ -535,7 +535,7 @@ img{display:block;max-width:100%}
 
   <!-- HERO -->
   <div class="hero">
-    <svg class="hero-bg" viewBox="0 0 390 280" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+    <svg class="hero-bg" viewBox="0 0 390 280" style="position:absolute;inset:0;width:100%;height:100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
   <defs>
     <linearGradient id="hbg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#7B0000"/>
@@ -643,32 +643,32 @@ img{display:block;max-width:100%}
   <div class="svc-slider"><div class="svc-panels" id="svcPanels">
     <div class="svc-panel"><div class="plan-list">
       <div class="plan-section-hd  first">Quotidien</div>
-      <div class="pli" onclick="openSheet('500 MB','$0.15','Valable 1 Jour',1,this,'')"><div class="pli-left"><div class="pli-ic" style="background:#EEF4FF">&#127760;</div><div class="pli-info"><div class="pli-name">500 MB</div><div class="pli-desc">R&eacute;seaux sociaux &middot; 1 Jour</div></div></div><div class="pli-right"><div class="pli-price">$0.15</div><div class="pli-valid">1 Jour</div><svg class="pli-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div></div>
-      <div class="pli pop" onclick="openSheet('1 GB','$0.25','Valable 1 Jour',1,this,'&#11088; Populaire')"><div class="pli-left"><div class="pli-ic" style="background:#FFDAD6">&#127760;</div><div class="pli-info"><div class="pli-name">1 GB</div><div class="pli-desc">Vid&eacute;os &amp; streaming &middot; 1 Jour</div><div class="pli-badge">&#11088; Populaire</div></div></div><div class="pli-right"><div class="pli-price">$0.25</div><div class="pli-valid">1 Jour</div><svg class="pli-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div></div>
+      <div class="pli" onclick="openSheet('500 MB','$0.18','Valable 1 Jour',1,this,'')"><div class="pli-left"><div class="pli-ic" style="background:#EEF4FF">&#127760;</div><div class="pli-info"><div class="pli-name">500 MB</div><div class="pli-desc">R&eacute;seaux sociaux &middot; 1 Jour</div></div></div><div class="pli-right"><div class="pli-price">$0.18</div><div class="pli-valid">1 Jour</div><svg class="pli-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div></div>
+      <div class="pli pop" onclick="openSheet('1 GB','$0.29','Valable 1 Jour',1,this,'&#11088; Populaire')"><div class="pli-left"><div class="pli-ic" style="background:#FFDAD6">&#127760;</div><div class="pli-info"><div class="pli-name">1 GB</div><div class="pli-desc">Vid&eacute;os &amp; streaming &middot; 1 Jour</div><div class="pli-badge">&#11088; Populaire</div></div></div><div class="pli-right"><div class="pli-price">$0.29</div><div class="pli-valid">1 Jour</div><svg class="pli-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div></div>
       <div class="plan-section-hd">Hebdomadaire</div>
-      <div class="pli pop" onclick="openSheet('7 GB','$0.89','Valable 7 Jours',7,this,'&#9889; Meilleur')"><div class="pli-left"><div class="pli-ic" style="background:#FFDAD6">&#127756;</div><div class="pli-info"><div class="pli-name">7 GB</div><div class="pli-desc">YouTube &amp; Netflix &middot; 7 Jours</div><div class="pli-badge">&#9889; Meilleur</div></div></div><div class="pli-right"><div class="pli-price">$0.89</div><div class="pli-valid">7 Jours</div><svg class="pli-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div></div>
+      <div class="pli pop" onclick="openSheet('7 GB','$5.99','Valable 7 Jours',7,this,'&#9889; Meilleur')"><div class="pli-left"><div class="pli-ic" style="background:#FFDAD6">&#127756;</div><div class="pli-info"><div class="pli-name">7 GB</div><div class="pli-desc">YouTube &amp; Netflix &middot; 7 Jours</div><div class="pli-badge">&#9889; Meilleur</div></div></div><div class="pli-right"><div class="pli-price">$5.99</div><div class="pli-valid">7 Jours</div><svg class="pli-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div></div>
       <div class="plan-section-hd">Mensuel</div>
-      <div class="pli pop" onclick="openSheet('30 GB','$2.99','Valable 30 Jours',30,this,'&#128293; Top Vente')"><div class="pli-left"><div class="pli-ic" style="background:#FFDAD6">&#128225;</div><div class="pli-info"><div class="pli-name">30 GB</div><div class="pli-desc">Travail &amp; divertissement &middot; 30J</div><div class="pli-badge">&#128293; Top Vente</div></div></div><div class="pli-right"><div class="pli-price">$2.99</div><div class="pli-valid">30 Jours</div><svg class="pli-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div></div>
-      <div class="pli" onclick="openSheet('50 GB','$3.99','Valable 30 Jours',30,this,'')"><div class="pli-left"><div class="pli-ic" style="background:#EEF4FF">&#127760;</div><div class="pli-info"><div class="pli-name">50 GB</div><div class="pli-desc">Usage intensif &middot; 30 Jours</div></div></div><div class="pli-right"><div class="pli-price">$3.99</div><div class="pli-valid">30 Jours</div><svg class="pli-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div></div>
+      <div class="pli pop" onclick="openSheet('30 GB','$16.99','Valable 30 Jours',30,this,'&#128293; Top Vente')"><div class="pli-left"><div class="pli-ic" style="background:#FFDAD6">&#128225;</div><div class="pli-info"><div class="pli-name">30 GB</div><div class="pli-desc">Travail &amp; divertissement &middot; 30J</div><div class="pli-badge">&#128293; Top Vente</div></div></div><div class="pli-right"><div class="pli-price">$16.99</div><div class="pli-valid">30 Jours</div><svg class="pli-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div></div>
+      <div class="pli" onclick="openSheet('50 GB','$25.99','Valable 30 Jours',30,this,'')"><div class="pli-left"><div class="pli-ic" style="background:#EEF4FF">&#127760;</div><div class="pli-info"><div class="pli-name">50 GB</div><div class="pli-desc">Usage intensif &middot; 30 Jours</div></div></div><div class="pli-right"><div class="pli-price">$25.99</div><div class="pli-valid">30 Jours</div><svg class="pli-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div></div>
     </div></div>
     <div class="svc-panel"><div class="plan-list">
       <div class="plan-section-hd  first">Appels</div>
-      <div class="pli pop" onclick="openSheet('60 Min','$0.15','Valable 1 Jour',1,this,'&#11088; Populaire')"><div class="pli-left"><div class="pli-ic" style="background:#FFDAD6">&#128222;</div><div class="pli-info"><div class="pli-name">60 Min</div><div class="pli-desc">Tous op&eacute;rateurs &middot; 1 Jour</div><div class="pli-badge">&#11088; Populaire</div></div></div><div class="pli-right"><div class="pli-price">$0.15</div><div class="pli-valid">1 Jour</div><svg class="pli-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div></div>
-      <div class="pli" onclick="openSheet('200 Min','$0.39','Valable 7 Jours',7,this,'')"><div class="pli-left"><div class="pli-ic" style="background:#DCFCE7">&#128222;</div><div class="pli-info"><div class="pli-name">200 Min</div><div class="pli-desc">Tous op&eacute;rateurs &middot; 7 Jours</div></div></div><div class="pli-right"><div class="pli-price">$0.39</div><div class="pli-valid">7 Jours</div><svg class="pli-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div></div>
+      <div class="pli pop" onclick="openSheet('60 Min','$1.99','Valable 1 Jour',1,this,'&#11088; Populaire')"><div class="pli-left"><div class="pli-ic" style="background:#FFDAD6">&#128222;</div><div class="pli-info"><div class="pli-name">60 Min</div><div class="pli-desc">Tous op&eacute;rateurs &middot; 1 Jour</div><div class="pli-badge">&#11088; Populaire</div></div></div><div class="pli-right"><div class="pli-price">$1.99</div><div class="pli-valid">1 Jour</div><svg class="pli-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div></div>
+      <div class="pli" onclick="openSheet('200 Min','$5.49','Valable 7 Jours',7,this,'')"><div class="pli-left"><div class="pli-ic" style="background:#DCFCE7">&#128222;</div><div class="pli-info"><div class="pli-name">200 Min</div><div class="pli-desc">Tous op&eacute;rateurs &middot; 7 Jours</div></div></div><div class="pli-right"><div class="pli-price">$5.49</div><div class="pli-valid">7 Jours</div><svg class="pli-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div></div>
       <div class="plan-section-hd">Illimit&eacute;</div>
-      <div class="pli pop" onclick="openSheet('Voix Illimitée','$1.49','Valable 30 Jours',30,this,'&#128222; Illimité')"><div class="pli-left"><div class="pli-ic" style="background:#FFDAD6">&#9889;</div><div class="pli-info"><div class="pli-name">Voix Illimitée</div><div class="pli-desc">Airtel illimit&eacute; &middot; 30 Jours</div><div class="pli-badge">&#128222; Illimité</div></div></div><div class="pli-right"><div class="pli-price">$1.49</div><div class="pli-valid">30 Jours</div><svg class="pli-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div></div>
+      <div class="pli pop" onclick="openSheet('Voix Illimitée','$12.99','Valable 30 Jours',30,this,'&#128222; Illimité')"><div class="pli-left"><div class="pli-ic" style="background:#FFDAD6">&#9889;</div><div class="pli-info"><div class="pli-name">Voix Illimitée</div><div class="pli-desc">Airtel illimit&eacute; &middot; 30 Jours</div><div class="pli-badge">&#128222; Illimité</div></div></div><div class="pli-right"><div class="pli-price">$12.99</div><div class="pli-valid">30 Jours</div><svg class="pli-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div></div>
     </div></div>
     <div class="svc-panel"><div class="plan-list">
       <div class="plan-section-hd  first">SMS</div>
-      <div class="pli pop" onclick="openSheet('200 SMS','$0.15','Valable 7 Jours',7,this,'&#11088; Populaire')"><div class="pli-left"><div class="pli-ic" style="background:#FFDAD6">&#128172;</div><div class="pli-info"><div class="pli-name">200 SMS</div><div class="pli-desc">Locaux &middot; 7 Jours</div><div class="pli-badge">&#11088; Populaire</div></div></div><div class="pli-right"><div class="pli-price">$0.15</div><div class="pli-valid">7 Jours</div><svg class="pli-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div></div>
-      <div class="pli" onclick="openSheet('SMS Illimités','$0.49','Valable 30 Jours',30,this,'')"><div class="pli-left"><div class="pli-ic" style="background:#EEF4FF">&#9889;</div><div class="pli-info"><div class="pli-name">SMS Illimités</div><div class="pli-desc">Tous réseaux &middot; 30 Jours</div></div></div><div class="pli-right"><div class="pli-price">$0.49</div><div class="pli-valid">30 Jours</div><svg class="pli-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div></div>
+      <div class="pli pop" onclick="openSheet('200 SMS','$0.49','Valable 7 Jours',7,this,'&#11088; Populaire')"><div class="pli-left"><div class="pli-ic" style="background:#FFDAD6">&#128172;</div><div class="pli-info"><div class="pli-name">200 SMS</div><div class="pli-desc">Locaux &middot; 7 Jours</div><div class="pli-badge">&#11088; Populaire</div></div></div><div class="pli-right"><div class="pli-price">$0.49</div><div class="pli-valid">7 Jours</div><svg class="pli-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div></div>
+      <div class="pli" onclick="openSheet('SMS Illimités','$1.99','Valable 30 Jours',30,this,'')"><div class="pli-left"><div class="pli-ic" style="background:#EEF4FF">&#9889;</div><div class="pli-info"><div class="pli-name">SMS Illimités</div><div class="pli-desc">Tous réseaux &middot; 30 Jours</div></div></div><div class="pli-right"><div class="pli-price">$1.99</div><div class="pli-valid">30 Jours</div><svg class="pli-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div></div>
     </div></div>
     <div class="svc-panel"><div class="plan-list">
       <div class="plan-section-hd  first">Bundles</div>
-      <div class="pli" onclick="openSheet('Starter','$0.49','Valable 7 Jours',7,this,'')"><div class="pli-left"><div class="pli-ic" style="background:#EEF4FF">&#127381;</div><div class="pli-info"><div class="pli-name">Starter</div><div class="pli-desc">1GB + 50Min + 100SMS &middot; 7J</div></div></div><div class="pli-right"><div class="pli-price">$0.49</div><div class="pli-valid">7 Jours</div><svg class="pli-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div></div>
-      <div class="pli pop" onclick="openSheet('Smart','$1.29','Valable 7 Jours',7,this,'&#11088; Populaire')"><div class="pli-left"><div class="pli-ic" style="background:#FFDAD6">&#127381;</div><div class="pli-info"><div class="pli-name">Smart</div><div class="pli-desc">2GB + 100Min + 200SMS &middot; 7J</div><div class="pli-badge">&#11088; Populaire</div></div></div><div class="pli-right"><div class="pli-price">$1.29</div><div class="pli-valid">7 Jours</div><svg class="pli-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div></div>
-      <div class="pli pop" onclick="openSheet('Pro','$1.99','Valable 30 Jours',30,this,'&#128293; Pro')"><div class="pli-left"><div class="pli-ic" style="background:#FFDAD6">&#127381;</div><div class="pli-info"><div class="pli-name">Pro</div><div class="pli-desc">5GB + 200Min + 500SMS &middot; 30J</div><div class="pli-badge">&#128293; Pro</div></div></div><div class="pli-right"><div class="pli-price">$1.99</div><div class="pli-valid">30 Jours</div><svg class="pli-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div></div>
-      <div class="pli" onclick="openSheet('Max','$4.99','Valable 30 Jours',30,this,'')"><div class="pli-left"><div class="pli-ic" style="background:#EEF4FF">&#127381;</div><div class="pli-info"><div class="pli-name">Max</div><div class="pli-desc">20GB + Voix illim + SMS &middot; 30J</div></div></div><div class="pli-right"><div class="pli-price">$4.99</div><div class="pli-valid">30 Jours</div><svg class="pli-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div></div>
+      <div class="pli" onclick="openSheet('Starter','$1.99','Valable 7 Jours',7,this,'')"><div class="pli-left"><div class="pli-ic" style="background:#EEF4FF">&#127381;</div><div class="pli-info"><div class="pli-name">Starter</div><div class="pli-desc">1GB + 50Min + 100SMS &middot; 7J</div></div></div><div class="pli-right"><div class="pli-price">$1.99</div><div class="pli-valid">7 Jours</div><svg class="pli-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div></div>
+      <div class="pli pop" onclick="openSheet('Smart','$5.49','Valable 7 Jours',7,this,'&#11088; Populaire')"><div class="pli-left"><div class="pli-ic" style="background:#FFDAD6">&#127381;</div><div class="pli-info"><div class="pli-name">Smart</div><div class="pli-desc">2GB + 100Min + 200SMS &middot; 7J</div><div class="pli-badge">&#11088; Populaire</div></div></div><div class="pli-right"><div class="pli-price">$5.49</div><div class="pli-valid">7 Jours</div><svg class="pli-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div></div>
+      <div class="pli pop" onclick="openSheet('Pro','$12.99','Valable 30 Jours',30,this,'&#128293; Pro')"><div class="pli-left"><div class="pli-ic" style="background:#FFDAD6">&#127381;</div><div class="pli-info"><div class="pli-name">Pro</div><div class="pli-desc">5GB + 200Min + 500SMS &middot; 30J</div><div class="pli-badge">&#128293; Pro</div></div></div><div class="pli-right"><div class="pli-price">$12.99</div><div class="pli-valid">30 Jours</div><svg class="pli-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div></div>
+      <div class="pli" onclick="openSheet('Max','$24.99','Valable 30 Jours',30,this,'')"><div class="pli-left"><div class="pli-ic" style="background:#EEF4FF">&#127381;</div><div class="pli-info"><div class="pli-name">Max</div><div class="pli-desc">20GB + Voix illim + SMS &middot; 30J</div></div></div><div class="pli-right"><div class="pli-price">$24.99</div><div class="pli-valid">30 Jours</div><svg class="pli-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div></div>
     </div></div>
   </div></div>
   </div>
