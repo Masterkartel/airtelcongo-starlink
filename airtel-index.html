@@ -642,6 +642,38 @@ img,svg{display:block;max-width:100%}
 .sh-btn.outline:active{background:var(--surf-mid)}
 
 .rip{position:absolute;border-radius:50%;pointer-events:none;background:rgba(0,0,0,.07);transform:scale(0);animation:rip-anim .5s ease forwards}
+
+/* ── TEXT SIZE LOCK ── */
+html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
+
+/* ── SHEET fix: ctas always visible ── */
+.sheet{
+  display:flex!important;flex-direction:column!important;
+  max-height:92dvh!important;overflow:hidden!important;
+}
+.sheet-scroll{
+  flex:1!important;min-height:0!important;
+  overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;
+  /* Stop scroll BEFORE sh-ctas */
+  padding-bottom:0!important;
+}
+/* Pull sh-ctas out of scroll flow with sticky */
+.sh-ctas{
+  position:sticky!important;bottom:0!important;
+  flex-shrink:0!important;
+  background:var(--surf,#fff)!important;
+  padding:12px 20px max(16px,env(safe-area-inset-bottom,12px))!important;
+  border-top:1px solid var(--line,#e8e8ec)!important;
+  z-index:10!important;
+}
+.sh-btn{height:52px!important;font-size:15px!important;flex-shrink:0!important}
+/* Numpad keys */
+.sh-nk{height:54px!important;font-size:21px!important}
+@media(max-height:680px){.sh-nk{height:48px!important;font-size:19px!important}}
+@media(max-height:600px){.sh-nk{height:44px!important;font-size:17px!important}}
+@media(max-width:360px){.sh-nk{height:48px!important}}
+/* Phone input */
+.sh-fw{flex-shrink:0!important}
 </style>
 </head>
 <body>
