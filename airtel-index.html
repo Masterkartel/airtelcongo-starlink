@@ -617,8 +617,13 @@ img,svg{display:block;max-width:100%}
 .sh-nk.empty{background:transparent;border-color:transparent;box-shadow:none;cursor:default;opacity:0;pointer-events:none}
 
 .sh-ctas{
-  padding:var(--g-3) var(--g-4) var(--g-5);
+  padding:var(--g-3) var(--g-4) max(var(--g-5),env(safe-area-inset-bottom,var(--g-5)));
   display:flex;flex-direction:column;gap:var(--g-2);
+  flex-shrink:0;
+  position:sticky;bottom:0;
+  background:var(--surf);
+  border-top:1px solid var(--line);
+  z-index:5;
 }
 .sh-btn{
   width:100%;height:52px;border-radius:var(--r-full);
@@ -643,37 +648,33 @@ img,svg{display:block;max-width:100%}
 
 .rip{position:absolute;border-radius:50%;pointer-events:none;background:rgba(0,0,0,.07);transform:scale(0);animation:rip-anim .5s ease forwards}
 
-/* ── TEXT SIZE LOCK ── */
+/* ─── RESPONSIVE FIT ─────────────────────────────────────── */
 html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
 
-/* ── SHEET fix: ctas always visible ── */
-.sheet{
-  display:flex!important;flex-direction:column!important;
-  max-height:92dvh!important;overflow:hidden!important;
-}
-.sheet-scroll{
+/* Sheet: confirm always at bottom */
+.sheet{display:flex!important;flex-direction:column!important;overflow:hidden!important}
+.sheet-scroll{padding-bottom:0!important}
+
+/* Numpad keys in sheet */
+.sh-nk{height:54px!important;font-size:21px!important;flex-shrink:0!important}
+@media(max-height:700px){.sh-nk{height:50px!important;font-size:20px!important}}
+@media(max-height:620px){.sh-nk{height:46px!important;font-size:18px!important}}
+@media(max-height:560px){.sh-nk{height:42px!important;font-size:17px!important}}
+@media(max-width:360px){.sh-nk{height:50px!important}}
+
+/* sh-btn never shrink */
+.sh-btn{flex-shrink:0!important;height:52px!important;font-size:15px!important}
+@media(max-height:620px){.sh-btn{height:48px!important}}
+
+/* Plan list rows: consistent height */
+.pli{min-height:64px!important}
+
+/* Safe scrollable main content */
+.scroll{
   flex:1!important;min-height:0!important;
   overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;
-  /* Stop scroll BEFORE sh-ctas */
-  padding-bottom:0!important;
+  overscroll-behavior-y:contain!important;
 }
-/* Pull sh-ctas out of scroll flow with sticky */
-.sh-ctas{
-  position:sticky!important;bottom:0!important;
-  flex-shrink:0!important;
-  background:var(--surf,#fff)!important;
-  padding:12px 20px max(16px,env(safe-area-inset-bottom,12px))!important;
-  border-top:1px solid var(--line,#e8e8ec)!important;
-  z-index:10!important;
-}
-.sh-btn{height:52px!important;font-size:15px!important;flex-shrink:0!important}
-/* Numpad keys */
-.sh-nk{height:54px!important;font-size:21px!important}
-@media(max-height:680px){.sh-nk{height:48px!important;font-size:19px!important}}
-@media(max-height:600px){.sh-nk{height:44px!important;font-size:17px!important}}
-@media(max-width:360px){.sh-nk{height:48px!important}}
-/* Phone input */
-.sh-fw{flex-shrink:0!important}
 </style>
 </head>
 <body>
