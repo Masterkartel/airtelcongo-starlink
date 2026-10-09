@@ -611,7 +611,7 @@ img,svg{display:block;max-width:100%}
   box-shadow:0 1px 3px rgba(15,15,18,.06);
   transition:background .1s,box-shadow .1s,transform .1s;
 }
-.sh-nk:active{background:var(--surf-mid);box-shadow:none;transform:scale(.98)}
+.sh-nk:active{background:var(--surf-mid);box-shadow:none}
 .sh-nk.del{font-size:18px;color:var(--ink-2);background:transparent;border-color:transparent;box-shadow:none}
 .sh-nk.empty{background:transparent;border-color:transparent;box-shadow:none;cursor:default;opacity:0;pointer-events:none}
 
@@ -676,6 +676,7 @@ html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
 
 /* Numpad keys */
 .sh-nk{height:54px!important;font-size:21px!important;flex-shrink:0!important}
+.sh-nk:active,.sh-nk:focus{transform:none!important}
 @media(max-height:720px){.sh-nk{height:50px!important;font-size:20px!important}.sh-btn{height:50px!important}}
 @media(max-height:640px){.sh-nk{height:46px!important;font-size:18px!important}.sh-btn{height:46px!important}}
 @media(max-height:560px){.sh-nk{height:42px!important;font-size:17px!important}}
@@ -687,6 +688,165 @@ html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
 /* Plan list rows */
 .pli{min-height:64px!important}
 .scroll{flex:1!important;min-height:0!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;overscroll-behavior-y:contain!important}
+
+/* ── SH-SUMMARY: login-style compact red bar ── */
+.sh-summary{
+  flex-shrink:0;
+  background:linear-gradient(135deg,var(--red) 0%,var(--red-dk) 100%);
+  padding:0 var(--g-4) var(--g-4);
+  border-radius:var(--r-xl) var(--r-xl) 0 0;
+}
+.sh-summary-handle{
+  width:40px;height:4px;border-radius:2px;
+  background:rgba(255,255,255,.3);
+  margin:var(--g-3) auto var(--g-3);
+}
+.sh-summary-head{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:var(--g-3);margin-bottom:var(--g-2);padding-inline:2px;
+}
+.sh-summary-label{
+  font-size:10px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:rgba(255,255,255,.6);line-height:1;
+}
+.sh-summary-close{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:28px;height:28px;border-radius:50%;
+  background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2);
+  color:#fff;cursor:pointer;flex-shrink:0;
+  transition:background .15s;
+}
+.sh-summary-close:active{background:rgba(255,255,255,.25)}
+.sh-summary-product{
+  display:grid;grid-template-columns:1fr auto;
+  align-items:center;gap:var(--g-3);
+  padding:10px 12px;
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:var(--r-md);
+  margin-bottom:var(--g-3);
+}
+.sh-summary-info{min-width:0;display:flex;flex-direction:column;gap:3px}
+.sh-summary-name{
+  font-family:var(--font-display);
+  font-size:13px;font-weight:700;color:#fff;
+  letter-spacing:-.01em;line-height:1.2;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.sh-summary-meta{
+  font-size:9.5px;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;color:rgba(255,255,255,.7);line-height:1;
+}
+.sh-summary-price-wrap{
+  display:flex;flex-direction:column;align-items:flex-end;
+  gap:3px;flex-shrink:0;line-height:1;padding-right:2px;
+}
+.sh-summary-price{
+  font-family:var(--font-display);
+  font-size:15px;font-weight:700;color:#fff;letter-spacing:-.01em;
+}
+.sh-summary-price-lbl{
+  font-size:9px;color:rgba(255,255,255,.55);
+  text-transform:uppercase;letter-spacing:.06em;
+}
+.sh-summary-bottom{
+  display:flex;align-items:center;gap:var(--g-2);flex-wrap:wrap;row-gap:4px;
+}
+.sh-summary-item{display:inline-flex;align-items:center;gap:5px;min-width:0;line-height:1}
+.sh-summary-lbl{
+  font-size:9.5px;font-weight:600;color:rgba(255,255,255,.55);
+  text-transform:uppercase;letter-spacing:.04em;white-space:nowrap;
+}
+.sh-summary-val{
+  font-family:var(--font-mono);
+  font-size:11px;font-weight:600;color:#fff;
+  white-space:nowrap;letter-spacing:.01em;
+}
+.sh-summary-dot{
+  width:3px;height:3px;border-radius:50%;
+  background:rgba(255,255,255,.3);flex-shrink:0;
+}
+
+/* ── SH-SUMMARY: login-style compact red bar ── */
+.sh-summary{
+  flex-shrink:0;
+  background:linear-gradient(135deg,var(--red) 0%,var(--red-dk) 100%);
+  padding:0 var(--g-4) var(--g-4);
+  border-radius:var(--r-xl) var(--r-xl) 0 0;
+}
+.sh-summary-handle{
+  width:40px;height:4px;border-radius:2px;
+  background:rgba(255,255,255,.3);
+  margin:var(--g-3) auto var(--g-3);
+}
+.sh-summary-head{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:var(--g-3);margin-bottom:var(--g-2);padding-inline:2px;
+}
+.sh-summary-label{
+  font-size:10px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:rgba(255,255,255,.6);line-height:1;
+}
+.sh-summary-close{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:28px;height:28px;border-radius:50%;
+  background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2);
+  color:#fff;cursor:pointer;flex-shrink:0;transition:background .15s;
+}
+.sh-summary-close:active{background:rgba(255,255,255,.25)}
+.sh-summary-product{
+  display:grid;grid-template-columns:1fr auto;
+  align-items:center;gap:var(--g-3);
+  padding:10px 12px;
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:var(--r-md);
+  margin-bottom:var(--g-3);
+}
+.sh-summary-info{min-width:0;display:flex;flex-direction:column;gap:3px}
+.sh-summary-name{
+  font-family:var(--font-display);
+  font-size:13px;font-weight:700;color:#fff;
+  letter-spacing:-.01em;line-height:1.2;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.sh-summary-meta{
+  font-size:9.5px;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;color:rgba(255,255,255,.7);line-height:1;
+}
+.sh-summary-price-wrap{
+  display:flex;flex-direction:column;align-items:flex-end;
+  gap:3px;flex-shrink:0;line-height:1;padding-right:2px;
+}
+.sh-summary-price{
+  font-family:var(--font-display);
+  font-size:15px;font-weight:700;color:#fff;letter-spacing:-.01em;
+}
+.sh-summary-price-lbl{
+  font-size:9px;color:rgba(255,255,255,.55);
+  text-transform:uppercase;letter-spacing:.06em;
+}
+.sh-summary-bottom{
+  display:flex;align-items:center;gap:var(--g-2);flex-wrap:wrap;row-gap:4px;
+}
+.sh-summary-item{display:inline-flex;align-items:center;gap:5px;min-width:0;line-height:1}
+.sh-summary-lbl{
+  font-size:9.5px;font-weight:600;color:rgba(255,255,255,.55);
+  text-transform:uppercase;letter-spacing:.04em;white-space:nowrap;
+}
+.sh-summary-val{
+  font-family:var(--font-mono);
+  font-size:11px;font-weight:600;color:#fff;
+  white-space:nowrap;letter-spacing:.01em;
+}
+.sh-summary-badge-val:empty{display:none}
+.sh-summary-badge-val:not(:empty)::before{content:'· '}
+.sh-summary-dot{
+  width:3px;height:3px;border-radius:50%;
+  background:rgba(255,255,255,.3);flex-shrink:0;
+}
+/* hide old sheet head/price/strip CSS so they don't conflict */
+.sh-head,.sh-price,.sh-strip{display:none!important}
 </style>
 </head>
 <body>
@@ -697,40 +857,44 @@ html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
 <!-- SHEET -->
 <div class="sheet-overlay" id="sheetOverlay" onclick="closeSheet()"></div>
 <div class="sheet" id="sheet">
-  <div class="sheet-scroll">
-    <div class="sheet-handle"></div>
-
-    <div class="sh-head">
-      <div class="sh-head-info">
-        <div class="sh-name" id="shName">15 GB</div>
-        <div class="sh-validity" id="shValidity">Valable 15 Jours</div>
-      </div>
-      <div class="sh-badge" id="shBadge" style="display:none"></div>
+  <div class="sh-summary">
+    <div class="sh-summary-handle"></div>
+    <div class="sh-summary-head">
+      <span class="sh-summary-label">Votre forfait</span>
+      <button class="sh-summary-close" onclick="closeSheet()" type="button" aria-label="Fermer">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
     </div>
-
-    <div class="sh-price">
-      <div class="sh-price-info">
-        <div class="sh-price-sub">Montant total</div>
-        <div class="sh-price-val" id="shPrice">$1.49</div>
-        <div class="sh-price-note">Paiement unique · Airtel Money</div>
+    <div class="sh-summary-product">
+      <div class="sh-summary-info">
+        <span class="sh-summary-name" id="shName">15 GB</span>
+        <span class="sh-summary-meta" id="shValidity">Valable 15 Jours</span>
       </div>
-    </div>
-
-    <div class="sh-strip">
-      <div class="sh-strip-item">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-        <div class="sh-strip-lbl">Validité</div>
-        <div class="sh-strip-val" id="shDays">15 Jours</div>
-      </div>
-      <div class="sh-strip-sep"></div>
-      <div class="sh-strip-item">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2.4" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        <div class="sh-strip-lbl">Paiement</div>
-        <div class="sh-strip-val">Sécurisé</div>
+      <div class="sh-summary-price-wrap">
+        <strong class="sh-summary-price" id="shPrice">$1.49</strong>
+        <span class="sh-summary-price-lbl">Total</span>
       </div>
     </div>
-
+    <div class="sh-summary-bottom">
+      <span class="sh-summary-item">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        <span class="sh-summary-lbl">Validité</span>
+        <span class="sh-summary-val" id="shDays">15 Jours</span>
+      </span>
+      <span class="sh-summary-dot"></span>
+      <span class="sh-summary-item">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span class="sh-summary-lbl">Paiement</span>
+        <span class="sh-summary-val">Airtel Money</span>
+      </span>
+      <span class="sh-summary-dot"></span>
+      <span class="sh-summary-item">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-4 0v2"/></svg>
+        <span class="sh-summary-val sh-summary-badge-val" id="shBadge"></span>
+      </span>
+    </div>
   </div>
+  <div class="sheet-scroll">
 
   <div class="sheet-foot">
     <div class="sh-foot-scroll">
@@ -776,6 +940,7 @@ html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
       <button class="sh-btn outline" onclick="closeSheet()">Annuler</button>
     </div>
   </div>
+</div>
 </div>
 
 <!-- NAV -->
