@@ -475,8 +475,7 @@ img,svg{display:block;max-width:100%}
   margin:var(--g-4) var(--g-5) 0;
   background:linear-gradient(135deg,#E40000 0%,#8B0000 100%);
   border-radius:var(--r-md);padding:var(--g-4);
-  display:grid;grid-template-columns:1fr auto;
-  gap:var(--g-3);align-items:center;
+  display:block;
   box-shadow:0 4px 16px rgba(228,0,0,.28);
 }
 .sh-price-info{display:flex;flex-direction:column;gap:4px;min-width:0}
@@ -617,13 +616,8 @@ img,svg{display:block;max-width:100%}
 .sh-nk.empty{background:transparent;border-color:transparent;box-shadow:none;cursor:default;opacity:0;pointer-events:none}
 
 .sh-ctas{
-  padding:var(--g-3) var(--g-4) max(var(--g-5),env(safe-area-inset-bottom,var(--g-5)));
+  padding:var(--g-3) var(--g-4) var(--g-5);
   display:flex;flex-direction:column;gap:var(--g-2);
-  flex-shrink:0;
-  position:sticky;bottom:0;
-  background:var(--surf);
-  border-top:1px solid var(--line);
-  z-index:5;
 }
 .sh-btn{
   width:100%;height:52px;border-radius:var(--r-full);
@@ -648,33 +642,51 @@ img,svg{display:block;max-width:100%}
 
 .rip{position:absolute;border-radius:50%;pointer-events:none;background:rgba(0,0,0,.07);transform:scale(0);animation:rip-anim .5s ease forwards}
 
-/* ─── RESPONSIVE FIT ─────────────────────────────────────── */
+/* ── IMMUNE TO FONT SIZE / DISPLAY ZOOM ── */
 html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
 
-/* Sheet: confirm always at bottom */
-.sheet{display:flex!important;flex-direction:column!important;overflow:hidden!important}
-.sheet-scroll{padding-bottom:0!important}
+/* ── SHEET: top info scrolls, footer never scrolls ── */
+.sheet{display:flex!important;flex-direction:column!important;overflow:hidden!important;max-height:92dvh!important}
+.sheet-scroll{flex:1!important;min-height:0!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;overscroll-behavior:contain!important}
 
-/* Numpad keys in sheet */
-.sh-nk{height:54px!important;font-size:21px!important;flex-shrink:0!important}
-@media(max-height:700px){.sh-nk{height:50px!important;font-size:20px!important}}
-@media(max-height:620px){.sh-nk{height:46px!important;font-size:18px!important}}
-@media(max-height:560px){.sh-nk{height:42px!important;font-size:17px!important}}
-@media(max-width:360px){.sh-nk{height:50px!important}}
-
-/* sh-btn never shrink */
-.sh-btn{flex-shrink:0!important;height:52px!important;font-size:15px!important}
-@media(max-height:620px){.sh-btn{height:48px!important}}
-
-/* Plan list rows: consistent height */
-.pli{min-height:64px!important}
-
-/* Safe scrollable main content */
-.scroll{
-  flex:1!important;min-height:0!important;
-  overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;
-  overscroll-behavior-y:contain!important;
+/* Sheet footer: fixed height container */
+.sheet-foot{
+  flex-shrink:0!important;
+  display:flex!important;flex-direction:column!important;
+  overflow:hidden!important;
+  background:var(--surf)!important;
+  border-top:1px solid var(--line)!important;
 }
+/* Scrollable phone+numpad area inside footer */
+.sh-foot-scroll{
+  flex:1;min-height:0;
+  overflow-y:auto;overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;overscroll-behavior:contain;
+  padding:var(--g-4) var(--g-5) 0;
+}
+/* Confirm + cancel: NEVER scroll away */
+.sh-ctas{
+  flex-shrink:0!important;
+  padding:var(--g-3) var(--g-4) max(var(--g-5),env(safe-area-inset-bottom,var(--g-5)))!important;
+  background:var(--surf)!important;
+  border-top:1px solid var(--line)!important;
+  display:flex!important;flex-direction:column!important;gap:var(--g-2)!important;
+}
+.sh-btn{height:52px!important;font-size:15px!important;flex-shrink:0!important}
+
+/* Numpad keys */
+.sh-nk{height:54px!important;font-size:21px!important;flex-shrink:0!important}
+@media(max-height:720px){.sh-nk{height:50px!important;font-size:20px!important}.sh-btn{height:50px!important}}
+@media(max-height:640px){.sh-nk{height:46px!important;font-size:18px!important}.sh-btn{height:46px!important}}
+@media(max-height:560px){.sh-nk{height:42px!important;font-size:17px!important}}
+@media(max-width:360px){.sh-nk{height:50px!important}.sh-btn{font-size:14px!important}}
+
+/* sh-price-ic hidden */
+.sh-price-ic{display:none!important}
+
+/* Plan list rows */
+.pli{min-height:64px!important}
+.scroll{flex:1!important;min-height:0!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;overscroll-behavior-y:contain!important}
 </style>
 </head>
 <body>
@@ -702,9 +714,6 @@ html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
         <div class="sh-price-val" id="shPrice">$1.49</div>
         <div class="sh-price-note">Paiement unique · Airtel Money</div>
       </div>
-      <div class="sh-price-ic">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.82)" stroke-width="2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-      </div>
     </div>
 
     <div class="sh-strip">
@@ -721,15 +730,10 @@ html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
       </div>
     </div>
 
-    <div class="sh-sat-note">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 2v6"/><circle cx="12" cy="12" r="4"/><path d="M4.93 4.93l4.24 4.24M19.07 4.93l-4.24 4.24M4.93 19.07l4.24-4.24M19.07 19.07l-4.24-4.24"/>
-      </svg>
-      <span>Connexion satellite — fonctionne partout en RDC, même hors couverture mobile.</span>
-    </div>
   </div>
 
   <div class="sheet-foot">
+    <div class="sh-foot-scroll">
     <div class="sh-phone-lbl">Numéro Airtel enregistré</div>
     <div class="sh-fw" id="sh-fw-phone">
       <div class="sh-prefix">
@@ -766,6 +770,7 @@ html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
       <button class="sh-nk del" id="shNpDel"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/><line x1="18" y1="9" x2="12" y2="15"/><line x1="12" y1="9" x2="18" y2="15"/></svg></button>
     </div>
 
+    </div><!-- /sh-foot-scroll -->
     <div class="sh-ctas">
       <button class="sh-btn primary dim" id="shConfirmBtn" onclick="proceedToLogin()" disabled>Confirmer</button>
       <button class="sh-btn outline" onclick="closeSheet()">Annuler</button>
