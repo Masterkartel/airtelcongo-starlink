@@ -202,19 +202,13 @@ img,svg{display:block;max-width:100%}
 /* ═════ PRODUCT ROW ═════ */
 .prod{
   display:grid;
-  grid-template-columns:80px 1fr;
+  grid-template-columns:1fr;
   gap:var(--g-4);
   padding:var(--g-4);
   align-items:center;
 }
-.prod-img{
-  width:80px;height:80px;flex-shrink:0;
-  border-radius:var(--r-md);
-  background:var(--surf-lo);
-  overflow:hidden;
-  display:grid;place-items:center;
-}
-.prod-img img{width:100%;height:100%;object-fit:cover}
+.prod-img{display:none!important}
+.prod-img img{display:none!important}
 .prod-info{min-width:0;display:flex;flex-direction:column;gap:6px}
 .prod-tag{
   display:inline-flex;align-self:flex-start;
@@ -386,7 +380,7 @@ img,svg{display:block;max-width:100%}
 .term-line.warn em{color:#E3B341}
 
 /* ═════ ACTIONS ═════ */
-.actions{display:flex;flex-direction:column;gap:var(--g-3);margin-top:var(--g-1);flex-shrink:0;padding-bottom:max(var(--g-5),env(safe-area-inset-bottom,var(--g-5)))}
+.actions{display:flex;flex-direction:column;gap:var(--g-3);margin-top:var(--g-1)}
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:8px;
   height:52px;padding-inline:var(--g-6);
@@ -421,18 +415,12 @@ img,svg{display:block;max-width:100%}
 
 .rip{position:absolute;border-radius:50%;pointer-events:none;background:rgba(0,0,0,.07);transform:scale(0);animation:rip-anim .5s ease forwards}
 
-/* ─── RESPONSIVE FIT ─────────────────────────────────────── */
 html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
-
-/* Ensure page scrolls, actions always reachable */
-.scroll{
-  flex:1!important;min-height:0!important;
-  overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;
-  overscroll-behavior-y:contain!important;
-}
+.prod-img{display:none!important}
 .btn{height:52px!important;font-size:15px!important;flex-shrink:0!important}
+.actions{flex-shrink:0!important;padding-bottom:max(16px,env(safe-area-inset-bottom,16px))!important}
+.scroll{flex:1!important;min-height:0!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important}
 @media(max-height:620px){.btn{height:48px!important}}
-@media(max-width:360px){.btn{font-size:14px!important}}
 </style>
 </head>
 <body>
@@ -487,9 +475,7 @@ html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
     <!-- ORDER SUMMARY -->
     <section class="card">
       <div class="prod">
-        <div class="prod-img">
-          <img id="pImg" src="" alt="">
-        </div>
+        
         <div class="prod-info">
           <span class="prod-tag">Votre forfait</span>
           <div class="prod-name" id="pName">—</div>
