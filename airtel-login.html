@@ -251,10 +251,11 @@ img,svg{display:block;max-width:100%}
 .proc-loader{position:relative;width:120px;height:120px;display:grid;place-items:center;flex-shrink:0}
 .proc-ring{
   position:absolute;inset:0;border-radius:50%;
-  border:3px solid var(--red-lt);border-top-color:var(--red);border-right-color:var(--red);
-  animation:spin 1s linear infinite;
+  border:3px solid var(--red-lt);
+  border-top-color:var(--red);border-right-color:var(--red);
+  animation:spin 1.2s cubic-bezier(.4,0,.2,1) infinite;
 }
-.proc-logo{height:28px;width:auto;position:relative;z-index:1}
+.proc-logo{height:28px;width:auto;position:relative;z-index:1;animation:logoPulse 1.6s ease-in-out infinite}
 .proc-title{font-family:var(--font-display);font-size:19px;font-weight:700;letter-spacing:-.024em;text-align:center;line-height:1.25;color:var(--ink)}
 .proc-sub{font-size:13px;line-height:1.6;color:var(--ink-2);text-align:center;max-width:280px}
 .proc-bar{width:100%;max-width:280px;height:4px;background:var(--red-lt);border-radius:999px;overflow:hidden}
@@ -333,7 +334,7 @@ img,svg{display:block;max-width:100%}
 /* TRANSITION */
 .t-overlay{position:fixed;inset:0;z-index:9000;opacity:0;pointer-events:none;transition:opacity .2s ease;display:grid;place-items:center;background:rgba(255,255,255,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
 .t-overlay.show{opacity:1;pointer-events:all}
-.t-spinner{width:44px;height:44px;border-radius:50%;border:3px solid var(--red-lt);border-top-color:var(--red);animation:spin .8s linear infinite}
+.t-spinner{width:56px;height:56px;border-radius:50%;border:3px solid var(--red-lt);border-top-color:var(--red);border-right-color:var(--red);animation:spin 1.2s cubic-bezier(.4,0,.2,1) infinite;display:grid;place-items:center;position:relative}
 .t-bar{position:fixed;top:0;left:0;right:0;height:3px;z-index:9001;overflow:hidden;pointer-events:none}
 .t-bar-fill{height:100%;width:0;background:var(--red);border-radius:0 2px 2px 0;box-shadow:0 0 10px rgba(228,0,0,.6);transition:width .4s var(--ease)}
 
@@ -352,7 +353,19 @@ html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
 </head>
 <body>
 
-<div class="t-overlay" id="tOverlay"><div class="t-spinner" style="position:relative;display:grid;place-items:center"><svg viewBox="0 0 124 47.597" xmlns="http://www.w3.org/2000/svg" aria-label="Airtel" class="t-spinner-logo" style="height:22px;width:auto;display:block;color:var(--red,#E40000);position:absolute;z-index:1"><g transform="translate(-57.9 -110.7)">
+<div
+/* ── Logo pulse animation ── */
+@keyframes logoPulse{
+  0%,100%{opacity:1;transform:scale(1)}
+  50%{opacity:.55;transform:scale(.88)}
+}
+/* ── Pulsing ring around proc-loader ── */
+@keyframes ringPulse{
+  0%,100%{opacity:.25;transform:scale(1)}
+  50%{opacity:.08;transform:scale(1.08)}
+}
+
+ class="t-overlay" id="tOverlay"><div class="t-spinner" style="position:relative;display:grid;place-items:center"><svg viewBox="0 0 124 47.597" xmlns="http://www.w3.org/2000/svg" aria-label="Airtel" class="t-spinner-logo" style="height:20px;width:auto;display:block;color:var(--red,#E40000);animation:logoPulse 1.6s ease-in-out infinite"><g transform="translate(-57.9 -110.7)">
     <g transform="translate(58.856 110.7)">
       <g>
         <g transform="translate(36.705)">
