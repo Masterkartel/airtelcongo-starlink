@@ -104,26 +104,43 @@ img,svg{display:block;max-width:100%}
 /* HERO */
 .hero{
   position:relative;margin:12px 12px 0;padding:22px 20px 20px;
-  background:
-    radial-gradient(100% 90% at 100% 0%, rgba(228,0,0,.38) 0%, transparent 55%),
-    radial-gradient(70% 70% at 0% 100%, rgba(228,0,0,.16) 0%, transparent 60%),
-    linear-gradient(135deg,#0A0A0E 0%,#1A1A24 60%,#201218 100%);
+  background:#0A0A0E;
   border-radius:24px;overflow:hidden;
   box-shadow:0 10px 30px rgba(10,10,14,.24);
+  min-height:200px;
+  display:flex;align-items:center;
 }
-.hero-orbit{position:absolute;top:-30px;right:-40px;width:170px;height:170px;opacity:.55;pointer-events:none}
-.hero-content{position:relative;z-index:2;display:flex;flex-direction:column;gap:12px;max-width:290px}
+.hero-photo{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  object-position:center 42%;
+  z-index:0;
+  filter:saturate(1.1) contrast(1.02) brightness(.85);
+  pointer-events:none;
+}
+.hero-veil{
+  position:absolute;inset:0;z-index:1;
+  background:
+    linear-gradient(135deg, rgba(10,10,14,.82) 0%, rgba(10,10,14,.6) 45%, rgba(32,18,24,.72) 100%),
+    radial-gradient(100% 90% at 100% 0%, rgba(228,0,0,.4) 0%, transparent 55%),
+    radial-gradient(70% 70% at 0% 100%, rgba(228,0,0,.18) 0%, transparent 60%);
+  pointer-events:none;
+}
+.hero-orbit{position:absolute;top:-30px;right:-40px;width:170px;height:170px;opacity:.55;pointer-events:none;z-index:2}
+.hero-content{position:relative;z-index:3;display:flex;flex-direction:column;gap:12px;max-width:290px}
 .hero-eyebrow{
   display:inline-flex;align-items:center;gap:6px;align-self:flex-start;
   padding:5px 11px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);
   border-radius:999px;font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#fff;line-height:1;
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
 }
 .hero-eyebrow-dot{width:5px;height:5px;border-radius:50%;background:#4ADE80;flex-shrink:0;box-shadow:0 0 0 3px rgba(74,222,128,.22);animation:dot-pulse 2s infinite}
-.hero-h1{font-family:var(--font-display);font-size:26px;font-weight:700;color:#fff;letter-spacing:-.036em;line-height:1.1;text-wrap:balance}
+.hero-h1{font-family:var(--font-display);font-size:26px;font-weight:700;color:#fff;letter-spacing:-.036em;line-height:1.1;text-wrap:balance;text-shadow:0 2px 12px rgba(0,0,0,.4)}
 .hero-h1 em{font-style:normal;background:linear-gradient(135deg,#FF8A8A 0%,#FF4D4D 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.hero-sub{font-size:13px;color:rgba(255,255,255,.72);line-height:1.55;text-wrap:pretty}
-.hero-features{list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:6px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08)}
-.hero-feature{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:600;color:rgba(255,255,255,.88);line-height:1.4}
+.hero-sub{font-size:13px;color:rgba(255,255,255,.82);line-height:1.55;text-wrap:pretty;text-shadow:0 1px 8px rgba(0,0,0,.4)}
+.hero-features{list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:6px;padding-top:14px;border-top:1px solid rgba(255,255,255,.14)}
+.hero-feature{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:600;color:rgba(255,255,255,.92);line-height:1.4;text-shadow:0 1px 6px rgba(0,0,0,.4)}
 .hero-feature-ic{width:18px;height:18px;border-radius:50%;background:rgba(74,222,128,.15);border:1px solid rgba(74,222,128,.28);display:grid;place-items:center;flex-shrink:0;color:#4ADE80}
 .hero-feature-ic svg{width:9px;height:9px}
 
@@ -472,7 +489,7 @@ img,svg{display:block;max-width:100%}
 html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
 
 @media(max-height:700px){
-  .hero{padding:18px 18px 16px}
+  .hero{padding:18px 18px 16px;min-height:170px}
   .hero-h1{font-size:22px}
   .hero-features{gap:6px;padding-top:10px}
   .plan{min-height:136px;padding:13px}
@@ -638,6 +655,12 @@ html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
 
   <!-- HERO -->
   <div class="hero">
+    <img class="hero-photo"
+         src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=900&q=80"
+         alt=""
+         loading="eager"
+         onerror="this.src='https://images.unsplash.com/photo-1516849841032-87cbac4d88f7?auto=format&fit=crop&w=900&q=80'">
+    <div class="hero-veil"></div>
     <svg class="hero-orbit" viewBox="0 0 200 200" aria-hidden="true">
       <defs><radialGradient id="glow" cx="50%" cy="50%"><stop offset="0%" stop-color="#E40000" stop-opacity=".5"/><stop offset="100%" stop-color="#E40000" stop-opacity="0"/></radialGradient></defs>
       <circle cx="100" cy="100" r="88" fill="url(#glow)"/>
