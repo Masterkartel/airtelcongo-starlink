@@ -6,11 +6,11 @@
 <meta name="theme-color" content="#E40000">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Airtel RDC — Forfaits satellite</title>
-<meta name="description" content="Internet satellite partout en RDC. Data, Voix, SMS dès $0.18. Activation en 30s via Airtel Money.">
+<title>Airtel RDC — Forfaits Internet</title>
+<meta name="description" content="Forfaits internet Airtel RDC dès $0.18. Payez avec Airtel Money en 30 secondes.">
 
-<meta property="og:title" content="Airtel RDC — Internet satellite partout en RDC">
-<meta property="og:description" content="Data, Voix, SMS dès $0.18. Sans antenne, sans modem. Activation en 30 secondes.">
+<meta property="og:title" content="Airtel RDC — Forfaits Internet">
+<meta property="og:description" content="Forfaits data dès $0.18. Paiement Airtel Money en 30 secondes.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="fr_CD">
 
@@ -51,7 +51,7 @@ fbq('track', 'PageView');
   --safe-b:env(safe-area-inset-bottom,0px);
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html{background:#0A0A0E;height:100%;-webkit-text-size-adjust:100%}
+html{background:var(--surf-lo);height:100%;-webkit-text-size-adjust:100%}
 body{
   font-family:var(--font-body);font-size:15px;line-height:1.5;
   color:var(--ink);background:var(--surf-lo);
@@ -68,11 +68,8 @@ img,svg{display:block;max-width:100%}
 @keyframes pg-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 @keyframes dot-pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.85)}}
 @keyframes rip-anim{to{transform:scale(3.2);opacity:0}}
-@keyframes bump{0%{transform:scale(1)}45%{transform:scale(1.14)}100%{transform:scale(1)}}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
-@keyframes thumb-pulse{0%{transform:scale(1)}45%{transform:scale(1.16)}100%{transform:scale(1)}}
 @keyframes logoPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(.92)}}
-@keyframes tickerIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
 /* NAV */
 .nav{
@@ -101,90 +98,51 @@ img,svg{display:block;max-width:100%}
 .scroll{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain;scrollbar-width:none;animation:pg-in .35s var(--ease) both;background:var(--surf-lo)}
 .scroll::-webkit-scrollbar{display:none}
 
-/* HERO */
+/* ═══ HERO — LIGHT APP HEADER ═══ */
 .hero{
-  position:relative;margin:12px 12px 0;padding:22px 20px 20px;
-  background:#0A0A0E;
-  border-radius:24px;overflow:hidden;
-  box-shadow:0 10px 30px rgba(10,10,14,.24);
-  min-height:200px;
-  display:flex;align-items:center;
+  position:relative;margin:12px 12px 0;padding:20px;
+  background:linear-gradient(140deg,#FFF5F5 0%,#FFE8E8 100%);
+  border:1px solid rgba(228,0,0,.14);
+  border-radius:20px;
+  overflow:hidden;
 }
-.hero-photo{
-  position:absolute;inset:0;
-  width:100%;height:100%;
-  object-fit:cover;
-  object-position:center 42%;
-  z-index:0;
-  filter:saturate(1.1) contrast(1.02) brightness(.85);
-  pointer-events:none;
-}
-.hero-veil{
-  position:absolute;inset:0;z-index:1;
-  background:
-    linear-gradient(135deg, rgba(10,10,14,.82) 0%, rgba(10,10,14,.6) 45%, rgba(32,18,24,.72) 100%),
-    radial-gradient(100% 90% at 100% 0%, rgba(228,0,0,.4) 0%, transparent 55%),
-    radial-gradient(70% 70% at 0% 100%, rgba(228,0,0,.18) 0%, transparent 60%);
-  pointer-events:none;
-}
-.hero-orbit{position:absolute;top:-30px;right:-40px;width:170px;height:170px;opacity:.55;pointer-events:none;z-index:2}
-.hero-content{position:relative;z-index:3;display:flex;flex-direction:column;gap:12px;max-width:290px}
+.hero-content{position:relative;z-index:2;display:flex;flex-direction:column;gap:10px}
 .hero-eyebrow{
   display:inline-flex;align-items:center;gap:6px;align-self:flex-start;
-  padding:5px 11px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);
-  border-radius:999px;font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#fff;line-height:1;
-  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  padding:5px 11px;background:#fff;border:1px solid rgba(228,0,0,.18);
+  border-radius:999px;font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--red);line-height:1;
 }
-.hero-eyebrow-dot{width:5px;height:5px;border-radius:50%;background:#4ADE80;flex-shrink:0;box-shadow:0 0 0 3px rgba(74,222,128,.22);animation:dot-pulse 2s infinite}
-.hero-h1{font-family:var(--font-display);font-size:26px;font-weight:700;color:#fff;letter-spacing:-.036em;line-height:1.1;text-wrap:balance;text-shadow:0 2px 12px rgba(0,0,0,.4)}
-.hero-h1 em{font-style:normal;background:linear-gradient(135deg,#FF8A8A 0%,#FF4D4D 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.hero-sub{font-size:13px;color:rgba(255,255,255,.82);line-height:1.55;text-wrap:pretty;text-shadow:0 1px 8px rgba(0,0,0,.4)}
-.hero-features{list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:6px;padding-top:14px;border-top:1px solid rgba(255,255,255,.14)}
-.hero-feature{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:600;color:rgba(255,255,255,.92);line-height:1.4;text-shadow:0 1px 6px rgba(0,0,0,.4)}
-.hero-feature-ic{width:18px;height:18px;border-radius:50%;background:rgba(74,222,128,.15);border:1px solid rgba(74,222,128,.28);display:grid;place-items:center;flex-shrink:0;color:#4ADE80}
-.hero-feature-ic svg{width:9px;height:9px}
+.hero-eyebrow-dot{width:5px;height:5px;border-radius:50%;background:var(--red);flex-shrink:0;box-shadow:0 0 0 3px rgba(228,0,0,.18);animation:dot-pulse 2s infinite}
+.hero-h1{font-family:var(--font-display);font-size:24px;font-weight:700;color:var(--ink);letter-spacing:-.034em;line-height:1.15;text-wrap:balance}
+.hero-h1 em{font-style:normal;color:var(--red)}
+.hero-sub{font-size:13px;color:var(--ink-2);line-height:1.55;text-wrap:pretty;max-width:290px}
 
-/* TRUST */
-.trust{
+/* ═══ QUICK STEPS (mini, light) ═══ */
+.steps-quick{
   margin:10px 12px 0;
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:6px;padding:12px 10px;
-  background:var(--surf);border:1px solid var(--line);
-  border-radius:16px;box-shadow:0 1px 3px rgba(10,10,14,.04);
-}
-.trust-item{display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;min-width:0}
-.trust-ic{width:26px;height:26px;border-radius:50%;background:var(--ok-soft);color:var(--ok);display:grid;place-items:center;flex-shrink:0}
-.trust-ic svg{width:13px;height:13px}
-.trust-lbl{font-size:10px;font-weight:700;color:var(--ink-2);line-height:1.25;letter-spacing:.005em}
-.trust-lbl b{color:var(--ink);font-weight:800}
-
-/* SOCIAL PROOF */
-.social-proof{
-  margin:10px 12px 0;
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  padding:10px 14px;
-  background:linear-gradient(135deg,#FFF5F5 0%,#FFEAEA 100%);
-  border:1px solid rgba(228,0,0,.14);
+  display:grid;grid-template-columns:repeat(3,1fr);gap:6px;
+  padding:12px 10px;
+  background:#fff;border:1px solid var(--line);
   border-radius:16px;
-  font-size:11.5px;font-weight:600;color:var(--ink-2);
-  line-height:1.3;text-align:center;
 }
-.social-proof-avatars{display:flex;flex-shrink:0}
-.social-proof-av{width:22px;height:22px;border-radius:50%;border:2px solid #fff;margin-left:-6px;display:grid;place-items:center;font-family:var(--font-display);font-size:8.5px;font-weight:800;color:#fff}
-.social-proof-av:first-child{margin-left:0}
-.social-proof-av.a{background:linear-gradient(135deg,#FF8A8A,#B20000)}
-.social-proof-av.b{background:linear-gradient(135deg,#6EA8FE,#1D4ED8)}
-.social-proof-av.c{background:linear-gradient(135deg,#4ADE80,#16A34A)}
-.social-proof b{color:var(--red);font-weight:800}
+.step-quick{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;min-width:0}
+.step-quick-num{
+  width:28px;height:28px;border-radius:50%;
+  background:var(--red-soft);color:var(--red);
+  display:grid;place-items:center;
+  font-family:var(--font-display);font-size:12px;font-weight:800;line-height:1;
+}
+.step-quick-txt{font-size:10.5px;font-weight:600;color:var(--ink-2);line-height:1.3}
 
-/* COMPARE */
+/* ═══ PRICE COMPARE — light ═══ */
 .compare{
   margin:10px 12px 0;
   display:grid;grid-template-columns:1fr auto 1fr;
   gap:10px;align-items:center;
   padding:12px 14px;
-  background:var(--surf);border:1px solid var(--line);
-  border-radius:16px;box-shadow:0 1px 3px rgba(10,10,14,.04);
+  background:#fff;border:1px solid var(--line);
+  border-radius:16px;
 }
 .compare-col{display:flex;flex-direction:column;gap:2px;min-width:0}
 .compare-lbl{font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);line-height:1}
@@ -195,87 +153,92 @@ img,svg{display:block;max-width:100%}
 .compare-arrow svg{width:12px;height:12px}
 
 /* SEC */
-.sec{padding:24px 16px 12px;display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
-.sec-t{font-family:var(--font-display);font-size:18px;font-weight:700;letter-spacing:-.028em;color:var(--ink);line-height:1.15}
+.sec{padding:22px 16px 10px;display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
+.sec-t{font-family:var(--font-display);font-size:17px;font-weight:700;letter-spacing:-.028em;color:var(--ink);line-height:1.15}
 .sec-s{font-size:12px;color:var(--ink-3);margin-top:3px;line-height:1.35}
 
-/* PLANS */
-.plans{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:2px 12px 4px}
-.plan{
-  position:relative;background:var(--surf);border:1.5px solid var(--line);border-radius:20px;
-  padding:15px;display:flex;flex-direction:column;gap:8px;text-align:left;
-  transition:border-color .18s, transform .15s var(--spring), box-shadow .18s;
-  box-shadow:0 1px 2px rgba(10,10,14,.03);overflow:hidden;min-height:150px;
+/* ═══ PLAN CARDS — AIRTEL APP STYLE ═══ */
+.plans{
+  display:flex;flex-direction:column;gap:8px;
+  padding:2px 12px 4px;
 }
-.plan:active{transform:scale(.97)}
-.plan-ic{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,var(--red-lt) 0%,#FFD5D5 100%);color:var(--red);display:grid;place-items:center;flex-shrink:0;margin-bottom:2px}
-.plan-ic svg{width:16px;height:16px}
-.plan-tag{font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);line-height:1}
-.plan-title{font-family:var(--font-display);font-size:15px;font-weight:700;letter-spacing:-.024em;color:var(--ink);line-height:1.2;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:36px}
-.plan-meta{font-size:10.5px;color:var(--ink-3);line-height:1.3}
-.plan-foot{display:flex;align-items:flex-end;justify-content:space-between;gap:8px;margin-top:auto;padding-top:4px}
-.plan-price{font-family:var(--font-display);font-size:20px;font-weight:700;letter-spacing:-.03em;color:var(--red);line-height:1;font-feature-settings:'tnum'}
-.plan-arrow{width:22px;height:22px;border-radius:50%;background:var(--surf-mid);color:var(--ink-2);display:grid;place-items:center;flex-shrink:0;transition:background .2s,color .2s,transform .2s var(--spring)}
-.plan:active .plan-arrow{background:var(--red);color:#fff;transform:translateX(2px)}
-.plan-arrow svg{width:11px;height:11px}
-
-.plan.featured{
-  grid-column:span 2;
+.plan-card{
+  position:relative;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:16px;
+  display:flex;flex-direction:column;gap:12px;
+  text-align:left;
+  transition:border-color .18s, transform .12s var(--spring), box-shadow .18s;
+}
+.plan-card:active{transform:scale(.98)}
+.plan-card.popular{
+  border-color:rgba(228,0,0,.3);
   background:linear-gradient(160deg,#fff 0%,var(--red-soft) 100%);
-  border:1.5px solid rgba(228,0,0,.28);
-  box-shadow:0 8px 24px rgba(228,0,0,.12), 0 1px 2px rgba(10,10,14,.04);
-  min-height:0;padding:16px 16px 14px;gap:12px;
+  box-shadow:0 4px 16px rgba(228,0,0,.08);
 }
-.plan.featured::after{
-  content:'';position:absolute;top:-40px;right:-40px;
-  width:140px;height:140px;
-  background:radial-gradient(circle,rgba(228,0,0,.14) 0%,transparent 70%);
-  pointer-events:none;
+.plan-card-top{
+  display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
 }
-.plan.featured:active{transform:scale(.98);box-shadow:0 4px 14px rgba(228,0,0,.15)}
-.plan-feat-head{display:flex;align-items:center;justify-content:space-between;gap:10px;position:relative;z-index:1}
-.plan-feat-badge{
-  display:inline-flex;align-items:center;gap:5px;padding:5px 10px;
+.plan-card-info{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1}
+.plan-card-name{
+  font-family:var(--font-display);
+  font-size:24px;font-weight:700;color:var(--ink);
+  letter-spacing:-.036em;line-height:1;font-feature-settings:'tnum';
+}
+.plan-card.popular .plan-card-name{color:var(--red)}
+.plan-card-validity{
+  font-size:12.5px;font-weight:600;color:var(--ink-2);
+  line-height:1.3;
+}
+.plan-card-badge{
+  display:inline-flex;align-items:center;gap:4px;
+  padding:5px 10px;
+  background:var(--red-lt);color:var(--red);
+  border-radius:999px;
+  font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  line-height:1;flex-shrink:0;
+  align-self:flex-start;
+}
+.plan-card.popular .plan-card-badge{
   background:linear-gradient(135deg,#FF2E2E 0%,#B20000 100%);
-  border-radius:999px;font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#fff;line-height:1;
-  box-shadow:0 4px 12px rgba(228,0,0,.35);
+  color:#fff;
+  box-shadow:0 3px 10px rgba(228,0,0,.3);
 }
-.plan-feat-badge svg{width:10px;height:10px}
-.plan-feat-icon{
-  width:42px;height:42px;border-radius:13px;
-  background:linear-gradient(135deg,#FFE5E5 0%,#FFD0D0 100%);
-  color:var(--red);border:1px solid rgba(228,0,0,.18);
-  display:grid;place-items:center;flex-shrink:0;
-  box-shadow:0 3px 10px rgba(228,0,0,.15);
+.plan-card-badge svg{width:9px;height:9px}
+.plan-card-desc{
+  font-size:12.5px;color:var(--ink-3);
+  line-height:1.4;
+  overflow:hidden;
+  display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;
 }
-.plan-feat-icon svg{width:18px;height:18px}
-.plan-feat-body{display:flex;flex-direction:column;gap:5px;position:relative;z-index:1}
-.plan-feat-title{font-family:var(--font-display);font-size:19px;font-weight:700;color:var(--ink);letter-spacing:-.028em;line-height:1.15}
-.plan-feat-sub{font-size:11.5px;color:var(--ink-2);line-height:1.45;font-weight:500}
-.plan-feat-foot{
-  display:flex;align-items:center;justify-content:space-between;gap:10px;
-  margin-top:4px;padding-top:12px;
-  border-top:1px dashed rgba(228,0,0,.18);
-  position:relative;z-index:1;
+.plan-card-bottom{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding-top:12px;
+  border-top:1px solid var(--line-2);
 }
-.plan-feat-price{font-family:var(--font-display);font-size:24px;font-weight:700;letter-spacing:-.034em;color:var(--red);line-height:1;font-feature-settings:'tnum'}
-.plan-feat-price small{font-family:var(--font-body);font-size:11px;font-weight:600;color:var(--ink-3);margin-left:4px;letter-spacing:0}
-.plan-feat-cta{
-  display:inline-flex;align-items:center;gap:5px;padding:10px 16px;
+.plan-card.popular .plan-card-bottom{border-top-color:rgba(228,0,0,.12)}
+.plan-card-price{
+  font-family:var(--font-display);
+  font-size:22px;font-weight:700;
+  letter-spacing:-.034em;color:var(--ink);line-height:1;
+  font-feature-settings:'tnum';
+}
+.plan-card.popular .plan-card-price{color:var(--red)}
+.plan-card-cta{
+  display:inline-flex;align-items:center;gap:6px;
+  height:36px;padding:0 16px;
   background:linear-gradient(135deg,#FF2E2E 0%,#E40000 55%,#B20000 100%);
-  border-radius:999px;font-family:var(--font-display);font-size:12.5px;font-weight:700;color:#fff;line-height:1;
-  box-shadow:0 4px 14px rgba(228,0,0,.32), 0 1px 0 rgba(255,255,255,.18) inset;
+  border-radius:999px;
+  font-family:var(--font-display);
+  font-size:12.5px;font-weight:700;
+  color:#fff;line-height:1;
+  box-shadow:0 3px 10px rgba(228,0,0,.28);
+  transition:transform .12s var(--spring);
 }
-.plan-feat-cta svg{width:12px;height:12px}
-
-.custom-link{
-  margin:8px 12px 0;display:flex;align-items:center;justify-content:center;gap:8px;
-  padding:15px;background:var(--surf);border:1.5px dashed var(--line);border-radius:18px;
-  font-family:var(--font-display);font-size:13.5px;font-weight:700;letter-spacing:-.012em;color:var(--ink);
-  transition:border-color .18s, background .18s, transform .15s var(--spring);
-}
-.custom-link:active{transform:scale(.98);background:var(--surf-lo);border-color:var(--red)}
-.custom-link svg{width:15px;height:15px;color:var(--red);flex-shrink:0}
+.plan-card-cta:active{transform:scale(.95)}
+.plan-card-cta svg{width:11px;height:11px}
 
 /* REVIEWS */
 .reviews{
@@ -286,9 +249,8 @@ img,svg{display:block;max-width:100%}
 .reviews::-webkit-scrollbar{display:none}
 .review{
   flex:0 0 auto;width:230px;scroll-snap-align:start;
-  background:var(--surf);border:1px solid var(--line);border-radius:18px;
+  background:#fff;border:1px solid var(--line);border-radius:18px;
   padding:14px;display:flex;flex-direction:column;gap:9px;
-  box-shadow:0 1px 3px rgba(10,10,14,.04);
 }
 .review-stars{display:flex;gap:1px;color:#F5A623}
 .review-stars svg{width:12px;height:12px;fill:currentColor}
@@ -298,13 +260,12 @@ img,svg{display:block;max-width:100%}
 .review-av.a{background:linear-gradient(135deg,#FF8A8A,#B20000)}
 .review-av.b{background:linear-gradient(135deg,#6EA8FE,#1D4ED8)}
 .review-av.c{background:linear-gradient(135deg,#4ADE80,#16A34A)}
-.review-av.d{background:linear-gradient(135deg,#FBBF24,#B8860B)}
 .review-info{display:flex;flex-direction:column;gap:1px;min-width:0}
 .review-name{font-size:11.5px;font-weight:700;color:var(--ink);line-height:1.1}
 .review-loc{font-size:10px;color:var(--ink-3);line-height:1}
 
 /* HOW */
-.how{margin:0 12px;background:var(--surf);border-radius:22px;padding:18px;box-shadow:0 1px 3px rgba(10,10,14,.05)}
+.how{margin:0 12px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px}
 .how-hd{display:flex;align-items:center;gap:8px}
 .how-hd svg{width:16px;height:16px;color:var(--red);flex-shrink:0}
 .how-hd-t{font-family:var(--font-display);font-size:14px;font-weight:700;letter-spacing:-.018em;color:var(--ink);line-height:1.2}
@@ -317,10 +278,10 @@ img,svg{display:block;max-width:100%}
 /* FAQ */
 .faq{margin:0 12px;display:flex;flex-direction:column;gap:8px}
 .faq-item{
-  background:var(--surf);border:1px solid var(--line);border-radius:16px;
-  overflow:hidden;transition:border-color .18s, box-shadow .18s;
+  background:#fff;border:1px solid var(--line);border-radius:16px;
+  overflow:hidden;transition:border-color .18s;
 }
-.faq-item[open]{border-color:rgba(228,0,0,.2);box-shadow:0 3px 12px rgba(228,0,0,.06)}
+.faq-item[open]{border-color:rgba(228,0,0,.2)}
 .faq-item summary{
   list-style:none;cursor:pointer;padding:15px 16px;
   display:flex;align-items:center;justify-content:space-between;gap:12px;
@@ -339,29 +300,34 @@ img,svg{display:block;max-width:100%}
 .faq-a{padding:0 16px 16px;font-size:12.5px;line-height:1.6;color:var(--ink-2);text-wrap:pretty}
 .faq-a b{color:var(--ink);font-weight:700}
 
-/* COVERAGE */
-.cov{margin:16px 12px 0;background:radial-gradient(90% 80% at 100% 0%, rgba(228,0,0,.22) 0%, transparent 55%), linear-gradient(140deg,#0A0A0E 0%,#1A1A24 100%);border-radius:22px;padding:18px;position:relative;overflow:hidden;box-shadow:0 6px 24px rgba(10,10,14,.18)}
-.cov-hd{display:flex;align-items:center;gap:10px;margin-bottom:14px;position:relative;z-index:1}
-.cov-hd-ic{width:34px;height:34px;border-radius:11px;background:rgba(228,0,0,.18);border:1px solid rgba(228,0,0,.35);display:grid;place-items:center;flex-shrink:0;color:#FF6B6B}
+/* COVERAGE — light */
+.cov{margin:16px 12px 0;background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px}
+.cov-hd{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.cov-hd-ic{width:34px;height:34px;border-radius:11px;background:var(--red-lt);color:var(--red);display:grid;place-items:center;flex-shrink:0}
 .cov-hd-ic svg{width:16px;height:16px}
 .cov-hd-info{display:flex;flex-direction:column;gap:2px;min-width:0}
-.cov-hd-t{font-family:var(--font-display);font-size:14px;font-weight:700;color:#fff;letter-spacing:-.012em;line-height:1.2}
-.cov-hd-s{font-size:11px;color:rgba(255,255,255,.65);line-height:1.3}
-.cov-pills{display:flex;flex-wrap:wrap;gap:6px;position:relative;z-index:1}
-.city-pill{display:inline-flex;align-items:center;gap:5px;padding:6px 11px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);font-size:11px;font-weight:600;color:rgba(255,255,255,.88);line-height:1}
-.city-pill::before{content:'';width:5px;height:5px;border-radius:50%;background:#4ADE80;flex-shrink:0;box-shadow:0 0 0 3px rgba(74,222,128,.15)}
+.cov-hd-t{font-family:var(--font-display);font-size:14px;font-weight:700;color:var(--ink);letter-spacing:-.012em;line-height:1.2}
+.cov-hd-s{font-size:11px;color:var(--ink-3);line-height:1.3}
+.cov-pills{display:flex;flex-wrap:wrap;gap:6px}
+.city-pill{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:6px 11px;border-radius:999px;
+  background:var(--surf-mid);border:1px solid var(--line);
+  font-size:11px;font-weight:600;color:var(--ink-2);line-height:1;
+}
+.city-pill::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--ok);flex-shrink:0}
 
 /* FOOTER */
 .footer{margin-top:24px;padding:22px 16px calc(26px + var(--safe-b));text-align:center;border-top:1px solid var(--line)}
 .footer-txt{font-size:11px;color:var(--ink-3);line-height:1.55}
 .footer-txt b{color:var(--ink-2);font-weight:700}
 
-/* SHEET */
-.sheet-overlay{position:fixed;inset:0;z-index:100;background:rgba(10,10,14,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .3s var(--ease)}
+/* ═══ SHEET ═══ */
+.sheet-overlay{position:fixed;inset:0;z-index:100;background:rgba(10,10,14,.4);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .3s var(--ease)}
 .sheet-overlay.show{opacity:1;pointer-events:auto}
-.sheet{position:fixed;bottom:0;left:0;right:0;z-index:101;background:var(--surf);border-radius:28px 28px 0 0;transform:translateY(100%);transition:transform .42s var(--spring);box-shadow:0 -20px 60px rgba(10,10,14,.28);max-height:94dvh;display:flex;flex-direction:column;overflow:hidden;padding-bottom:var(--safe-b)}
+.sheet{position:fixed;bottom:0;left:0;right:0;z-index:101;background:#fff;border-radius:28px 28px 0 0;transform:translateY(100%);transition:transform .42s var(--spring);box-shadow:0 -20px 60px rgba(10,10,14,.28);max-height:94dvh;display:flex;flex-direction:column;overflow:hidden;padding-bottom:var(--safe-b)}
 .sheet.show{transform:translateY(0)}
-.sh-head{flex-shrink:0;background:radial-gradient(90% 100% at 100% 0%, rgba(255,255,255,.14) 0%, transparent 55%), linear-gradient(135deg,#E40000 0%,#B20000 100%);padding:0 16px 16px;border-radius:28px 28px 0 0}
+.sh-head{flex-shrink:0;background:linear-gradient(135deg,#E40000 0%,#B20000 100%);padding:0 16px 16px;border-radius:28px 28px 0 0}
 .sh-handle{width:40px;height:4px;border-radius:2px;background:rgba(255,255,255,.32);margin:12px auto}
 .sh-head-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px;padding-inline:2px}
 .sh-step{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2);border-radius:999px;font-size:9.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.92);line-height:1}
@@ -369,57 +335,43 @@ img,svg{display:block;max-width:100%}
 .sh-close{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2);color:#fff;flex-shrink:0;transition:background .15s,transform .12s}
 .sh-close:active{background:rgba(255,255,255,.28);transform:scale(.92)}
 .sh-title{font-family:var(--font-display);font-size:16px;font-weight:700;color:#fff;letter-spacing:-.02em;line-height:1.2;margin-bottom:12px}
-.sh-preview{display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px;padding:12px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.18);border-radius:16px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.sh-preview{display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px;padding:12px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.18);border-radius:16px}
 .sh-preview-info{min-width:0;display:flex;flex-direction:column;gap:4px}
-.sh-preview-name{font-family:var(--font-display);font-size:13px;font-weight:700;color:#fff;letter-spacing:-.014em;line-height:1.2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sh-preview-name{font-family:var(--font-display);font-size:15px;font-weight:700;color:#fff;letter-spacing:-.02em;line-height:1.2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .sh-preview-meta{font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.7);line-height:1}
 .sh-preview-price{display:flex;flex-direction:column;align-items:flex-end;gap:3px;flex-shrink:0;line-height:1;padding-right:2px}
-.sh-preview-price strong{font-family:var(--font-display);font-size:19px;font-weight:700;color:#fff;letter-spacing:-.022em;line-height:1;font-feature-settings:'tnum'}
+.sh-preview-price strong{font-family:var(--font-display);font-size:20px;font-weight:700;color:#fff;letter-spacing:-.024em;line-height:1;font-feature-settings:'tnum'}
 .sh-preview-price small{font-size:9px;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.06em}
 
 .sheet-scroll{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;scrollbar-width:none;display:flex;flex-direction:column}
 .sheet-scroll::-webkit-scrollbar{display:none}
-.sh-view{padding:16px 20px 8px;display:flex;flex-direction:column;gap:14px}
+.sh-view{padding:20px 20px 8px;display:flex;flex-direction:column;gap:18px}
 .sh-view[hidden]{display:none!important}
 
-.seg{display:grid;grid-template-columns:repeat(4,1fr);background:var(--surf-mid);border-radius:14px;padding:4px;position:relative;gap:2px}
-.seg-ind{position:absolute;top:4px;bottom:4px;left:4px;width:calc((100% - 8px - 6px)/4);background:linear-gradient(135deg,#FF2E2E 0%,#E40000 55%,#B20000 100%);border-radius:11px;transition:transform .35s var(--spring);box-shadow:0 3px 10px rgba(228,0,0,.32);pointer-events:none}
-.seg-btn{position:relative;z-index:1;height:38px;border-radius:11px;font-size:11.5px;font-weight:700;color:var(--ink-3);display:grid;place-items:center;transition:color .22s}
-.seg-btn.active{color:#fff}
-
-.b-row{padding:14px 0 16px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:12px}
-.b-row:first-of-type{border-top:none;padding-top:4px}
-.b-row-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.b-row-l{display:flex;align-items:center;gap:10px;min-width:0}
-.b-row-ic{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;flex-shrink:0}
-.b-row-ic svg{width:15px;height:15px}
-.b-row-ic.data{background:linear-gradient(135deg,#FFE5E5 0%,#FFD0D0 100%);color:var(--red)}
-.b-row-ic.voice{background:linear-gradient(135deg,#E0EDFF 0%,#CCE0FF 100%);color:var(--blue)}
-.b-row-ic.sms{background:linear-gradient(135deg,#DCFCE7 0%,#BBF7D0 100%);color:var(--ok)}
-.b-row-lbl{font-size:13px;font-weight:600;color:var(--ink-2);line-height:1;letter-spacing:-.005em}
-.b-row-val{font-family:var(--font-display);font-size:19px;font-weight:700;color:var(--ink);letter-spacing:-.032em;line-height:1;font-feature-settings:'tnum';transition:color .2s}
-.b-row-val.bump{animation:bump .4s var(--spring)}
-.b-row-val.zero{color:var(--ink-3);opacity:.5}
-.b-row-meta{font-size:10.5px;color:var(--ink-3);font-weight:500;text-align:right;line-height:1;margin-top:-4px;font-variant-numeric:tabular-nums}
-
-.slider-wrap{position:relative;height:30px;margin-top:2px}
-.slider-track{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);height:8px;border-radius:999px;background:var(--line);overflow:hidden}
-.slider-fill{position:absolute;left:0;top:50%;transform:translateY(-50%);height:8px;border-radius:999px;background:linear-gradient(90deg,var(--red) 0%,#FF2E2E 100%);box-shadow:0 0 12px rgba(228,0,0,.28);transition:width .14s cubic-bezier(.2,0,0,1);pointer-events:none;width:0;will-change:width}
-.slider-ticks{position:absolute;top:50%;transform:translateY(-50%);left:13px;right:13px;height:8px;pointer-events:none;display:flex;justify-content:space-between;align-items:center}
-.slider-tick{width:2px;height:2px;border-radius:50%;background:rgba(255,255,255,.85);transition:background .25s, transform .25s var(--spring)}
-.slider-tick.passed{background:rgba(255,255,255,.6);transform:scale(1.2)}
-.slider-input{-webkit-appearance:none;appearance:none;position:absolute;inset:0;width:100%;height:100%;background:transparent;cursor:pointer;margin:0;padding:0}
-.slider-input::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:26px;height:26px;border-radius:50%;background:#fff;border:3px solid var(--red);box-shadow:0 3px 10px rgba(228,0,0,.35), 0 1px 2px rgba(10,10,14,.12);transition:transform .18s var(--spring), box-shadow .18s;cursor:grab}
-.slider-input::-webkit-slider-thumb:active{transform:scale(1.18);box-shadow:0 3px 10px rgba(228,0,0,.4), 0 0 0 10px rgba(228,0,0,.12);cursor:grabbing}
-.slider-input::-webkit-slider-thumb.pulse{animation:thumb-pulse .28s var(--spring)}
-.slider-input::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:#fff;border:3px solid var(--red);box-shadow:0 3px 10px rgba(228,0,0,.35);transition:transform .18s var(--spring);cursor:grab}
-.slider-input::-moz-range-thumb:active{transform:scale(1.18)}
-
-.b-note{padding:11px 13px;border-radius:14px;background:linear-gradient(135deg,var(--red-soft) 0%,rgba(255,229,229,.6) 100%);border:1px solid rgba(228,0,0,.14);display:grid;grid-template-columns:16px 1fr;gap:9px;align-items:center;transition:opacity .25s, transform .25s var(--spring)}
-.b-note.hidden{display:none}
-.b-note svg{width:15px;height:15px;color:var(--red);flex-shrink:0}
-.b-note span{font-size:11.5px;font-weight:600;color:var(--red-dk);line-height:1.4}
-.b-note span strong{font-weight:800}
+.sh-detail-tag{
+  display:inline-flex;align-self:flex-start;align-items:center;gap:5px;
+  padding:5px 10px;border-radius:999px;
+  background:var(--red-lt);color:var(--red);
+  font-size:9.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  line-height:1;
+}
+.sh-detail-desc{
+  font-size:13.5px;line-height:1.65;color:var(--ink-2);
+  text-wrap:pretty;margin:0;
+}
+.sh-includes{display:flex;flex-direction:column;gap:10px}
+.sh-includes-title{
+  font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-3);line-height:1;
+}
+.sh-includes-list{list-style:none;display:flex;flex-direction:column;gap:9px}
+.sh-includes-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.5;color:var(--ink-2)}
+.sh-includes-item-ic{
+  width:20px;height:20px;border-radius:50%;
+  background:var(--ok-soft);color:var(--ok);
+  display:grid;place-items:center;flex-shrink:0;margin-top:1px;
+}
+.sh-includes-item-ic svg{width:10px;height:10px}
 
 .sh-phone-lbl{font-size:10.5px;font-weight:800;color:var(--ink-3);letter-spacing:.1em;text-transform:uppercase;line-height:1;padding-bottom:12px}
 .sh-fw{display:flex;align-items:center;height:56px;border-bottom:2px solid var(--line);transition:border-color .25s}
@@ -446,62 +398,42 @@ img,svg{display:block;max-width:100%}
 .sh-verify-bar{height:100%;width:0;background:var(--ok);border-radius:2px;transition:width .75s ease-out}
 
 .sh-numpad{display:grid;grid-template-columns:repeat(3,1fr);padding:14px 0 4px;gap:9px}
-.sh-nk{position:relative;overflow:hidden;height:54px;border-radius:16px;background:var(--surf);border:1px solid var(--line);font-family:var(--font-display);font-size:22px;font-weight:600;color:var(--ink);display:grid;place-items:center;line-height:1;box-shadow:0 1px 3px rgba(10,10,14,.05);transition:background .1s,box-shadow .1s,transform .1s var(--spring);flex-shrink:0}
-.sh-nk:active{background:var(--surf-mid);box-shadow:none;transform:scale(.94)}
-.sh-nk.del{font-size:18px;color:var(--ink-2);background:transparent;border-color:transparent;box-shadow:none}
+.sh-nk{position:relative;overflow:hidden;height:54px;border-radius:16px;background:#fff;border:1px solid var(--line);font-family:var(--font-display);font-size:22px;font-weight:600;color:var(--ink);display:grid;place-items:center;line-height:1;transition:background .1s,transform .1s var(--spring);flex-shrink:0}
+.sh-nk:active{background:var(--surf-mid);transform:scale(.94)}
+.sh-nk.del{font-size:18px;color:var(--ink-2);background:transparent;border-color:transparent}
 .sh-nk.del:active{background:var(--surf-mid)}
-.sh-nk.empty{background:transparent;border-color:transparent;box-shadow:none;cursor:default;opacity:0;pointer-events:none}
+.sh-nk.empty{background:transparent;border-color:transparent;cursor:default;opacity:0;pointer-events:none}
 
-.sh-ctas{flex-shrink:0;padding:14px 16px max(18px,var(--safe-b));background:var(--surf);border-top:1px solid var(--line);display:flex;flex-direction:column;gap:9px}
-.sh-btn{width:100%;height:54px;border-radius:999px;font-family:var(--font-display);font-size:15px;font-weight:700;letter-spacing:.005em;display:grid;place-items:center;position:relative;overflow:hidden;transition:transform .12s var(--spring),opacity .15s,box-shadow .18s;border:none;flex-shrink:0}
+.sh-ctas{flex-shrink:0;padding:14px 16px max(18px,var(--safe-b));background:#fff;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:9px}
+.sh-btn{width:100%;height:54px;border-radius:999px;font-family:var(--font-display);font-size:15px;font-weight:700;letter-spacing:.005em;display:grid;place-items:center;position:relative;overflow:hidden;transition:transform .12s var(--spring),opacity .15s;border:none;flex-shrink:0}
 .sh-btn:active{transform:scale(.97)}
 .sh-btn.primary{background:linear-gradient(135deg,#FF2E2E 0%,#E40000 50%,#B20000 100%);color:#fff;box-shadow:0 6px 22px rgba(228,0,0,.4), 0 1px 0 rgba(255,255,255,.2) inset}
 .sh-btn.primary::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.15) 0%,transparent 60%);pointer-events:none}
 .sh-btn.primary.dim{background:var(--surf-mid);color:var(--ink-3);box-shadow:none;cursor:not-allowed;opacity:.85}
 .sh-btn.primary.dim::before{display:none}
+.sh-btn > *{position:relative;z-index:1}
+.sh-btn .sh-btn-inner{display:inline-flex;align-items:center;gap:8px}
+.sh-btn .sh-btn-inner svg{width:16px;height:16px;flex-shrink:0}
 .sh-btn.outline{background:transparent;border:1.5px solid var(--line)!important;color:var(--ink-2);height:46px;font-size:14px;font-weight:600;font-family:var(--font-body);transition:background .12s,border-color .12s,transform .12s}
 .sh-btn.outline:active{background:var(--surf-lo)}
-
-/* LIVE TICKER */
-.ticker{
-  position:fixed;left:14px;right:14px;
-  bottom:calc(20px + var(--safe-b));
-  padding:10px 12px;
-  background:rgba(255,255,255,.98);
-  backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);
-  border:1px solid rgba(10,10,14,.06);
-  border-radius:14px;
-  box-shadow:0 6px 22px rgba(10,10,14,.14);
-  display:flex;align-items:center;gap:9px;
-  z-index:29;
-  animation:tickerIn .35s var(--ease) both;
-  transition:opacity .25s, transform .25s var(--spring);
-  pointer-events:none;min-width:0;
-}
-.ticker.hide{opacity:0;transform:translateY(8px);pointer-events:none}
-.ticker-av{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;flex-shrink:0;font-family:var(--font-display);font-size:10px;font-weight:800;color:#fff;background:linear-gradient(135deg,#FF8A8A,#B20000)}
-.ticker-body{display:flex;flex-direction:column;gap:1px;min-width:0}
-.ticker-line1{font-size:11px;font-weight:700;color:var(--ink);line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ticker-line2{font-size:10px;color:var(--ink-3);line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 .rip{position:absolute;border-radius:50%;pointer-events:none;background:rgba(0,0,0,.08);transform:scale(0);animation:rip-anim .55s ease forwards}
 
 html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
 
 @media(max-height:700px){
-  .hero{padding:18px 18px 16px;min-height:170px}
+  .hero{padding:18px}
   .hero-h1{font-size:22px}
-  .hero-features{gap:6px;padding-top:10px}
-  .plan{min-height:136px;padding:13px}
-  .plan.featured{padding:16px;gap:12px}
+  .plan-card{padding:14px}
+  .plan-card-name{font-size:22px}
+  .plan-card-price{font-size:20px}
   .sh-nk{height:48px;font-size:20px}
   .sh-btn{height:50px}
 }
 @media(max-width:360px){
-  .hero-h1{font-size:22px}
-  .b-row-val{font-size:17px}
-  .plan-feat-title{font-size:18px}
-  .plan-feat-price{font-size:22px}
+  .hero-h1{font-size:21px}
+  .plan-card-name{font-size:22px}
+  .plan-card-price{font-size:20px}
 }
 </style>
 </head>
@@ -516,12 +448,12 @@ html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
   <div class="sh-head">
     <div class="sh-handle"></div>
     <div class="sh-head-top">
-      <span class="sh-step" id="shStepBadge"><span class="sh-step-num">1</span>Personnaliser</span>
+      <span class="sh-step" id="shStepBadge"><span class="sh-step-num">1</span>Détails</span>
       <button class="sh-close" onclick="closeSheet()" type="button" aria-label="Fermer">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
-    <div class="sh-title" id="shTitle">Composez votre forfait</div>
+    <div class="sh-title" id="shTitle">Votre forfait</div>
     <div class="sh-preview">
       <div class="sh-preview-info">
         <span class="sh-preview-name" id="shPreviewName">—</span>
@@ -535,69 +467,12 @@ html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
   </div>
 
   <div class="sheet-scroll">
-    <div class="sh-view" id="viewCustomize">
-      <div class="seg" id="seg" role="tablist">
-        <div class="seg-ind" id="segInd"></div>
-        <button class="seg-btn active" onclick="setValidity(0)" role="tab">1 J</button>
-        <button class="seg-btn" onclick="setValidity(1)" role="tab">7 J</button>
-        <button class="seg-btn" onclick="setValidity(2)" role="tab">14 J</button>
-        <button class="seg-btn" onclick="setValidity(3)" role="tab">30 J</button>
-      </div>
-
-      <div class="b-row">
-        <div class="b-row-top">
-          <div class="b-row-l">
-            <span class="b-row-ic data"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1" fill="currentColor"/></svg></span>
-            <span class="b-row-lbl">Data</span>
-          </div>
-          <span class="b-row-val" id="vData">5 GB</span>
-        </div>
-        <div class="slider-wrap">
-          <div class="slider-track"></div>
-          <div class="slider-fill" id="fillData"></div>
-          <div class="slider-ticks" id="ticksData"></div>
-          <input type="range" class="slider-input" id="sData" min="0" max="5" step="1" value="5" aria-label="Données">
-        </div>
-        <div class="b-row-meta" id="mData">Max 5 GB · 1 jour</div>
-      </div>
-
-      <div class="b-row">
-        <div class="b-row-top">
-          <div class="b-row-l">
-            <span class="b-row-ic voice"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.89 12 19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
-            <span class="b-row-lbl">Voix</span>
-          </div>
-          <span class="b-row-val zero" id="vVoice">Aucune</span>
-        </div>
-        <div class="slider-wrap">
-          <div class="slider-track"></div>
-          <div class="slider-fill" id="fillVoice"></div>
-          <div class="slider-ticks" id="ticksVoice"></div>
-          <input type="range" class="slider-input" id="sVoice" min="0" max="3" step="1" value="0" aria-label="Voix">
-        </div>
-        <div class="b-row-meta" id="mVoice">Max 3 · 1 jour</div>
-      </div>
-
-      <div class="b-row">
-        <div class="b-row-top">
-          <div class="b-row-l">
-            <span class="b-row-ic sms"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
-            <span class="b-row-lbl">SMS</span>
-          </div>
-          <span class="b-row-val zero" id="vSms">Aucun</span>
-        </div>
-        <div class="slider-wrap">
-          <div class="slider-track"></div>
-          <div class="slider-fill" id="fillSms"></div>
-          <div class="slider-ticks" id="ticksSms"></div>
-          <input type="range" class="slider-input" id="sSms" min="0" max="3" step="1" value="0" aria-label="SMS">
-        </div>
-        <div class="b-row-meta" id="mSms">Max 3 · 1 jour</div>
-      </div>
-
-      <div class="b-note hidden" id="bNote">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
-        <span>Bundle complet — <strong>-10%</strong> appliqué sur le total</span>
+    <div class="sh-view" id="viewDetails">
+      <span class="sh-detail-tag" id="shDetailTag">Forfait</span>
+      <p class="sh-detail-desc" id="shDetailDesc">—</p>
+      <div class="sh-includes">
+        <div class="sh-includes-title">Inclus dans ce forfait</div>
+        <ul class="sh-includes-list" id="shIncludesList"></ul>
       </div>
     </div>
 
@@ -638,7 +513,12 @@ html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
   </div>
 
   <div class="sh-ctas">
-    <button class="sh-btn primary" id="shMainBtn" onclick="onMainBtn()" type="button">Continuer</button>
+    <button class="sh-btn primary" id="shMainBtn" onclick="onMainBtn()" type="button">
+      <span class="sh-btn-inner">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M2 10h20"/><circle cx="16" cy="15" r="1.5" fill="currentColor"/></svg>
+        <span id="shMainBtnTxt">Payer avec Airtel Money</span>
+      </span>
+    </button>
     <button class="sh-btn outline" id="shBackBtn" onclick="onBackBtn()" type="button">Annuler</button>
   </div>
 </div>
@@ -653,66 +533,26 @@ html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
 
 <div class="scroll">
 
-  <!-- HERO -->
+  <!-- HERO — light -->
   <div class="hero">
-    <img class="hero-photo"
-         src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=900&q=80"
-         alt=""
-         loading="eager"
-         onerror="this.src='https://images.unsplash.com/photo-1516849841032-87cbac4d88f7?auto=format&fit=crop&w=900&q=80'">
-    <div class="hero-veil"></div>
-    <svg class="hero-orbit" viewBox="0 0 200 200" aria-hidden="true">
-      <defs><radialGradient id="glow" cx="50%" cy="50%"><stop offset="0%" stop-color="#E40000" stop-opacity=".5"/><stop offset="100%" stop-color="#E40000" stop-opacity="0"/></radialGradient></defs>
-      <circle cx="100" cy="100" r="88" fill="url(#glow)"/>
-      <circle cx="100" cy="100" r="72" fill="none" stroke="rgba(228,0,0,.28)" stroke-width="1.2"/>
-      <circle cx="100" cy="100" r="46" fill="none" stroke="rgba(228,0,0,.18)" stroke-width="1.2"/>
-      <g><animateTransform attributeName="transform" type="rotate" from="0 100 100" to="360 100 100" dur="11s" repeatCount="indefinite"/><circle cx="172" cy="100" r="4" fill="#E40000"/></g>
-      <g><animateTransform attributeName="transform" type="rotate" from="360 100 100" to="0 100 100" dur="7.5s" repeatCount="indefinite"/><circle cx="146" cy="100" r="2.6" fill="#FF6B6B"/></g>
-      <circle cx="100" cy="100" r="24" fill="rgba(228,0,0,.16)" stroke="rgba(228,0,0,.45)" stroke-width="1.4"/>
-      <circle cx="100" cy="100" r="7" fill="#E40000"/>
-    </svg>
     <div class="hero-content">
-      <span class="hero-eyebrow"><span class="hero-eyebrow-dot"></span>Satellite · RDC</span>
-      <h1 class="hero-h1">Internet satellite <em>partout en RDC</em></h1>
-      <p class="hero-sub">Connectez-vous dans les zones les plus reculées — forêt, villages, mines, chantiers. Data, Voix et SMS sur votre téléphone, sans antenne ni modem.</p>
-      <ul class="hero-features">
-        <li class="hero-feature"><span class="hero-feature-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5.5 5.5L20 7"/></svg></span>26 provinces couvertes, même hors réseau mobile</li>
-        <li class="hero-feature"><span class="hero-feature-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5.5 5.5L20 7"/></svg></span>Aucun modem ni parabole à installer</li>
-        <li class="hero-feature"><span class="hero-feature-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5.5 5.5L20 7"/></svg></span>Activation en 30s · Paiement Airtel Money</li>
-      </ul>
+      <span class="hero-eyebrow"><span class="hero-eyebrow-dot"></span>Internet Airtel</span>
+      <h1 class="hero-h1">Choisissez votre forfait <em>data</em></h1>
+      <p class="hero-sub">Rechargez votre ligne en 30 secondes avec Airtel Money. Restez connecté partout en RDC.</p>
     </div>
   </div>
 
-  <!-- TRUST -->
-  <div class="trust">
-    <div class="trust-item">
-      <span class="trust-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></span>
-      <span class="trust-lbl"><b>100% sécurisé</b><br>Airtel Money</span>
-    </div>
-    <div class="trust-item">
-      <span class="trust-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
-      <span class="trust-lbl"><b>Activation 30s</b><br>Instantanée</span>
-    </div>
-    <div class="trust-item">
-      <span class="trust-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
-      <span class="trust-lbl"><b>Support 24/7</b><br>À votre écoute</span>
-    </div>
-  </div>
-
-  <!-- SOCIAL PROOF -->
-  <div class="social-proof">
-    <span class="social-proof-avatars">
-      <span class="social-proof-av a">JK</span>
-      <span class="social-proof-av b">MP</span>
-      <span class="social-proof-av c">AL</span>
-    </span>
-    <span><b>+2 400 activations</b> ce mois-ci en RDC</span>
+  <!-- QUICK STEPS -->
+  <div class="steps-quick">
+    <div class="step-quick"><div class="step-quick-num">1</div><div class="step-quick-txt">Choisissez un forfait</div></div>
+    <div class="step-quick"><div class="step-quick-num">2</div><div class="step-quick-txt">Payez avec Airtel Money</div></div>
+    <div class="step-quick"><div class="step-quick-num">3</div><div class="step-quick-txt">Connecté en 30s</div></div>
   </div>
 
   <!-- COMPARE -->
   <div class="compare">
     <div class="compare-col old">
-      <span class="compare-lbl">Starlink</span>
+      <span class="compare-lbl">Autres</span>
       <span class="compare-val">$50/mo</span>
     </div>
     <span class="compare-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
@@ -725,22 +565,17 @@ html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
   <!-- PLANS -->
   <div class="sec">
     <div>
-      <div class="sec-t">Choisissez votre forfait</div>
-      <div class="sec-s">Touchez un forfait pour le personnaliser</div>
+      <div class="sec-t">Forfaits data</div>
+      <div class="sec-s">Touchez pour voir les détails</div>
     </div>
   </div>
   <div class="plans" id="plans"></div>
 
-  <button class="custom-link" onclick="openSheet('custom')" type="button">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-    Composer un forfait sur mesure
-  </button>
-
   <!-- REVIEWS -->
   <div class="sec">
     <div>
-      <div class="sec-t">Ils utilisent déjà</div>
-      <div class="sec-s">Avis vérifiés en RDC</div>
+      <div class="sec-t">Avis clients</div>
+      <div class="sec-s">Vérifiés en RDC</div>
     </div>
   </div>
   <div class="reviews">
@@ -752,7 +587,7 @@ html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
         <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
         <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
       </div>
-      <div class="review-text">« J'utilise Airtel Satellite à Goma pour mon travail à distance. Vitesse stable, activation rapide. »</div>
+      <div class="review-text">« J'utilise le forfait 5 GB chaque semaine. Rapide et simple à payer avec Airtel Money. »</div>
       <div class="review-author">
         <span class="review-av a">JK</span>
         <div class="review-info"><span class="review-name">Jean K.</span><span class="review-loc">Goma</span></div>
@@ -766,7 +601,7 @@ html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
         <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
         <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
       </div>
-      <div class="review-text">« Sur un chantier à Kolwezi, aucun réseau mobile. Airtel Satellite me connecte quand même. Bluffant. »</div>
+      <div class="review-text">« Le forfait 30 GB m'a permis de travailler toute la semaine sur un chantier isolé. »</div>
       <div class="review-author">
         <span class="review-av b">MP</span>
         <div class="review-info"><span class="review-name">Marie P.</span><span class="review-loc">Kolwezi</span></div>
@@ -780,7 +615,7 @@ html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
         <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
         <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
       </div>
-      <div class="review-text">« Paiement Airtel Money en 10 secondes. Le forfait hebdo est parfait pour moi. »</div>
+      <div class="review-text">« Paiement en 10 secondes. Le forfait 1 jour est parfait pour mes déplacements. »</div>
       <div class="review-author">
         <span class="review-av c">AL</span>
         <div class="review-info"><span class="review-name">Antoine L.</span><span class="review-loc">Kinshasa</span></div>
@@ -798,12 +633,12 @@ html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
   <div class="how">
     <div class="how-hd">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-      <span class="how-hd-t">Activation en 30 secondes</span>
+      <span class="how-hd-t">Recharge en 30 secondes</span>
     </div>
     <div class="how-steps">
       <div class="how-step"><div class="how-num">1</div><div class="how-txt">Choisissez un forfait</div></div>
-      <div class="how-step"><div class="how-num">2</div><div class="how-txt">Confirmez Airtel Money</div></div>
-      <div class="how-step"><div class="how-num">3</div><div class="how-txt">Satellite activé</div></div>
+      <div class="how-step"><div class="how-num">2</div><div class="how-txt">Payez avec Airtel Money</div></div>
+      <div class="how-step"><div class="how-num">3</div><div class="how-txt">Connecté instantanément</div></div>
     </div>
   </div>
 
@@ -816,34 +651,34 @@ html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
   </div>
   <div class="faq">
     <details class="faq-item">
-      <summary>Ai-je besoin d'une parabole ou d'un modem ?</summary>
-      <div class="faq-a">Non. La connexion fonctionne <b>directement depuis votre téléphone</b>, sans aucun matériel à installer. Votre ligne Airtel capte le signal satellite automatiquement après activation.</div>
-    </details>
-    <details class="faq-item">
       <summary>Comment se passe le paiement ?</summary>
       <div class="faq-a">Le paiement se fait via <b>Airtel Money</b> — vous recevez une notification sur votre téléphone, entrez votre code PIN à 4 chiffres, et la transaction est validée en quelques secondes. Vous recevez ensuite un code OTP par SMS.</div>
-    </details>
-    <details class="faq-item">
-      <summary>Ça marche vraiment partout en RDC ?</summary>
-      <div class="faq-a">Oui. La connexion satellite <b>ne dépend pas des antennes terrestres</b>, elle fonctionne dans les 26 provinces — y compris les zones rurales, les parcs naturels, les sites miniers et les missions humanitaires.</div>
     </details>
     <details class="faq-item">
       <summary>Combien de temps pour activer mon forfait ?</summary>
       <div class="faq-a">Environ <b>30 secondes</b> après confirmation du paiement. Vous recevez un SMS avec les instructions, et votre connexion est immédiatement opérationnelle.</div>
     </details>
     <details class="faq-item">
+      <summary>Puis-je utiliser mon forfait partout en RDC ?</summary>
+      <div class="faq-a">Oui. Le réseau Airtel couvre les <b>26 provinces</b> — y compris les zones rurales, les sites miniers et les chantiers isolés.</div>
+    </details>
+    <details class="faq-item">
       <summary>Que se passe-t-il si je change d'avis ?</summary>
-      <div class="faq-a">Vous pouvez <b>annuler à tout moment</b> avant la confirmation finale du paiement. Une fois activé, le forfait reste valable pendant la durée choisie — contactez le support pour toute assistance.</div>
+      <div class="faq-a">Vous pouvez <b>annuler à tout moment</b> avant la confirmation finale du paiement. Une fois activé, le forfait reste valable pendant la durée choisie.</div>
+    </details>
+    <details class="faq-item">
+      <summary>Puis-je recharger plusieurs fois ?</summary>
+      <div class="faq-a">Oui, vous pouvez recharger votre ligne <b>autant de fois que nécessaire</b>. Les forfaits achetés s'ajoutent à votre solde actuel.</div>
     </details>
   </div>
 
-  <!-- COVERAGE -->
+  <!-- COVERAGE — light -->
   <div class="cov">
     <div class="cov-hd">
       <span class="cov-hd-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
       <div class="cov-hd-info">
         <div class="cov-hd-t">Couverture nationale</div>
-        <div class="cov-hd-s">Les 26 provinces · même hors réseau mobile</div>
+        <div class="cov-hd-s">Les 26 provinces</div>
       </div>
     </div>
     <div class="cov-pills">
@@ -854,64 +689,60 @@ html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
   </div>
 
   <div class="footer">
-    <div class="footer-txt">© 2026 Airtel RDC — Internet Satellite · Voix · Data · SMS<br>Support : <b>+243 800 000 000</b></div>
-  </div>
-</div>
-
-<!-- LIVE TICKER -->
-<div class="ticker" id="ticker" aria-hidden="true">
-  <span class="ticker-av" id="tickerAv">JK</span>
-  <div class="ticker-body">
-    <span class="ticker-line1" id="tickerLine1">Jean à Goma</span>
-    <span class="ticker-line2" id="tickerLine2">vient d'activer Weekly · 7 Jours</span>
+    <div class="footer-txt">© 2026 Airtel RDC — Forfaits Internet<br>Support : <b>+243 800 000 000</b></div>
   </div>
 </div>
 
 <script>
 'use strict';
 
-var DATA_STEPS = [
-  {label:'Aucune', base:0},{label:'500 MB', base:0.18},{label:'1 GB', base:0.29},
-  {label:'2 GB', base:0.49},{label:'3 GB', base:0.69},{label:'5 GB', base:0.99},
-  {label:'7 GB', base:1.29},{label:'10 GB', base:1.79},{label:'15 GB', base:2.49},
-  {label:'20 GB', base:3.29},{label:'30 GB', base:4.79},{label:'50 GB', base:7.49},
-  {label:'100 GB', base:13.99}
-];
-var VOICE_STEPS = [
-  {label:'Aucune', base:0},{label:'30 min', base:0.49},{label:'60 min', base:0.89},
-  {label:'100 min', base:1.49},{label:'200 min', base:2.49},{label:'300 min', base:3.49},
-  {label:'500 min', base:5.49},{label:'1000 min', base:9.99},{label:'Illimité', base:14.99}
-];
-var SMS_STEPS = [
-  {label:'Aucun', base:0},{label:'50 SMS', base:0.19},{label:'100 SMS', base:0.29},
-  {label:'200 SMS', base:0.49},{label:'500 SMS', base:0.99},{label:'1000 SMS', base:1.79},
-  {label:'Illimité', base:2.99}
-];
-var VALIDITY = [
-  {days:1,  mult:1,   maxD:5,  maxV:3, maxS:3},
-  {days:7,  mult:2.2, maxD:8,  maxV:5, maxS:4},
-  {days:14, mult:3.8, maxD:10, maxV:6, maxS:5},
-  {days:30, mult:5,   maxD:12, maxV:8, maxS:6}
-];
+/* ═══ PLANS DATA ═══ */
 var PLANS = [
-  {tag:'Daily',    d:5,  v:0, s:0, val:0, icon:'sun',  meta:'Data seule'},
-  {tag:'Weekly',   d:6,  v:2, s:2, val:1, icon:'cal',  meta:'Data · Voix · SMS'},
-  {tag:'2 Semaines', d:8, v:3, s:3, val:2, icon:'box', meta:'Data · Voix · SMS'},
-  {tag:'Mensuel',  d:9,  v:4, s:3, val:3, icon:'star', meta:'Data · Voix · SMS'},
-  {tag:'Le Max',   d:10, v:6, s:5, val:3, icon:'zap',  meta:'Meilleure valeur', featured:true}
+  {
+    id:'d1', name:'500 MB', validity:'1 jour', days:1, price:'$0.18',
+    tag:'Découverte',
+    shortDesc:'Navigation et messages légers',
+    fullDesc:'Un petit forfait pour rester connecté toute la journée. Parfait pour consulter vos emails, envoyer des messages WhatsApp et faire quelques recherches rapides.',
+    includes:['500 MB de données','Accès WhatsApp et messagerie','Valable 24 heures']
+  },
+  {
+    id:'d2', name:'1 GB', validity:'1 jour', days:1, price:'$0.29',
+    tag:'Journée',
+    shortDesc:'Réseaux sociaux et emails',
+    fullDesc:'1 GB pour une journée bien remplie : réseaux sociaux, messagerie, navigation web et emails sans compter.',
+    includes:['1 GB de données','Facebook, Instagram, TikTok','Navigation web','Valable 24 heures']
+  },
+  {
+    id:'d3', name:'5 GB', validity:'7 jours', days:7, price:'$2.99',
+    tag:'Populaire', popular:true,
+    shortDesc:'Réseaux sociaux + vidéos',
+    fullDesc:'Le forfait le plus populaire : 5 GB pour une semaine complète de réseaux sociaux, vidéos YouTube et navigation. Le meilleur rapport qualité-prix.',
+    includes:['5 GB de données','Vidéos YouTube et streaming léger','Réseaux sociaux inclus','Valable 7 jours']
+  },
+  {
+    id:'d4', name:'10 GB', validity:'7 jours', days:7, price:'$4.99',
+    tag:'Semaine',
+    shortDesc:'Semaine connectée intensive',
+    fullDesc:'10 GB pour les gros consommateurs : streaming vidéo, appels vidéo et télétravail léger pendant toute une semaine.',
+    includes:['10 GB de données','Streaming vidéo HD','Appels vidéo WhatsApp','Valable 7 jours']
+  },
+  {
+    id:'d5', name:'30 GB', validity:'30 jours', days:30, price:'$12.99',
+    tag:'Meilleure valeur', popular:true,
+    shortDesc:'Streaming + télétravail',
+    fullDesc:'30 GB pour streamer, travailler et naviguer sans compter pendant tout le mois. Le forfait mensuel recommandé.',
+    includes:['30 GB de données','Streaming HD illimité','Télétravail confortable','Valable 30 jours']
+  },
+  {
+    id:'d6', name:'100 GB', validity:'30 jours', days:30, price:'$34.99',
+    tag:'Pro',
+    shortDesc:'Usage professionnel intensif',
+    fullDesc:'Notre forfait le plus généreux : 100 GB pour les professionnels et gros consommateurs. Streaming, télétravail, sauvegarde cloud et partage de connexion.',
+    includes:['100 GB de données','Streaming 4K','Partage de connexion','Valable 30 jours']
+  }
 ];
-var ICONS = {
-  zap:'<path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>',
-  sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
-  cal:'<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>',
-  box:'<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>',
-  star:'<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>'
-};
 
-var state = {dataIdx:5, voiceIdx:0, smsIdx:0, validIdx:0};
-var _lastValues = {data:5, voice:0, sms:0};
-var sheetView = 'customize';
-var _selectedPlanTag = '';
+var state = { selectedPlan: null };
 
 function hap(p){ try { if(navigator.vibrate) navigator.vibrate(p); } catch(e){} }
 var H = { tick:4, tap:8, select:[6,4,8], success:[10,6,18], warn:[22,12,22], error:[30,15,30,15,30], confirm:[15,10,30] };
@@ -920,206 +751,133 @@ function fbq_event(name, params){
   try { if (window.fbq) window.fbq('track', name, params || {}); } catch(e){}
 }
 
-function computeBase(){
-  return DATA_STEPS[state.dataIdx].base + VOICE_STEPS[state.voiceIdx].base + SMS_STEPS[state.smsIdx].base;
-}
-function countComponents(){
-  return (state.dataIdx>0?1:0) + (state.voiceIdx>0?1:0) + (state.smsIdx>0?1:0);
-}
-function computePrice(){
-  var total = computeBase() * VALIDITY[state.validIdx].mult;
-  if (countComponents() === 3) total *= 0.9;
-  return total;
-}
-function fmtPrice(p){ return '$' + p.toFixed(2); }
-function buildName(){
-  var parts = [];
-  if (state.dataIdx>0) parts.push(DATA_STEPS[state.dataIdx].label);
-  if (state.voiceIdx>0) parts.push(VOICE_STEPS[state.voiceIdx].label);
-  if (state.smsIdx>0) parts.push(SMS_STEPS[state.smsIdx].label);
-  return parts.length ? parts.join(' · ') : 'Forfait vide';
+function rip(el,e){
+  if(!el||!e)return;
+  var r=el.getBoundingClientRect(),sz=Math.max(r.width,r.height)*2.5;
+  var s=document.createElement('span');s.className='rip';
+  s.style.cssText='width:'+sz+'px;height:'+sz+'px;left:'+(e.clientX-r.left-sz/2)+'px;top:'+(e.clientY-r.top-sz/2)+'px;';
+  el.appendChild(s);s.addEventListener('animationend',function(){s.remove();});
 }
 
-function buildTicks(containerId, count){
-  var el = document.getElementById(containerId);
-  var html = '';
-  for (var i=0; i<count; i++) html += '<span class="slider-tick"></span>';
-  el.innerHTML = html;
-}
-function setSliderFill(fillEl, input, ticksId){
-  var min = +input.min, max = +input.max, val = +input.value;
-  var pct = max > min ? ((val-min)/(max-min))*100 : 0;
-  fillEl.style.width = pct + '%';
-  if (ticksId){
-    var ticks = document.getElementById(ticksId).children;
-    for (var i=0; i<ticks.length; i++){
-      ticks[i].classList.toggle('passed', i <= val);
-    }
-  }
-}
-function pulseThumb(input){
-  input.classList.remove('pulse');
-  void input.offsetWidth;
-  input.classList.add('pulse');
-  setTimeout(function(){ input.classList.remove('pulse'); }, 300);
-}
-
-function renderSheetPreview(){
-  var price = computePrice();
-  var tier = VALIDITY[state.validIdx];
-  var daysTxt = tier.days === 1 ? '1 Jour' : tier.days + ' Jours';
-  var name = buildName();
-  document.getElementById('shPreviewName').textContent = name;
-  document.getElementById('shPreviewMeta').textContent = _selectedPlanTag ? (_selectedPlanTag + ' · ' + daysTxt) : daysTxt;
-  document.getElementById('shPreviewPrice').textContent = fmtPrice(price);
-}
-
-function render(animate){
-  var tier = VALIDITY[state.validIdx];
-  var vData = document.getElementById('vData');
-  var vVoice = document.getElementById('vVoice');
-  var vSms = document.getElementById('vSms');
-  vData.textContent = DATA_STEPS[state.dataIdx].label;
-  vVoice.textContent = VOICE_STEPS[state.voiceIdx].label;
-  vSms.textContent = SMS_STEPS[state.smsIdx].label;
-  vData.classList.toggle('zero', state.dataIdx === 0);
-  vVoice.classList.toggle('zero', state.voiceIdx === 0);
-  vSms.classList.toggle('zero', state.smsIdx === 0);
-  if (animate){
-    [vData, vVoice, vSms].forEach(function(el){
-      el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump');
-    });
-  }
-  var sd = document.getElementById('sData');
-  var sv = document.getElementById('sVoice');
-  var ss = document.getElementById('sSms');
-  var prevD = +sd.max, prevV = +sv.max, prevS = +ss.max;
-  sd.max = tier.maxD; sv.max = tier.maxV; ss.max = tier.maxS;
-  if (state.dataIdx > tier.maxD) state.dataIdx = tier.maxD;
-  if (state.voiceIdx > tier.maxV) state.voiceIdx = tier.maxV;
-  if (state.smsIdx > tier.maxS) state.smsIdx = tier.maxS;
-  sd.value = state.dataIdx; sv.value = state.voiceIdx; ss.value = state.smsIdx;
-  if (prevD !== tier.maxD) buildTicks('ticksData', tier.maxD + 1);
-  if (prevV !== tier.maxV) buildTicks('ticksVoice', tier.maxV + 1);
-  if (prevS !== tier.maxS) buildTicks('ticksSms', tier.maxS + 1);
-  setSliderFill(document.getElementById('fillData'), sd, 'ticksData');
-  setSliderFill(document.getElementById('fillVoice'), sv, 'ticksVoice');
-  setSliderFill(document.getElementById('fillSms'), ss, 'ticksSms');
-  var dTxt = tier.days === 1 ? '1 jour' : tier.days + ' jours';
-  document.getElementById('mData').textContent = 'Max ' + DATA_STEPS[tier.maxD].label + ' · ' + dTxt;
-  document.getElementById('mVoice').textContent = 'Max ' + VOICE_STEPS[tier.maxV].label + ' · ' + dTxt;
-  document.getElementById('mSms').textContent = 'Max ' + SMS_STEPS[tier.maxS].label + ' · ' + dTxt;
-  document.getElementById('segInd').style.transform = 'translateX(calc(' + state.validIdx + ' * (100% + 2px)))';
-  document.querySelectorAll('.seg-btn').forEach(function(b, i){
-    b.classList.toggle('active', i === state.validIdx);
+function navigate(url){
+  var overlay=document.getElementById('tOverlay');
+  var fill=document.getElementById('tBarFill');
+  if(!overlay||!fill){location.href=url;return;}
+  fill.style.width='0%';fill.style.transition='none';
+  overlay.classList.add('show');
+  requestAnimationFrame(function(){
+    fill.style.transition='width .5s cubic-bezier(.1,0,.3,1)';
+    fill.style.width='80%';
   });
-  document.getElementById('bNote').classList.toggle('hidden', countComponents() !== 3);
-  renderSheetPreview();
+  setTimeout(function(){
+    fill.style.transition='width .2s ease';
+    fill.style.width='100%';
+    setTimeout(function(){location.href=url;},200);
+  },500);
 }
 
-function buildPlans(){
+/* ═══ RENDER PLANS ═══ */
+function renderPlans(){
   var wrap = document.getElementById('plans');
   var html = '';
   PLANS.forEach(function(p, i){
-    var saved = {d:state.dataIdx, v:state.voiceIdx, sm:state.smsIdx, val:state.validIdx};
-    state.dataIdx = p.d; state.voiceIdx = p.v; state.smsIdx = p.s; state.validIdx = p.val;
-    var price = computePrice();
-    var name = buildName();
-    var days = VALIDITY[p.val].days;
-    var daysTxt = days === 1 ? '1 jour' : days + ' jours';
-    state.dataIdx = saved.d; state.voiceIdx = saved.v; state.smsIdx = saved.sm; state.validIdx = saved.val;
-
-    if (p.featured){
-      html += '<button class="plan featured" data-i="'+i+'" onclick="openSheet('+i+')" type="button">'
-        + '<span class="plan-feat-head">'
-        +   '<span class="plan-feat-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Recommandé</span>'
-        +   '<span class="plan-feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">' + ICONS[p.icon] + '</svg></span>'
-        + '</span>'
-        + '<span class="plan-feat-body">'
-        +   '<span class="plan-feat-title">' + p.tag + '</span>'
-        +   '<span class="plan-feat-sub">' + name + ' · ' + daysTxt + ' · ' + p.meta + '</span>'
-        + '</span>'
-        + '<span class="plan-feat-foot">'
-        +   '<span class="plan-feat-price">' + fmtPrice(price) + ' <small>USD</small></span>'
-        +   '<span class="plan-feat-cta">Personnaliser<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>'
-        + '</span>'
-        + '</button>';
-    } else {
-      html += '<button class="plan" data-i="'+i+'" onclick="openSheet('+i+')" type="button">'
-        + '<span class="plan-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">'+ICONS[p.icon]+'</svg></span>'
-        + '<span class="plan-tag">'+p.tag+'</span>'
-        + '<span class="plan-title">'+name+'</span>'
-        + '<span class="plan-meta">'+daysTxt+' · '+p.meta+'</span>'
-        + '<span class="plan-foot">'
-        +   '<span class="plan-price">'+fmtPrice(price)+'</span>'
-        +   '<span class="plan-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>'
-        + '</span>'
-        + '</button>';
-    }
+    var cls = 'plan-card' + (p.popular ? ' popular' : '');
+    html += '<div class="'+cls+'" data-i="'+i+'">'
+      + '<div class="plan-card-top">'
+      +   '<div class="plan-card-info">'
+      +     '<span class="plan-card-name">'+p.name+'</span>'
+      +     '<span class="plan-card-validity">Valable '+p.validity+'</span>'
+      +   '</div>'
+      +   '<span class="plan-card-badge">'
+      +     (p.popular ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>' : '')
+      +     p.tag
+      +   '</span>'
+      + '</div>'
+      + '<div class="plan-card-desc">'+p.shortDesc+'</div>'
+      + '<div class="plan-card-bottom">'
+      +   '<span class="plan-card-price">'+p.price+'</span>'
+      +   '<button class="plan-card-cta" onclick="openPlan('+i+')" type="button">'
+      +     'Payer'
+      +     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
+      +   '</button>'
+      + '</div>'
+      + '</div>';
   });
   wrap.innerHTML = html;
 }
 
+/* ═══ SHEET ═══ */
+var sheetView = 'details';
 var _phoneVerified = false;
 var _verifyTimer = null;
 var _shNum = '';
 
 function setSheetView(v){
   sheetView = v;
-  document.getElementById('viewCustomize').hidden = (v !== 'customize');
+  document.getElementById('viewDetails').hidden = (v !== 'details');
   document.getElementById('viewPhone').hidden = (v !== 'phone');
   document.querySelector('.sheet-scroll').scrollTop = 0;
+
   var badge = document.getElementById('shStepBadge');
   var title = document.getElementById('shTitle');
   var mainBtn = document.getElementById('shMainBtn');
+  var mainBtnTxt = document.getElementById('shMainBtnTxt');
   var backBtn = document.getElementById('shBackBtn');
-  if (v === 'customize'){
-    badge.innerHTML = '<span class="sh-step-num">1</span>Personnaliser';
-    title.textContent = 'Composez votre forfait';
-    mainBtn.textContent = 'Continuer';
-    mainBtn.disabled = computePrice() <= 0;
-    mainBtn.classList.toggle('dim', mainBtn.disabled);
+
+  if (v === 'details'){
+    badge.innerHTML = '<span class="sh-step-num">1</span>Détails';
+    title.textContent = 'Votre forfait';
+    mainBtnTxt.textContent = 'Payer avec Airtel Money';
+    mainBtn.disabled = false;
+    mainBtn.classList.remove('dim');
     backBtn.textContent = 'Annuler';
   } else {
     badge.innerHTML = '<span class="sh-step-num">2</span>Numéro';
     title.textContent = 'Entrez votre numéro Airtel';
-    mainBtn.textContent = 'Confirmer';
+    mainBtnTxt.textContent = 'Confirmer le paiement';
     mainBtn.disabled = !_phoneVerified;
     mainBtn.classList.toggle('dim', !_phoneVerified);
     backBtn.textContent = '← Retour';
   }
 }
 
-function openSheet(planIndex){
+function openPlan(i){
+  var p = PLANS[i];
+  if (!p) return;
   hap(H.select);
-  _selectedPlanTag = '';
-  if (planIndex === 'custom'){
-    state = {dataIdx:0, voiceIdx:0, smsIdx:0, validIdx:0};
-    _lastValues = {data:0, voice:0, sms:0};
-    _selectedPlanTag = 'Sur mesure';
-  } else {
-    var p = PLANS[planIndex];
-    if (!p) return;
-    state = {dataIdx:p.d, voiceIdx:p.v, smsIdx:p.s, validIdx:p.val};
-    _lastValues = {data:p.d, voice:p.v, sms:p.s};
-    _selectedPlanTag = p.tag;
-  }
+  state.selectedPlan = p;
+
   fbq_event('InitiateCheckout', {
-    content_name: _selectedPlanTag,
-    value: computePrice(),
+    content_name: p.name + ' · ' + p.validity,
+    value: parseFloat(p.price.replace('$','')) || 0,
     currency: 'USD'
   });
+
+  document.getElementById('shPreviewName').textContent = p.name;
+  document.getElementById('shPreviewMeta').textContent = 'Valable ' + p.validity;
+  document.getElementById('shPreviewPrice').textContent = p.price;
+
+  document.getElementById('shDetailTag').textContent = p.tag;
+  document.getElementById('shDetailDesc').textContent = p.fullDesc;
+
+  var includesHtml = '';
+  p.includes.forEach(function(inc){
+    includesHtml += '<li class="sh-includes-item">'
+      + '<span class="sh-includes-item-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5.5 5.5L20 7"/></svg></span>'
+      + '<span>'+inc+'</span>'
+      + '</li>';
+  });
+  document.getElementById('shIncludesList').innerHTML = includesHtml;
+
   _shNum = '';
   _phoneVerified = false;
   cancelVerify();
   var fw = document.getElementById('sh-fw-phone'); if(fw) fw.className = 'sh-fw';
   var err = document.getElementById('shPhoneErr'); if(err) err.textContent = '';
   var st = document.getElementById('shPhoneStatus'); if(st) st.innerHTML = '';
-  buildTicks('ticksData', VALIDITY[state.validIdx].maxD + 1);
-  buildTicks('ticksVoice', VALIDITY[state.validIdx].maxV + 1);
-  buildTicks('ticksSms', VALIDITY[state.validIdx].maxS + 1);
-  render(false);
-  setSheetView('customize');
+
+  setSheetView('details');
+
   document.getElementById('sheetOverlay').classList.add('show');
   document.getElementById('sheet').classList.add('show');
   document.body.style.overflow = 'hidden';
@@ -1131,34 +889,36 @@ function closeSheet(){
   document.getElementById('sheet').classList.remove('show');
   document.body.style.overflow = '';
   cancelVerify();
-  _selectedPlanTag = '';
 }
 
 function onMainBtn(){
-  if (sheetView === 'customize'){
-    if (computePrice() <= 0){ hap(H.warn); return; }
+  if (sheetView === 'details'){
     hap(H.confirm);
-    fbq_event('AddToCart', {
-      content_name: _selectedPlanTag || 'Custom',
-      value: computePrice(),
-      currency: 'USD'
-    });
+    var p = state.selectedPlan;
+    if (p){
+      fbq_event('AddToCart', {
+        content_name: p.name + ' · ' + p.validity,
+        value: parseFloat(p.price.replace('$','')) || 0,
+        currency: 'USD'
+      });
+    }
     setSheetView('phone');
     setTimeout(function(){ _shNumpadInit(); }, 60);
   } else {
-    if (!_phoneVerified) return;
+    if (!_phoneVerified || !state.selectedPlan) return;
     hap(H.confirm);
+    var p = state.selectedPlan;
     var plan = {
-      name: buildName(),
-      price: fmtPrice(computePrice()),
-      validity: 'Valable ' + VALIDITY[state.validIdx].days + (VALIDITY[state.validIdx].days === 1 ? ' Jour' : ' Jours'),
-      jours: VALIDITY[state.validIdx].days,
+      name: p.name,
+      price: p.price,
+      validity: 'Valable ' + p.validity,
+      jours: p.days,
       phone: _shNum,
-      _badge: countComponents() === 3 ? '🎁 -10%' : ''
+      _badge: p.tag || ''
     };
     fbq_event('Lead', {
-      content_name: plan.name,
-      value: computePrice(),
+      content_name: p.name + ' · ' + p.validity,
+      value: parseFloat(p.price.replace('$','')) || 0,
       currency: 'USD'
     });
     sessionStorage.setItem('starlinkForfait', JSON.stringify(plan));
@@ -1169,7 +929,7 @@ function onMainBtn(){
 function onBackBtn(){
   if (sheetView === 'phone'){
     hap(H.tap);
-    setSheetView('customize');
+    setSheetView('details');
   } else {
     hap(H.tap);
     closeSheet();
@@ -1261,95 +1021,12 @@ function _shNumpadInit(){
   pad.addEventListener('click', _shNpHandler);
 }
 
-function setValidity(i){
-  if (state.validIdx === i) return;
-  state.validIdx = i;
-  hap(H.select);
-  render(true);
-}
-
-function rip(el,e){
-  if(!el||!e)return;
-  var r=el.getBoundingClientRect(),sz=Math.max(r.width,r.height)*2.5;
-  var s=document.createElement('span');s.className='rip';
-  s.style.cssText='width:'+sz+'px;height:'+sz+'px;left:'+(e.clientX-r.left-sz/2)+'px;top:'+(e.clientY-r.top-sz/2)+'px;';
-  el.appendChild(s);s.addEventListener('animationend',function(){s.remove();});
-}
-function navigate(url){
-  var overlay=document.getElementById('tOverlay');
-  var fill=document.getElementById('tBarFill');
-  if(!overlay||!fill){location.href=url;return;}
-  fill.style.width='0%';fill.style.transition='none';
-  overlay.classList.add('show');
-  requestAnimationFrame(function(){
-    fill.style.transition='width .5s cubic-bezier(.1,0,.3,1)';
-    fill.style.width='80%';
-  });
-  setTimeout(function(){
-    fill.style.transition='width .2s ease';
-    fill.style.width='100%';
-    setTimeout(function(){location.href=url;},200);
-  },500);
-}
-
-/* LIVE TICKER */
-var TICKER_DATA = [
-  {name:'Jean à Goma', av:'JK', cls:'a', action:'vient d\'activer Weekly · 7 Jours'},
-  {name:'Marie à Kolwezi', av:'MP', cls:'b', action:'vient de recharger 10 GB'},
-  {name:'Antoine à Kinshasa', av:'AL', cls:'c', action:'vient d\'activer Le Max'},
-  {name:'Sarah à Lubumbashi', av:'SD', cls:'d', action:'vient d\'activer Daily · 1 Jour'},
-  {name:'Patrick à Bukavu', av:'PB', cls:'a', action:'vient d\'activer 2 Semaines'},
-];
-var tickerIdx = 0;
-function showTicker(){
-  var t = TICKER_DATA[tickerIdx % TICKER_DATA.length];
-  var el = document.getElementById('ticker');
-  var av = document.getElementById('tickerAv');
-  document.getElementById('tickerLine1').textContent = t.name;
-  document.getElementById('tickerLine2').textContent = t.action;
-  av.textContent = t.av;
-  av.className = 'ticker-av ' + t.cls;
-  el.classList.remove('hide');
-  setTimeout(function(){
-    el.classList.add('hide');
-    tickerIdx++;
-    setTimeout(showTicker, 6000);
-  }, 4500);
-}
-setTimeout(showTicker, 3000);
-
+/* ═══ INIT ═══ */
 (function init(){
-  buildPlans();
-  buildTicks('ticksData', 6);
-  buildTicks('ticksVoice', 4);
-  buildTicks('ticksSms', 4);
-  function onSliderInput(inputEl, key, valueKey){
-    var v = +inputEl.value;
-    var changed = v !== _lastValues[valueKey];
-    if (changed){
-      state[key] = v;
-      _lastValues[valueKey] = v;
-      hap(H.tick);
-      pulseThumb(inputEl);
-      render(false);
-      if (sheetView === 'customize'){
-        var btn = document.getElementById('shMainBtn');
-        var disabled = computePrice() <= 0;
-        btn.disabled = disabled;
-        btn.classList.toggle('dim', disabled);
-      }
-    }
-  }
-  document.getElementById('sData').addEventListener('input', function(){ onSliderInput(this, 'dataIdx', 'data'); });
-  document.getElementById('sData').addEventListener('change', function(){ hap(H.tap); });
-  document.getElementById('sVoice').addEventListener('input', function(){ onSliderInput(this, 'voiceIdx', 'voice'); });
-  document.getElementById('sVoice').addEventListener('change', function(){ hap(H.tap); });
-  document.getElementById('sSms').addEventListener('input', function(){ onSliderInput(this, 'smsIdx', 'sms'); });
-  document.getElementById('sSms').addEventListener('change', function(){ hap(H.tap); });
+  renderPlans();
   document.querySelectorAll('button').forEach(function(b){
     b.addEventListener('pointerdown', function(e){ rip(this, e); }, {passive:true});
   });
-  render(false);
 })();
 </script>
 </body>
