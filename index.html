@@ -110,7 +110,7 @@ img,svg{display:block;max-width:100%}
 /* MAIN CONTENT — fills viewport below nav */
 .main{
   flex:1;min-height:0;display:flex;flex-direction:column;
-  padding:clamp(10px,2.4vw,16px) clamp(10px,2.6vw,16px) max(10px,var(--safe-b));
+  padding:clamp(10px,2.4vw,16px) clamp(10px,2.6vw,16px) max(12px,calc(var(--safe-b) + 4px));
   gap:clamp(8px,1.8vw,12px);
   animation:pg-in .35s var(--ease) both;
   overflow:hidden;
@@ -140,20 +140,27 @@ img,svg{display:block;max-width:100%}
   overflow:hidden;
 }
 
-/* ── card shell — uniform, roomy ── */
+/* ── card shell — full Airtel-red character ── */
 .plan-card{
   position:relative;
-  background:#fff;
-  border:1px solid var(--line);
-  border-left:3.5px solid var(--red);
+  background:linear-gradient(165deg,#FFFCFC 0%,#FFE9E9 100%);
+  border:1px solid rgba(228,0,0,.16);
   border-radius:clamp(14px,3.4vw,18px);
   padding:clamp(11px,2.6vw,15px) clamp(11px,2.6vw,15px) clamp(9px,2.2vw,12px);
   display:flex;flex-direction:column;
   text-align:left;cursor:pointer;
   transition:border-color .15s,transform .1s var(--spring),box-shadow .15s;
   will-change:transform;overflow:hidden;
+  box-shadow:0 2px 10px rgba(228,0,0,.06), 0 1px 2px rgba(228,0,0,.04);
 }
 .plan-card:active{transform:scale(.975)}
+
+/* popular variant — slightly stronger character */
+.plan-card.popular{
+  background:linear-gradient(165deg,#FFF7F7 0%,#FFDBDB 100%);
+  border-color:rgba(228,0,0,.30);
+  box-shadow:0 4px 16px rgba(228,0,0,.14), 0 1px 2px rgba(228,0,0,.06);
+}
 
 /* ── icon circle ── */
 .plan-icon-circle{
@@ -162,8 +169,9 @@ img,svg{display:block;max-width:100%}
   display:grid;place-items:center;
   flex-shrink:0;
   margin-bottom:clamp(4px,.9vw,6px);
-  background:rgba(228,0,0,.08);
+  background:#fff;
   color:var(--red);
+  box-shadow:0 1px 4px rgba(228,0,0,.16);
 }
 .plan-icon-circle svg{width:50%;height:50%}
 
@@ -186,7 +194,7 @@ img,svg{display:block;max-width:100%}
 /* ── short description ── */
 .plan-desc{
   font-size:clamp(9.5px,2.4vw,11.5px);font-weight:500;
-  color:var(--ink-4);line-height:1.25;
+  color:var(--ink-3);line-height:1.25;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
   margin:clamp(3px,.7vw,4px) 0 0;
 }
@@ -198,9 +206,9 @@ img,svg{display:block;max-width:100%}
 }
 .plan-validity{
   font-size:clamp(10px,2.5vw,12px);font-weight:600;
-  color:var(--ink-4);line-height:1;
+  color:var(--ink-3);line-height:1;
 }
-.plan-dot{width:2.5px;height:2.5px;border-radius:50%;background:var(--ink-4);flex-shrink:0;opacity:.5}
+.plan-dot{width:2.5px;height:2.5px;border-radius:50%;background:var(--red);flex-shrink:0;opacity:.55}
 .plan-perday{
   font-family:var(--font-mono);
   font-size:clamp(9px,2.3vw,11px);font-weight:500;
@@ -210,7 +218,7 @@ img,svg{display:block;max-width:100%}
 
 /* ── divider — pushes price bar to bottom ── */
 .plan-divider{
-  height:1px;background:var(--line-2);
+  height:1px;background:rgba(228,0,0,.14);
   flex-shrink:0;
   margin-top:auto;
 }
@@ -229,7 +237,7 @@ img,svg{display:block;max-width:100%}
 .plan-price{
   font-family:var(--font-display);
   font-size:clamp(19px,4.8vw,23px);font-weight:800;
-  letter-spacing:-.03em;color:var(--ink);line-height:1;
+  letter-spacing:-.03em;color:var(--red-dk);line-height:1;
   font-feature-settings:'tnum';
 }
 
@@ -238,7 +246,8 @@ img,svg{display:block;max-width:100%}
   width:clamp(30px,7.4vw,36px);height:clamp(30px,7.4vw,36px);
   border-radius:50%;flex-shrink:0;
   display:grid;place-items:center;
-  background:var(--red);
+  background:linear-gradient(135deg,#FF2E2E 0%,var(--red) 55%,#C80000 100%);
+  box-shadow:0 3px 10px rgba(228,0,0,.30);
   transition:background .12s,transform .12s var(--spring);
 }
 .plan-cta svg{width:44%;height:44%;color:#fff}
@@ -270,13 +279,6 @@ img,svg{display:block;max-width:100%}
   to{opacity:1;transform:none}
 }
 .plan-card{animation:card-in .35s var(--ease) both}
-
-/* FOOTER INLINE */
-.footer-inline{
-  flex-shrink:0;text-align:center;
-  font-size:clamp(8.5px,2.1vw,10px);color:var(--ink-4);line-height:1.2;
-  padding:2px 0;opacity:.7;
-}
 
 /* ═══ SHEET ═══ */
 .sheet-overlay{position:fixed;inset:0;z-index:100;background:rgba(10,10,14,.4);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .3s var(--ease),visibility 0s linear .3s}
@@ -377,15 +379,15 @@ img,svg{display:block;max-width:100%}
 
 html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
 
-/* Shorter screens — softened now that we have only 3 rows */
+/* Shorter screens */
 @media(max-height:640px){
   .nav{height:calc(44px + var(--safe-t))}
   .nav-logo{height:20px}
-  .main{padding:8px 10px max(8px,var(--safe-b));gap:6px}
+  .main{padding:8px 10px max(8px,calc(var(--safe-b) + 4px));gap:6px}
   .header-title{font-size:14px}
   .header-sub{font-size:10px}
   .plans{gap:5px}
-  .plan-card{padding:8px 9px 7px;border-radius:11px;border-left-width:3px}
+  .plan-card{padding:8px 9px 7px;border-radius:11px}
   .plan-icon-circle{width:26px;height:26px;margin-bottom:3px}
   .plan-data{font-size:24px}
   .plan-unit{font-size:10px}
@@ -402,12 +404,12 @@ html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
   .sh-phone-hint{display:none}
 }
 @media(max-width:360px){
-  .main{padding:6px 6px max(6px,var(--safe-b))}
+  .main{padding:6px 6px max(6px,calc(var(--safe-b) + 4px))}
   .plans{gap:4px}
   .plan-card{padding:8px 8px 6px}
 }
 @media(min-width:430px){
-  .main{padding:14px 16px max(12px,var(--safe-b))}
+  .main{padding:14px 16px max(14px,calc(var(--safe-b) + 4px))}
   .plans{gap:10px}
 }
 @media(min-width:600px){
@@ -524,8 +526,6 @@ html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
   </div>
 
   <div class="plans" id="plans"></div>
-
-  <div class="footer-inline">© 2026 Airtel RDC · +243 800 000 000</div>
 </div>
 
 <script>
