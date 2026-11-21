@@ -7,10 +7,10 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Airtel RDC — Forfaits Internet</title>
-<meta name="description" content="Forfaits internet Airtel RDC dès $0.18. Payez avec Airtel Money en 30 secondes.">
+<meta name="description" content="Forfaits internet Airtel RDC dès $0.29. Payez avec Airtel Money en 30 secondes.">
 
 <meta property="og:title" content="Airtel RDC — Forfaits Internet">
-<meta property="og:description" content="Forfaits data dès $0.18. Paiement Airtel Money en 30 secondes.">
+<meta property="og:description" content="Forfaits data dès $0.29. Paiement Airtel Money en 30 secondes.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="fr_CD">
 
@@ -67,10 +67,8 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;outlin
 img,svg{display:block;max-width:100%}
 :focus-visible{outline:2px solid var(--red);outline-offset:2px;border-radius:8px}
 .plan-card:focus-visible,
-.sh-nk:focus-visible,
 .sh-close:focus-visible,
-.sh-btn:focus-visible,
-.summary-change:focus-visible{
+.sh-btn:focus-visible{
   outline:2px solid var(--red);
   outline-offset:3px;
 }
@@ -81,7 +79,6 @@ img,svg{display:block;max-width:100%}
 @keyframes pg-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 @keyframes dot-pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.85)}}
 @keyframes rip-anim{to{transform:scale(3.2);opacity:0}}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 @keyframes logoPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(.92)}}
 
 /* NAV */
@@ -138,78 +135,37 @@ img,svg{display:block;max-width:100%}
 .plans{
   flex:1;min-height:0;
   display:grid;grid-template-columns:repeat(2,1fr);
-  grid-template-rows:repeat(6,1fr);
+  grid-template-rows:repeat(5,1fr);
   gap:clamp(4px,1vw,6px);
   overflow:hidden;
 }
 
-/* ── card shell ── */
+/* ── card shell — uniform styling for every card ── */
 .plan-card{
   position:relative;
   background:#fff;
   border:1px solid var(--line);
+  border-left:3px solid var(--red);
   border-radius:clamp(12px,3vw,14px);
   padding:clamp(8px,2vw,10px) clamp(8px,2vw,10px) clamp(6px,1.5vw,8px);
   display:flex;flex-direction:column;
   text-align:left;cursor:pointer;
   transition:border-color .15s,transform .1s var(--spring),box-shadow .15s;
   will-change:transform;overflow:hidden;
-  border-left:3px solid var(--line);
 }
 .plan-card:active{transform:scale(.975)}
-.plan-card.hidden{display:none}
 
-/* tier accent colors */
-.plan-card[data-tier="starter"]{border-left-color:#6366F1;background:linear-gradient(165deg,#FAFAFF 0%,#F0F0FF 100%)}
-.plan-card[data-tier="social"]{border-left-color:#EC4899;background:linear-gradient(165deg,#FFFAFD 0%,#FFF0F7 100%)}
-.plan-card[data-tier="weekend"]{border-left-color:#F59E0B;background:linear-gradient(165deg,#FFFDF5 0%,#FFF8E7 100%)}
-.plan-card[data-tier="popular"]{border-left-color:var(--red);background:linear-gradient(165deg,#FFFBFB 0%,#FFE8E8 100%);box-shadow:0 2px 12px rgba(228,0,0,.10)}
-.plan-card[data-tier="value"]{border-left-color:#10B981;background:linear-gradient(165deg,#F5FFFC 0%,#ECFDF5 100%)}
-.plan-card[data-tier="unlimited"]{border-left-color:#8B5CF6;background:linear-gradient(165deg,#FAF5FF 0%,#F3E8FF 100%)}
-
-/* popular card */
-.plan-card.popular{
-  border-left-color:var(--red);
-  box-shadow:0 2px 14px rgba(228,0,0,.12);
-}
-.plan-card.popular::after{
-  content:'';position:absolute;top:0;left:-1px;right:0;height:3px;
-  background:linear-gradient(90deg,var(--red),#FF6B6B,var(--red));
-  border-radius:14px 14px 0 0;
-}
-
-/* ── icon circle ── */
+/* ── icon circle — uniform ── */
 .plan-icon-circle{
   width:clamp(26px,6.5vw,30px);height:clamp(26px,6.5vw,30px);
   border-radius:50%;
   display:grid;place-items:center;
   flex-shrink:0;
   margin-bottom:clamp(2px,.5vw,3px);
+  background:rgba(228,0,0,.08);
+  color:var(--red);
 }
 .plan-icon-circle svg{width:48%;height:48%}
-
-/* tier icon colors */
-[data-tier="starter"] .plan-icon-circle{background:rgba(99,102,241,.12);color:#6366F1}
-[data-tier="social"] .plan-icon-circle{background:rgba(236,72,153,.10);color:#EC4899}
-[data-tier="weekend"] .plan-icon-circle{background:rgba(245,158,11,.10);color:#F59E0B}
-[data-tier="popular"] .plan-icon-circle{background:rgba(228,0,0,.08);color:var(--red)}
-[data-tier="value"] .plan-icon-circle{background:rgba(16,185,129,.10);color:#10B981}
-[data-tier="unlimited"] .plan-icon-circle{background:rgba(139,92,246,.10);color:#8B5CF6}
-
-/* ── tag label ── */
-.plan-tag{
-  display:inline-flex;align-self:flex-start;align-items:center;gap:clamp(2px,.5vw,3px);
-  padding:clamp(2px,.5vw,3px) clamp(5px,1.2vw,7px);
-  background:var(--surf-lo);border:1px solid var(--line-2);
-  border-radius:999px;
-  font-size:clamp(6.5px,1.6vw,7.5px);font-weight:700;
-  color:var(--ink-3);line-height:1;white-space:nowrap;
-  margin-bottom:clamp(1px,.3vw,2px);
-}
-.plan-tag svg{width:clamp(8px,2vw,10px);height:clamp(8px,2vw,10px);flex-shrink:0}
-.plan-card.popular .plan-tag{
-  background:rgba(228,0,0,.06);border-color:rgba(228,0,0,.12);color:var(--red);
-}
 
 /* ── hero data ── */
 .plan-hero{
@@ -226,6 +182,7 @@ img,svg{display:block;max-width:100%}
   font-size:clamp(10px,2.5vw,12px);font-weight:700;
   color:var(--ink-3);letter-spacing:0;line-height:1;
 }
+
 /* ── short description ── */
 .plan-desc{
   font-size:clamp(7.5px,1.9vw,9px);font-weight:500;
@@ -257,7 +214,6 @@ img,svg{display:block;max-width:100%}
   flex-shrink:0;
   margin-top:auto;
 }
-.plan-card.popular .plan-divider{background:rgba(228,0,0,.10)}
 
 /* ── price bar ── */
 .plan-price-bar{
@@ -276,28 +232,19 @@ img,svg{display:block;max-width:100%}
   letter-spacing:-.03em;color:var(--ink);line-height:1;
   font-feature-settings:'tnum';
 }
-.plan-card.popular .plan-data{color:var(--red-dk)}
-.plan-card.popular .plan-price{color:var(--red)}
 
-/* CTA arrow — compact */
+/* CTA arrow — compact, uniform */
 .plan-cta{
   width:clamp(24px,6vw,28px);height:clamp(24px,6vw,28px);
   border-radius:50%;flex-shrink:0;
   display:grid;place-items:center;
+  background:var(--red);
   transition:background .12s,transform .12s var(--spring);
 }
 .plan-cta svg{width:42%;height:42%;color:#fff}
 .plan-card:active .plan-cta{transform:scale(.9)}
 
-/* tier CTA colors */
-[data-tier="starter"] .plan-cta{background:#6366F1}
-[data-tier="social"] .plan-cta{background:#EC4899}
-[data-tier="weekend"] .plan-cta{background:#F59E0B}
-[data-tier="popular"] .plan-cta{background:var(--red)}
-[data-tier="value"] .plan-cta{background:#10B981}
-[data-tier="unlimited"] .plan-cta{background:#8B5CF6}
-
-/* savings badge — only on best deals */
+/* savings badge */
 .plan-save{
   position:absolute;top:0;right:0;
   padding:1.5px clamp(5px,1.3vw,7px) 2px;
@@ -382,19 +329,26 @@ img,svg{display:block;max-width:100%}
 }
 .sh-includes-item-ic svg{width:10px;height:10px}
 
+/* phone input */
 .sh-phone-lbl{font-size:10.5px;font-weight:800;color:var(--ink-3);letter-spacing:.1em;text-transform:uppercase;line-height:1;padding-bottom:12px}
-.sh-fw{display:flex;align-items:center;height:56px;border-bottom:2px solid var(--line);transition:border-color .25s}
-.sh-fw.focus{border-bottom-color:var(--red)}
-.sh-fw.ok{border-bottom-color:var(--ok)}
-.sh-fw.err{border-bottom-color:var(--err)}
+.sh-phone-field{
+  display:flex;align-items:center;height:56px;
+  border:1.5px solid var(--line);border-radius:16px;
+  background:#fff;padding:0 12px;
+  transition:border-color .2s,box-shadow .2s;
+}
+.sh-phone-field.focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(228,0,0,.08)}
+.sh-phone-field.ok{border-color:var(--ok)}
+.sh-phone-field.err{border-color:var(--err)}
 .sh-prefix{display:flex;align-items:center;gap:6px;padding-right:12px;margin-right:12px;border-right:1px solid var(--line);flex-shrink:0;line-height:1}
 .sh-prefix-flag{font-size:18px;line-height:1}
 .sh-prefix-code{font-family:var(--font-mono);font-size:15px;font-weight:600;color:var(--ink);letter-spacing:.03em}
-.sh-phone-display{flex:1;position:relative;display:flex;align-items:center;min-width:0;height:100%}
-.sh-phone-placeholder{position:absolute;pointer-events:none;font-size:14px;color:var(--ink-3);font-weight:400}
-.sh-phone-val{font-family:var(--font-mono);font-size:17px;font-weight:600;color:var(--ink);letter-spacing:.05em;white-space:nowrap}
-.sh-phone-cursor{display:none;width:2px;height:20px;background:var(--red);margin-left:2px;border-radius:1px;animation:blink .9s step-end infinite}
-.sh-phone-status{width:44px;height:100%;display:grid;place-items:center;flex-shrink:0;cursor:pointer;min-height:44px}
+.sh-phone-input{
+  flex:1;min-width:0;height:100%;padding:0;border:0;outline:0;background:transparent;
+  font-family:var(--font-mono);font-size:16px;font-weight:600;color:var(--ink);letter-spacing:.05em;
+  -webkit-appearance:none;appearance:none;
+}
+.sh-phone-input::placeholder{font-family:var(--font-body);font-size:14px;font-weight:400;color:var(--ink-3);letter-spacing:0}
 .sh-phone-err{font-size:11.5px;color:var(--err);font-weight:600;padding:5px 0 0;min-height:18px;line-height:1.4}
 .sh-phone-hint{display:grid;grid-template-columns:13px 1fr;gap:8px;align-items:start;margin-top:12px;padding:11px 13px;background:#EFF5FF;border:1px solid rgba(37,99,235,.14);border-radius:16px;font-size:12px;color:#1D4ED8;line-height:1.5}
 .sh-phone-hint svg{flex-shrink:0;margin-top:2px}
@@ -405,13 +359,6 @@ img,svg{display:block;max-width:100%}
 .sh-verify-txt{font-size:12px;font-weight:600;color:var(--ok);flex:1;line-height:1.3;min-width:0}
 .sh-verify-bar-wrap{width:64px;height:3px;background:rgba(22,163,74,.15);border-radius:2px;overflow:hidden}
 .sh-verify-bar{height:100%;width:0;background:var(--ok);border-radius:2px;transition:width .75s ease-out}
-
-.sh-numpad{display:grid;grid-template-columns:repeat(3,1fr);padding:14px 0 4px;gap:9px}
-.sh-nk{position:relative;overflow:hidden;height:clamp(48px, 12vw, 58px);border-radius:16px;background:#fff;border:1px solid var(--line);font-family:var(--font-display);font-size:clamp(20px, 5.2vw, 24px);font-weight:600;color:var(--ink);display:grid;place-items:center;line-height:1;transition:background .1s,transform .1s var(--spring);flex-shrink:0;min-height:44px}
-.sh-nk:active{background:var(--surf-mid);transform:scale(.94)}
-.sh-nk.del{font-size:18px;color:var(--ink-2);background:transparent;border-color:transparent}
-.sh-nk.del:active{background:var(--surf-mid)}
-.sh-nk.empty{background:transparent;border-color:transparent;cursor:default;opacity:0;pointer-events:none}
 
 .sh-ctas{flex-shrink:0;padding:14px 16px max(18px,var(--safe-b));background:#fff;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:9px}
 .sh-btn{width:100%;height:clamp(50px, 13vw, 58px);border-radius:999px;font-family:var(--font-display);font-size:clamp(14px, 3.8vw, 16px);font-weight:700;letter-spacing:.005em;display:grid;place-items:center;position:relative;overflow:hidden;transition:transform .12s var(--spring),opacity .15s;border:none;flex-shrink:0;min-height:48px}
@@ -440,8 +387,6 @@ html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
   .plan-unit{font-size:9px}
   .plan-price{font-size:12px}
   .plan-was{font-size:7px}
-  .plan-tag{font-size:6px;padding:1.5px 4px}
-  .plan-tag svg{width:7px;height:7px}
   .plan-save{font-size:5.5px;padding:1px 4px}
   .plan-pop-label{font-size:5px;padding:1px 5px}
   .plans{gap:3px}
@@ -452,6 +397,8 @@ html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
   .plan-icon-circle{width:20px;height:20px}
   .plan-val-line{margin:2px 0 0}
   .plan-price-bar{padding-top:3px}
+  .sh-view#viewPhone{gap:10px}
+  .sh-phone-hint{display:none}
 }
 @media(max-width:360px){
   .main{padding:6px 6px max(6px,var(--safe-b))}
@@ -464,7 +411,6 @@ html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
 }
 @media(min-width:600px){
   .main{max-width:560px;margin-inline:auto}
-  .plans{grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(4,1fr)}
 }
 </style>
 </head>
@@ -504,7 +450,7 @@ html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
     </div>
   </div>
 
-  <div class="sheet-scroll">
+  <div class="sheet-scroll" id="sheetScroll">
     <div class="sh-view" id="viewDetails">
       <span class="sh-detail-tag" id="shDetailTag">Forfait</span>
       <p class="sh-detail-desc" id="shDetailDesc">—</p>
@@ -517,13 +463,19 @@ html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
     <div class="sh-view" id="viewPhone" hidden>
       <div>
         <div class="sh-phone-lbl">Numéro Airtel enregistré</div>
-        <div class="sh-fw" id="sh-fw-phone">
-          <div class="sh-prefix"><span class="sh-prefix-flag">🇨🇩</span><span class="sh-prefix-code">+243</span></div>
-          <div class="sh-phone-display">
-            <span class="sh-phone-placeholder" id="shPhonePlaceholder">Entrez votre numéro</span>
-            <span class="sh-phone-val" id="shPhoneVal"></span><span class="sh-phone-cursor" id="shPhoneCursor"></span>
-          </div>
-          <div class="sh-phone-status" id="shPhoneStatus" onclick="_shClear()" role="button" tabindex="0" aria-label="Effacer le numéro"></div>
+        <div class="sh-phone-field" id="shPhoneField">
+          <span class="sh-prefix"><span class="sh-prefix-flag">🇨🇩</span><span class="sh-prefix-code">+243</span></span>
+          <input
+            class="sh-phone-input"
+            id="shPhoneInput"
+            type="tel"
+            inputmode="numeric"
+            autocomplete="tel-national"
+            enterkeyhint="done"
+            maxlength="9"
+            pattern="[0-9]*"
+            placeholder="Entrez votre numéro"
+            aria-describedby="shPhoneErr">
         </div>
         <div class="sh-phone-err" id="shPhoneErr" role="alert" aria-live="polite"></div>
         <div class="sh-phone-hint">
@@ -537,15 +489,6 @@ html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
           <div class="sh-verify-txt" id="shVerifyTxt">Vérification…</div>
           <div class="sh-verify-bar-wrap"><div class="sh-verify-bar" id="shVerifyBar"></div></div>
         </div>
-      </div>
-
-      <div class="sh-numpad" id="shNumpad">
-        <button class="sh-nk" data-n="1" aria-label="1">1</button><button class="sh-nk" data-n="2" aria-label="2">2</button><button class="sh-nk" data-n="3" aria-label="3">3</button>
-        <button class="sh-nk" data-n="4" aria-label="4">4</button><button class="sh-nk" data-n="5" aria-label="5">5</button><button class="sh-nk" data-n="6" aria-label="6">6</button>
-        <button class="sh-nk" data-n="7" aria-label="7">7</button><button class="sh-nk" data-n="8" aria-label="8">8</button><button class="sh-nk" data-n="9" aria-label="9">9</button>
-        <button class="sh-nk empty" disabled aria-hidden="true" tabindex="-1"></button>
-        <button class="sh-nk" data-n="0" aria-label="0">0</button>
-        <button class="sh-nk del" id="shNpDel" aria-label="Effacer un chiffre"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/><line x1="18" y1="9" x2="12" y2="15"/><line x1="12" y1="9" x2="18" y2="15"/></svg></button>
       </div>
     </div>
   </div>
@@ -589,85 +532,71 @@ html,*{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
 /* ═══ PLANS DATA ═══ */
 var PLANS = [
   {
-    id:'d1', name:'200 MB', validity:'1 jour', days:1, price:'$0.09', wasPrice:'$0.15',
-    tag:'Essai', icon:'msg', tier:'starter',
-    desc:'Messages et emails légers',
-    fullDesc:'Un micro-forfait pour rester joignable : WhatsApp, emails et recherches légères pendant 24 heures.',
-    includes:['200 MB de données','WhatsApp et messagerie','Valable 24 heures']
-  },
-  {
-    id:'d2', name:'500 MB', validity:'1 jour', days:1, price:'$0.19', wasPrice:'$0.35',
-    tag:'Journée', icon:'web', tier:'starter',
-    desc:'Web, emails et cartes',
-    fullDesc:'Un petit forfait pour rester connecté toute la journée. Parfait pour consulter vos emails, envoyer des messages et naviguer.',
-    includes:['500 MB de données','Navigation web et messagerie','Valable 24 heures']
-  },
-  {
     id:'d3', name:'1 GB', validity:'1 jour', days:1, price:'$0.29', wasPrice:'$0.50',
-    tag:'Social', icon:'social', tier:'social',
+    tag:'Social', icon:'social',
     desc:'Facebook, TikTok, Insta',
     fullDesc:'1 GB pour une journée bien remplie : réseaux sociaux, messagerie, navigation web et emails sans compter.',
     includes:['1 GB de données','Facebook, Instagram, TikTok','Navigation web','Valable 24 heures']
   },
   {
     id:'d4', name:'3 GB', validity:'3 jours', days:3, price:'$0.99', wasPrice:'$1.49',
-    tag:'Weekend', icon:'share', tier:'weekend',
+    tag:'Weekend', icon:'share',
     desc:'Réseaux sociaux et musique',
     fullDesc:'3 GB pour un weekend connecté : réseaux sociaux, messagerie et navigation web pendant 3 jours.',
     includes:['3 GB de données','Réseaux sociaux','Navigation web','Valable 3 jours']
   },
   {
     id:'d5', name:'5 GB', validity:'7 jours', days:7, price:'$1.99', wasPrice:'$3.49',
-    tag:'Populaire', popular:true, icon:'star', tier:'popular',
+    tag:'Populaire', popular:true, icon:'star',
     desc:'YouTube, réseaux et web',
     fullDesc:'Le forfait le plus populaire : 5 GB pour une semaine complète de réseaux sociaux, vidéos YouTube et navigation.',
     includes:['5 GB de données','Vidéos YouTube et streaming','Réseaux sociaux inclus','Valable 7 jours']
   },
   {
     id:'d6', name:'10 GB', validity:'7 jours', days:7, price:'$3.49', wasPrice:'$5.99',
-    tag:'Semaine', icon:'play', tier:'social',
+    tag:'Semaine', icon:'play',
     desc:'Streaming et appels vidéo',
     fullDesc:'10 GB pour les gros consommateurs : streaming vidéo, appels vidéo et télétravail léger pendant toute une semaine.',
     includes:['10 GB de données','Streaming vidéo HD','Appels vidéo WhatsApp','Valable 7 jours']
   },
   {
     id:'d7', name:'15 GB', validity:'14 jours', days:14, price:'$4.99', wasPrice:'$7.99',
-    tag:'Bi-hebdo', icon:'wifi', tier:'weekend',
+    tag:'Bi-hebdo', icon:'wifi',
     desc:'HD, appels et navigation',
     fullDesc:'15 GB pour deux semaines : streaming, appels vidéo et navigation confortable sans interruption.',
     includes:['15 GB de données','Streaming vidéo','Appels vidéo','Valable 14 jours']
   },
   {
     id:'d8', name:'30 GB', validity:'30 jours', days:30, price:'$7.99', wasPrice:'$12.99',
-    tag:'Meilleur prix', popular:true, icon:'zap', tier:'value',
+    tag:'Meilleur prix', popular:true, icon:'zap',
     desc:'Streaming HD et télétravail',
     fullDesc:'30 GB pour streamer, travailler et naviguer sans compter pendant tout le mois. Le forfait mensuel recommandé.',
     includes:['30 GB de données','Streaming HD illimité','Télétravail confortable','Valable 30 jours']
   },
   {
     id:'d9', name:'50 GB', validity:'30 jours', days:30, price:'$11.99', wasPrice:'$17.99',
-    tag:'Famille', icon:'download', tier:'popular',
+    tag:'Famille', icon:'download',
     desc:'Partage familial + 4K',
     fullDesc:'50 GB pour toute la famille : streaming, téléchargements, cloud et partage de connexion pendant tout le mois.',
     includes:['50 GB de données','Streaming HD','Téléchargements','Partage de connexion','Valable 30 jours']
   },
   {
     id:'d10', name:'75 GB', validity:'30 jours', days:30, price:'$15.99', wasPrice:'$22.99',
-    tag:'Premium', icon:'cloud', tier:'value',
+    tag:'Premium', icon:'cloud',
     desc:'Cloud, 4K et hotspot',
     fullDesc:'75 GB pour un usage intensif : streaming 4K, télétravail, cloud et partage de connexion sans limite.',
     includes:['75 GB de données','Streaming 4K','Cloud et sauvegarde','Partage de connexion','Valable 30 jours']
   },
   {
     id:'d11', name:'100 GB', validity:'30 jours', days:30, price:'$19.99', wasPrice:'$29.99',
-    tag:'Pro', icon:'rocket', tier:'unlimited',
+    tag:'Pro', icon:'rocket',
     desc:'Pro : 4K illimité + hotspot',
     fullDesc:'Notre forfait le plus généreux : 100 GB pour les professionnels et gros consommateurs. Streaming, télétravail et partage.',
     includes:['100 GB de données','Streaming 4K illimité','Partage de connexion','Valable 30 jours']
   },
   {
     id:'d12', name:'Illimité', validity:'30 jours', days:30, price:'$29.99', wasPrice:'$49.99',
-    tag:'Ultra', icon:'video', tier:'unlimited',
+    tag:'Ultra', icon:'video',
     desc:'Zéro limite, zéro souci',
     fullDesc:'Internet illimité pendant 30 jours. Aucune restriction, aucun plafond. Le meilleur d\'Airtel pour les professionnels exigeants.',
     includes:['Data illimitée','Streaming 4K illimité','Partage de connexion illimité','Hotspot inclus','Valable 30 jours']
@@ -710,7 +639,6 @@ function navigate(url){
 
 /* ═══ RENDER PLANS ═══ */
 var ICONS = {
-  msg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
   web:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
   social:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M17 2h4v4M15 9l6.1-6.1M9 22H5a2 2 0 0 1-2-2v-4m6-1L2.9 21.1M15 2v5a2 2 0 0 0 2 2h5M2 15h5a2 2 0 0 1 2 2v5"/></svg>',
   play:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
@@ -754,38 +682,24 @@ function renderPlans(){
     var cls = 'plan-card' + (p.popular ? ' popular' : '');
     var d = splitName(p.name);
     var savePct = p.wasPrice ? calcSave(p.wasPrice, p.price) : 0;
-    var showSave = savePct >= 30;
+    var showSave = savePct > 0;
     var perDayTxt = perDay(p.price, p.days);
 
     out.push(
-      '<div class="'+cls+'" data-tier="'+(p.tier||'')+'" data-idx="'+i+'" onclick="openPlan('+i+')" role="button" tabindex="0" style="animation-delay:'+(i*40)+'ms">'
-      /* popular label */
+      '<div class="'+cls+'" data-idx="'+i+'" onclick="openPlan('+i+')" role="button" tabindex="0" style="animation-delay:'+(i*40)+'ms">'
       + (p.popular ? '<span class="plan-pop-label">★ '+p.tag+'</span>' : '')
-      /* savings badge */
       + (showSave ? '<span class="plan-save">-'+savePct+'%</span>' : '')
-
-      /* icon circle */
       + '<div class="plan-icon-circle">'+(ICONS[p.icon]||'')+'</div>'
-
-      /* hero data amount */
       + '<div class="plan-hero">'
       +   '<span class="plan-data">'+d.num+'</span>'
       +   (d.unit ? '<span class="plan-unit">'+d.unit+'</span>' : '')
       + '</div>'
-
-      /* short description */
       + (p.desc ? '<div class="plan-desc">'+p.desc+'</div>' : '')
-
-      /* validity + per-day cost */
       + '<div class="plan-val-line">'
       +   '<span class="plan-validity">'+p.validity+'</span>'
       +   (perDayTxt ? '<span class="plan-dot"></span><span class="plan-perday">'+perDayTxt+'</span>' : '')
       + '</div>'
-
-      /* divider */
       + '<div class="plan-divider"></div>'
-
-      /* price bar */
       + '<div class="plan-price-bar">'
       +   '<div class="plan-price-left">'
       +     (p.wasPrice ? '<span class="plan-was">'+p.wasPrice+'</span>' : '')
@@ -809,7 +723,7 @@ function setSheetView(v){
   sheetView = v;
   document.getElementById('viewDetails').hidden = (v !== 'details');
   document.getElementById('viewPhone').hidden = (v !== 'phone');
-  document.querySelector('.sheet-scroll').scrollTop = 0;
+  document.getElementById('sheetScroll').scrollTop = 0;
 
   var badge = document.getElementById('shStepBadge');
   var title = document.getElementById('shTitle');
@@ -865,16 +779,19 @@ function openPlan(i){
   _shNum = '';
   _phoneVerified = false;
   cancelVerify();
-  var fw = document.getElementById('sh-fw-phone'); if(fw) fw.className = 'sh-fw';
-  var err = document.getElementById('shPhoneErr'); if(err) err.textContent = '';
-  var st = document.getElementById('shPhoneStatus'); if(st) st.innerHTML = '';
+
+  var field = document.getElementById('shPhoneField');
+  if(field) field.className = 'sh-phone-field';
+  var input = document.getElementById('shPhoneInput');
+  if(input) input.value = '';
+  var err = document.getElementById('shPhoneErr');
+  if(err) err.textContent = '';
 
   setSheetView('details');
 
   document.getElementById('sheetOverlay').classList.add('show');
   document.getElementById('sheet').classList.add('show');
   document.body.style.overflow = 'hidden';
-  setTimeout(function(){ _shNumpadInit(); }, 60);
 }
 
 function closeSheet(){
@@ -896,7 +813,6 @@ function onMainBtn(){
       });
     }
     setSheetView('phone');
-    setTimeout(function(){ _shNumpadInit(); }, 60);
   } else {
     if (!_phoneVerified || !state.selectedPlan) return;
     hap(H.confirm);
@@ -941,8 +857,10 @@ function cancelVerify(){
     if(btn){btn.classList.add('dim');btn.disabled=true;}
   }
 }
+
 function startVerify(ph){
-  cancelVerify(); hap(H.confirm);
+  cancelVerify();
+  hap(H.confirm);
   var v = document.getElementById('shVerify');
   var bar = document.getElementById('shVerifyBar');
   var ring = document.getElementById('shVerifyRing');
@@ -963,60 +881,58 @@ function startVerify(ph){
     if(btn){btn.classList.remove('dim');btn.disabled=false;}
   }, 800);
 }
-function _shClear(){ if(!_shNum.length) return; _shNum = ''; cancelVerify(); _shRender(); hap(H.tap); }
-function _shRender(){
-  var v = _shNum;
-  var ph = document.getElementById('shPhonePlaceholder');
-  var vd = document.getElementById('shPhoneVal');
-  var cur = document.getElementById('shPhoneCursor');
-  var fw = document.getElementById('sh-fw-phone');
-  var st = document.getElementById('shPhoneStatus');
+
+function _phoneSanitize(v){
+  return String(v || '').replace(/\D/g,'').slice(0,9);
+}
+
+function _phoneValidate(){
+  var field = document.getElementById('shPhoneField');
   var err = document.getElementById('shPhoneErr');
-  if(ph) ph.style.display = v.length ? 'none' : '';
-  if(vd) vd.textContent = v;
-  if(cur) cur.style.display = (v.length > 0 && v.length < 9) ? 'inline-block' : 'none';
-  if(fw) fw.classList.remove('err','ok');
-  if(err) err.textContent = '';
-  if(st) st.innerHTML = v.length
-    ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ink-3)" stroke-width="2.4" stroke-linecap="round" style="pointer-events:none" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>' : '';
-  if(v.length === 9){
-    if(!/^[89]/.test(v)){
-      if(fw) fw.classList.add('err');
-      if(err) err.textContent = 'Numéro invalide — doit commencer par 8 ou 9';
-      if(st) st.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--err)" stroke-width="2.4" stroke-linecap="round" style="pointer-events:none" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>';
+  if(!field || !err) return;
+
+  field.classList.remove('ok','err');
+  err.textContent = '';
+
+  if(_shNum.length === 9){
+    if(!/^[89]/.test(_shNum)){
+      field.classList.add('err');
+      err.textContent = 'Numéro invalide — doit commencer par 8 ou 9';
       cancelVerify();
     } else {
-      if(fw) fw.classList.add('ok');
-      if(st) st.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2.4" stroke-linecap="round" style="pointer-events:none" aria-hidden="true"><path d="M4 12l5.5 5.5L20 7"/></svg>';
-      startVerify(v);
+      field.classList.add('ok');
+      startVerify(_shNum);
     }
-  } else { cancelVerify(); }
-}
-function _shNpHandler(e){
-  var k = e.target.closest('.sh-nk');
-  if(!k || k.disabled) return;
-  rip(k, e);
-  if(k.id === 'shNpDel'){
-    hap(12);
-    if(_shNum.length){ _shNum = _shNum.slice(0,-1); cancelVerify(); _shRender(); }
-  } else if(k.dataset.n !== undefined && _shNum.length < 9){
-    if(_shNum.length === 0 && k.dataset.n === '0') return;
-    hap(H.tap);
-    _shNum += k.dataset.n;
-    _shRender();
+  } else {
+    cancelVerify();
   }
 }
-function _shNumpadInit(){
-  _shNum = ''; _shRender();
-  var pad = document.getElementById('shNumpad');
-  if(!pad) return;
-  pad.removeEventListener('click', _shNpHandler);
-  pad.addEventListener('click', _shNpHandler);
+
+function _phoneInputHandler(e){
+  var el = e.target;
+  var digits = _phoneSanitize(el.value);
+  if(el.value !== digits) el.value = digits;
+  _shNum = digits;
+  _phoneValidate();
 }
 
 /* ═══ INIT ═══ */
 (function init(){
   renderPlans();
+
+  var phoneInput = document.getElementById('shPhoneInput');
+  if(phoneInput){
+    phoneInput.addEventListener('input', _phoneInputHandler);
+    phoneInput.addEventListener('focus', function(){
+      var f = document.getElementById('shPhoneField');
+      if(f) f.classList.add('focus');
+    });
+    phoneInput.addEventListener('blur', function(){
+      var f = document.getElementById('shPhoneField');
+      if(f) f.classList.remove('focus');
+    });
+  }
+
   document.querySelectorAll('button').forEach(function(b){
     b.addEventListener('pointerdown', function(e){ rip(this, e); }, {passive:true});
   });
